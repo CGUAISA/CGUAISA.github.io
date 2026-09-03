@@ -66,17 +66,14 @@ const workItems = [
   {
     index: '01',
     title: '活動與交流',
-    text: '新生交流、工作坊、分享會與系上共同活動，讓不同年級真的有機會碰面。',
   },
   {
     index: '02',
     title: '資訊與資源',
-    text: '把散落各處的重要資訊整理好，讓選課、競賽與學習資源更容易找到。',
   },
   {
     index: '03',
     title: '意見與溝通',
-    text: '收集同學的想法，協助和系上溝通，也把處理進度說清楚。',
   },
 ];
 
@@ -487,9 +484,7 @@ export default function Home() {
         <section id="about" className="section about-section">
           <div className="container">
             <div className="section-heading centered-heading">
-              <p className="section-label">What we do</p>
-              <h2>把同學真正需要的事，做好。</h2>
-              <p>不用複雜的口號。系學會的工作，就是讓資訊好找、活動好參加、意見有人接住。</p>
+              <h2>系學會工作</h2>
             </div>
 
             <div className="work-grid">
@@ -497,7 +492,6 @@ export default function Home() {
                 <article key={item.index} className="work-card">
                   <span>{item.index}</span>
                   <h3>{item.title}</h3>
-                  <p>{item.text}</p>
                 </article>
               ))}
             </div>
