@@ -1,393 +1,448 @@
+import { useEffect, useState, type MouseEvent, type ReactNode } from 'react';
 import {
-  ArrowDownRight,
+  ArrowRight,
   ArrowUpRight,
-  AtSign,
   CalendarDays,
-  MapPin,
-  Sparkles,
+  ChevronDown,
+  ExternalLink,
+  Mail,
+  Moon,
+  Sun,
 } from 'lucide-react';
 
-const values = [
+type Theme = 'light' | 'dark';
+
+const notices = [
   {
-    number: '01',
-    title: '一起學得更遠',
-    text: '整理課程與學習資源，透過講座、工作坊與經驗分享，降低探索 AI 的門檻。',
-    label: 'LEARN',
+    marker: '待公告',
+    category: '活動消息',
+    title: '近期活動資訊整理中',
+    note: '正式日期、地點與報名連結確認後更新',
   },
   {
-    number: '02',
-    title: '一起做出成果',
-    text: '讓課堂之外的點子找到夥伴，從第一次組隊，到真正完成一個能展示的作品。',
-    label: 'BUILD',
+    marker: '常駐',
+    category: '新生專區',
+    title: '新生常見問題與校園資源索引',
+    note: '選課、系館與生活資訊彙整中',
   },
   {
-    number: '03',
-    title: '一起成為系上的連結',
-    text: '傳遞意見、促成交流，也為每一屆同學留下更友善、更有參與感的系所生活。',
-    label: 'CONNECT',
+    marker: '徵集中',
+    category: '學生回饋',
+    title: '有什麼事希望系學會協助？',
+    note: '意見表單與處理進度頁面準備中',
   },
 ];
 
 const events = [
   {
-    month: 'SEP',
-    day: '18',
-    eyebrow: '新生交流 · 自由入場',
-    title: 'AI 新生導航站',
-    text: '選課經驗、校園資源與學長姐 QA，一次補齊大學生活的第一份使用說明。',
-    location: '系館共享空間（示意）',
-    tone: 'mint',
-  },
-  {
-    month: 'OCT',
-    day: '03',
-    eyebrow: '實作工作坊 · 名額有限',
-    title: 'Prompt Lab：從靈感到原型',
-    text: '用一個晚上，把腦中的點子變成可操作的小作品；不用先是高手，也能一起動手做。',
-    location: '電腦教室（示意）',
-    tone: 'cream',
-  },
-  {
-    month: 'OCT',
-    day: '24',
-    eyebrow: '成果交流 · 開放投稿',
-    title: 'AISA Demo Night',
-    text: '展示專題、Side Project 與研究中的半成品；分享的不只成果，也包括走過的彎路。',
-    location: '國際會議廳（示意）',
+    number: '01',
+    category: '認識彼此',
+    title: '新生交流',
+    description: '從選課、校園生活到學長姐經驗，把剛入學最想問的事情一次聊清楚。',
+    state: '企劃中',
     tone: 'orange',
   },
+  {
+    number: '02',
+    category: '一起動手',
+    title: '實作工作坊',
+    description: '從一個小點子開始，找夥伴、試工具，最後做出可以分享的成果。',
+    state: '企劃中',
+    tone: 'blue',
+  },
+  {
+    number: '03',
+    category: '分享作品',
+    title: '成果交流',
+    description: '專題、Side Project 或還沒完成的實驗都歡迎，讓彼此看見不同做法。',
+    state: '企劃中',
+    tone: 'lime',
+  },
 ];
 
-const roles = [
-  { role: '會長', code: 'PRES.', focus: '統籌方向與對外代表' },
-  { role: '副會長', code: 'VICE', focus: '跨部門協作與執行' },
-  { role: '學術組', code: 'ACAD.', focus: '講座、工作坊與資源' },
-  { role: '活動組', code: 'EVENT', focus: '交流活動與現場體驗' },
-  { role: '公關設計', code: 'CREW', focus: '社群、合作與視覺溝通' },
+const workItems = [
+  {
+    index: '01',
+    title: '活動與交流',
+    text: '新生交流、工作坊、分享會與系上共同活動，讓不同年級真的有機會碰面。',
+  },
+  {
+    index: '02',
+    title: '資訊與資源',
+    text: '把散落各處的重要資訊整理好，讓選課、競賽與學習資源更容易找到。',
+  },
+  {
+    index: '03',
+    title: '意見與溝通',
+    text: '收集同學的想法，協助和系上溝通，也把處理進度說清楚。',
+  },
 ];
 
-function EventCard({ event, index }: { event: (typeof events)[number]; index: number }) {
-  const toneClass =
-    event.tone === 'mint'
-      ? 'bg-[#bfeeda]'
-      : event.tone === 'orange'
-        ? 'bg-[#ffb17e]'
-        : 'bg-[#f8f4e8]';
+function closeContainingMenu(event: MouseEvent<HTMLAnchorElement>) {
+  event.currentTarget.closest('details')?.removeAttribute('open');
+}
 
+function Brand() {
   return (
-    <article className={`group flex min-h-[420px] flex-col rounded-[1.75rem] border border-[#0b2232]/12 p-6 transition-transform duration-300 hover:-translate-y-1.5 sm:p-7 ${toneClass}`}>
-      <div className="flex items-start justify-between">
-        <div className="font-mono">
-          <span className="block text-[10px] tracking-[0.2em] text-[#0b2232]/55">{event.month}</span>
-          <span className="block text-5xl font-semibold tracking-[-0.08em]">{event.day}</span>
+    <span className="brand-lockup">
+      <span className="brand-mark" aria-hidden="true">
+        A<span className="brand-dot" />
+      </span>
+      <span className="brand-copy">
+        <strong>CGU AISA</strong>
+        <small>人工智慧學系系學會</small>
+      </span>
+    </span>
+  );
+}
+
+function DesktopMenu({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <details className="desktop-menu">
+      <summary>
+        {label}
+        <ChevronDown size={15} strokeWidth={2} aria-hidden="true" />
+      </summary>
+      <div className="desktop-menu-panel">{children}</div>
+    </details>
+  );
+}
+
+function NoticeRow({ notice }: { notice: (typeof notices)[number] }) {
+  return (
+    <article className="notice-row">
+      <span className="notice-marker">{notice.marker}</span>
+      <div className="notice-copy">
+        <span className="notice-category">{notice.category}</span>
+        <h3>{notice.title}</h3>
+        <p>{notice.note}</p>
+      </div>
+      <ArrowRight className="notice-arrow" size={20} aria-hidden="true" />
+    </article>
+  );
+}
+
+function EventCard({ event }: { event: (typeof events)[number] }) {
+  return (
+    <article className="event-card">
+      <div className={`event-poster event-poster-${event.tone}`}>
+        <div className="event-poster-top">
+          <span>COMING SOON</span>
+          <span>CGU AISA</span>
         </div>
-        <span className="rounded-full border border-[#0b2232]/15 px-3 py-1 font-mono text-[10px] tracking-[0.14em]">
-          0{index + 1}
-        </span>
+        <strong>{event.number}</strong>
+        <p>{event.title}</p>
       </div>
-
-      <div className="mt-auto pt-16">
-        <p className="text-xs font-semibold tracking-[0.08em] text-[#0b2232]/60">{event.eyebrow}</p>
-        <h3 className="mt-3 text-2xl font-black leading-tight tracking-[-0.03em]">{event.title}</h3>
-        <p className="mt-4 text-sm leading-7 text-[#0b2232]/68">{event.text}</p>
-      </div>
-
-      <div className="mt-6 flex items-center justify-between border-t border-[#0b2232]/12 pt-5 text-xs text-[#0b2232]/60">
-        <span className="flex items-center gap-2">
-          <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
-          {event.location}
-        </span>
-        <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+      <div className="event-body">
+        <p className="event-category">{event.category}</p>
+        <h3>{event.title}</h3>
+        <p>{event.description}</p>
+        <div className="event-meta">
+          <CalendarDays size={15} aria-hidden="true" />
+          <span>{event.state}・正式資訊待公告</span>
+        </div>
       </div>
     </article>
   );
 }
 
+function getInitialTheme(): Theme {
+  if (typeof document === 'undefined') return 'light';
+  return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+}
+
 export default function Home() {
+  const [theme, setTheme] = useState<Theme>(getInitialTheme);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    document.documentElement.style.colorScheme = theme;
+    localStorage.setItem('aisa-theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((current) => (current === 'light' ? 'dark' : 'light'));
+  };
+
   return (
-    <main className="min-h-screen overflow-hidden bg-background text-foreground">
-      <div className="border-b border-white/10 bg-[#091a27] px-5 py-2 text-center text-[11px] font-medium tracking-[0.18em] text-[#a8e9d2] sm:text-xs">
-        2026 WEBSITE PROTOTYPE · 部分內容為示意資料
-      </div>
+    <div className="site-shell">
+      <a className="skip-link" href="#main-content">
+        跳至主要內容
+      </a>
 
-      <section className="signal-grid relative min-h-[calc(100vh-33px)] bg-[#0b2232] text-[#f4f2e9]">
-        <div className="pointer-events-none absolute left-[7%] top-[28%] h-2 w-2 rounded-full bg-[#74efc5] shadow-[0_0_32px_9px_rgba(116,239,197,0.28)]" />
-        <div className="pointer-events-none absolute bottom-[14%] right-[9%] h-2 w-2 rounded-full bg-[#ff9e61] shadow-[0_0_30px_8px_rgba(255,158,97,0.2)]" />
-
-        <header className="relative z-20 mx-auto flex w-full max-w-[1400px] items-center justify-between px-5 py-5 sm:px-8 lg:px-12">
-          <a href="#top" className="group flex items-center gap-3" aria-label="回到首頁頂端">
-            <span className="grid h-10 w-10 place-items-center rounded-full border border-[#74efc5]/40 bg-[#74efc5] text-sm font-black tracking-tighter text-[#0b2232] transition-transform group-hover:rotate-6">
-              AI
-            </span>
-            <span className="leading-tight">
-              <span className="block text-sm font-bold tracking-[0.12em]">CGU AISA</span>
-              <span className="block text-[10px] tracking-[0.08em] text-white/55">人工智慧學系系學會</span>
-            </span>
+      <header className="site-header">
+        <div className="container header-inner">
+          <a href="#top" className="brand-link" aria-label="CGU AISA 首頁">
+            <Brand />
           </a>
 
-          <nav className="hidden items-center gap-8 text-sm text-white/65 md:flex" aria-label="主要導覽">
-            <a className="transition-colors hover:text-[#74efc5]" href="#about">關於我們</a>
-            <a className="transition-colors hover:text-[#74efc5]" href="#events">近期活動</a>
-            <a className="transition-colors hover:text-[#74efc5]" href="#team">幹部團隊</a>
+          <nav className="desktop-nav" aria-label="主要導覽">
+            <DesktopMenu label="關於系學會">
+              <a href="#about" onClick={closeContainingMenu}>我們在做什麼</a>
+              <a href="#team" onClick={closeContainingMenu}>幹部團隊</a>
+            </DesktopMenu>
+            <DesktopMenu label="活動資訊">
+              <a href="#news" onClick={closeContainingMenu}>最新消息</a>
+              <a href="#events" onClick={closeContainingMenu}>近期活動</a>
+            </DesktopMenu>
+            <DesktopMenu label="學生資源">
+              <a href="#resources" onClick={closeContainingMenu}>新生懶人包</a>
+              <a href="#resources" onClick={closeContainingMenu}>學習與競賽</a>
+            </DesktopMenu>
+            <a href="#news">消息</a>
           </nav>
 
-          <a
-            href="#contact"
-            className="hidden items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-sm font-semibold transition-colors hover:border-[#74efc5] hover:text-[#74efc5] sm:inline-flex"
+          <button
+            className="theme-toggle"
+            type="button"
+            onClick={toggleTheme}
+            aria-label={theme === 'dark' ? '切換為日間模式' : '切換為夜間模式'}
+            aria-pressed={theme === 'dark'}
           >
-            <AtSign className="h-4 w-4" aria-hidden="true" />
+            {theme === 'dark' ? <Sun size={18} aria-hidden="true" /> : <Moon size={18} aria-hidden="true" />}
+            <span>{theme === 'dark' ? '日間' : '夜間'}</span>
+          </button>
+
+          <a className="header-cta" href="#contact">
             聯絡我們
+            <ArrowUpRight size={17} aria-hidden="true" />
           </a>
 
-          <details className="group relative sm:hidden">
-            <summary className="cursor-pointer list-none rounded-full border border-white/20 px-4 py-2 text-xs font-semibold">MENU</summary>
-            <nav className="absolute right-0 top-12 flex w-44 flex-col gap-1 rounded-2xl border border-white/10 bg-[#102d3f] p-2 text-sm shadow-2xl" aria-label="行動版導覽">
-              <a className="rounded-xl px-4 py-3 hover:bg-white/8" href="#about">關於我們</a>
-              <a className="rounded-xl px-4 py-3 hover:bg-white/8" href="#events">近期活動</a>
-              <a className="rounded-xl px-4 py-3 hover:bg-white/8" href="#team">幹部團隊</a>
-              <a className="rounded-xl px-4 py-3 text-[#74efc5] hover:bg-white/8" href="#contact">聯絡我們</a>
+          <details className="mobile-menu">
+            <summary>選單</summary>
+            <nav aria-label="行動版導覽">
+              <a href="#about" onClick={closeContainingMenu}>關於系學會</a>
+              <a href="#news" onClick={closeContainingMenu}>最新消息</a>
+              <a href="#events" onClick={closeContainingMenu}>近期活動</a>
+              <a href="#resources" onClick={closeContainingMenu}>學生資源</a>
+              <a href="#team" onClick={closeContainingMenu}>幹部團隊</a>
+              <a href="#contact" onClick={closeContainingMenu}>聯絡我們</a>
             </nav>
           </details>
-        </header>
-
-        <div id="top" className="relative z-10 mx-auto grid w-full max-w-[1400px] items-center gap-12 px-5 pb-16 pt-8 sm:px-8 lg:min-h-[calc(100vh-125px)] lg:grid-cols-[1.1fr_0.9fr] lg:px-12 lg:py-14">
-          <div className="max-w-3xl">
-            <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-[#74efc5]/25 bg-[#74efc5]/8 px-3 py-1.5 text-[11px] font-semibold tracking-[0.14em] text-[#a8e9d2]">
-              <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
-              CHANG GUNG UNIVERSITY · AISA
-            </div>
-
-            <h1 className="text-balance text-[clamp(3.3rem,8vw,7.8rem)] font-black leading-[0.92] tracking-[-0.065em]">
-              把想法，
-              <span className="mt-2 block text-[#74efc5]">訓練成行動。</span>
-            </h1>
-
-            <p className="mt-8 max-w-xl text-base leading-8 text-white/66 sm:text-lg">
-              長庚大學人工智慧學系系學會，串連同學、知識與校園生活，讓每一次交流都成為下一個可能。
-            </p>
-
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <a href="#events" className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-[#74efc5] px-6 text-sm font-bold text-[#0b2232] transition-transform hover:-translate-y-0.5">
-                探索近期活動
-                <ArrowDownRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5" aria-hidden="true" />
-              </a>
-              <a href="#about" className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/20 px-6 text-sm font-semibold text-white/80 transition-colors hover:border-white/50 hover:text-white">
-                認識系學會
-              </a>
-            </div>
-
-            <div className="mt-12 flex items-center gap-4 text-[10px] text-white/45 sm:gap-5 sm:text-xs">
-              <span className="font-mono tracking-[0.16em]">LEARN</span>
-              <span className="h-px w-6 bg-white/20 sm:w-9" />
-              <span className="font-mono tracking-[0.16em]">BUILD</span>
-              <span className="h-px w-6 bg-white/20 sm:w-9" />
-              <span className="font-mono tracking-[0.16em]">CONNECT</span>
-            </div>
-          </div>
-
-          <div className="relative mx-auto w-full max-w-[560px] lg:ml-auto">
-            <div className="signal-card relative aspect-[4/4.35] overflow-hidden rounded-[2rem] border border-white/13 bg-[#102d3f]/80 p-5 shadow-[0_40px_100px_rgba(1,12,20,0.38)] backdrop-blur sm:p-8">
-              <div className="flex items-center justify-between font-mono text-[9px] tracking-[0.14em] text-white/38 sm:text-[10px]">
-                <span>SIGNAL GARDEN / 001</span>
-                <span>25.0330° N</span>
-              </div>
-
-              <div className="relative mt-7 h-[calc(100%-48px)]">
-                <div className="absolute left-[9%] top-[9%] w-[64%] rounded-3xl border border-[#74efc5]/25 bg-[#74efc5]/10 p-4 sm:w-[58%] sm:p-5">
-                  <span className="mb-7 block h-2 w-2 rounded-full bg-[#74efc5] shadow-[0_0_18px_4px_rgba(116,239,197,0.35)] sm:mb-10" />
-                  <p className="font-mono text-[9px] tracking-[0.18em] text-[#a8e9d2] sm:text-[10px]">01 / LEARN</p>
-                  <p className="mt-2 text-base font-bold sm:text-xl">讓知識開始流動</p>
-                </div>
-
-                <div className="absolute right-[3%] top-[45%] w-[58%] rounded-3xl border border-white/14 bg-[#f4f2e9] p-4 text-[#0b2232] shadow-xl sm:w-[52%] sm:p-5">
-                  <span className="mb-7 block h-2 w-2 rounded-full bg-[#ff8f50] sm:mb-9" />
-                  <p className="font-mono text-[9px] tracking-[0.18em] text-[#376276] sm:text-[10px]">02 / BUILD</p>
-                  <p className="mt-2 text-base font-bold sm:text-xl">把靈感做成作品</p>
-                </div>
-
-                <div className="absolute bottom-[4%] left-[4%] w-[52%] rounded-3xl border border-white/14 bg-[#153a4d] p-4 sm:w-[46%] sm:p-5">
-                  <span className="mb-5 block h-2 w-2 rounded-full bg-[#a8e9d2] sm:mb-7" />
-                  <p className="font-mono text-[9px] tracking-[0.18em] text-white/45 sm:text-[10px]">03 / CONNECT</p>
-                  <p className="mt-2 text-base font-bold sm:text-lg">找到同行的人</p>
-                </div>
-
-                <svg className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 500 500" fill="none" aria-hidden="true">
-                  <path d="M105 170C150 230 288 180 361 264C398 306 355 370 278 397C231 414 176 406 124 432" stroke="#74EFC5" strokeOpacity=".38" strokeWidth="1.4" strokeDasharray="4 7" />
-                </svg>
-              </div>
-            </div>
-
-            <div className="absolute -bottom-5 -left-3 rounded-full border border-white/10 bg-[#091a27] px-4 py-2 font-mono text-[10px] tracking-[0.13em] text-white/55 sm:-left-8">
-              STATUS · GROWING
-            </div>
-          </div>
         </div>
-      </section>
+      </header>
 
-      <section id="about" className="bg-[#f4f2e9] px-5 py-24 text-[#0b2232] sm:px-8 sm:py-32 lg:px-12">
-        <div className="mx-auto max-w-[1400px]">
-          <div className="grid gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-24">
-            <div>
-              <p className="section-kicker">01 / WHAT WE DO</p>
-              <h2 className="mt-6 max-w-xl text-balance text-4xl font-black leading-[1.08] tracking-[-0.045em] sm:text-6xl">
-                AI 不只是一門課，<br />也是一起前進的方法。
-              </h2>
-              <p className="mt-7 max-w-md text-base leading-8 text-[#0b2232]/62">
-                系學會是一座持續更新的節點：讓資訊更透明、讓想法找到隊友，也讓每個聲音更容易被聽見。
+      <main id="main-content">
+        <section id="top" className="hero">
+          <div className="container hero-grid">
+            <div className="hero-copy">
+              <p className="eyebrow">Chang Gung University · Department of AI</p>
+              <h1>
+                課堂之外，
+                <span>我們在這裡碰面。</span>
+              </h1>
+              <p className="hero-intro">
+                活動、資源、意見和系上的日常，都整理在同一個地方。這裡是長庚大學人工智慧學系系學會。
               </p>
+              <div className="hero-actions">
+                <a className="button button-primary" href="#events">
+                  看近期活動
+                  <ArrowRight size={18} aria-hidden="true" />
+                </a>
+                <a className="button button-text" href="#about">
+                  認識我們
+                </a>
+              </div>
             </div>
 
-            <div className="divide-y divide-[#0b2232]/15 border-y border-[#0b2232]/15">
-              {values.map((value) => (
-                <article key={value.number} className="group grid gap-5 py-8 sm:grid-cols-[72px_1fr_auto] sm:items-start sm:py-10">
-                  <span className="font-mono text-xs tracking-[0.18em] text-[#0b2232]/42">{value.number}</span>
+            <div className="hero-poster" aria-label="系學會工作重點">
+              <span className="poster-tape poster-tape-left" aria-hidden="true" />
+              <span className="poster-tape poster-tape-right" aria-hidden="true" />
+              <div className="poster-heading">
+                <span>CGU AISA</span>
+                <span>WELCOME</span>
+              </div>
+              <p className="poster-small">THIS SEMESTER</p>
+              <p className="poster-title">
+                一起把系上
+                <br />
+                變得更好玩。
+              </p>
+              <div className="poster-notes">
+                <span>新生交流</span>
+                <span>實作工作坊</span>
+                <span>成果分享</span>
+              </div>
+              <div className="poster-footer">
+                <span>LEARN</span>
+                <span>MAKE</span>
+                <span>MEET</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="container hero-topics" aria-label="系學會工作重點">
+            <span>學習資源</span>
+            <span>活動企劃</span>
+            <span>意見整理</span>
+            <span>系所串聯</span>
+          </div>
+        </section>
+
+        <section id="news" className="section news-section">
+          <div className="container">
+            <div className="section-heading split-heading">
+              <div>
+                <p className="section-label">Latest updates</p>
+                <h2>最近，系上有什麼事？</h2>
+              </div>
+              <p>重要消息不該散落在群組裡。活動、公告與進度，都會整理在這裡。</p>
+            </div>
+
+            <div className="content-grid">
+              <div className="notice-list">
+                {notices.map((notice) => (
+                  <NoticeRow key={notice.title} notice={notice} />
+                ))}
+                <span className="text-link">
+                  正式消息上線後開放查看全部
+                  <ArrowRight size={17} aria-hidden="true" />
+                </span>
+              </div>
+
+              <aside className="quick-panel" aria-label="常用入口">
+                <div className="quick-panel-heading">
+                  <span>Quick links</span>
+                  <h3>常用入口</h3>
+                </div>
+                <nav>
+                  <a href="#events">
+                    活動與報名
+                    <ArrowUpRight size={18} aria-hidden="true" />
+                  </a>
+                  <a href="#resources">
+                    新生懶人包
+                    <ArrowUpRight size={18} aria-hidden="true" />
+                  </a>
+                  <a href="#contact">
+                    意見與聯絡
+                    <ArrowUpRight size={18} aria-hidden="true" />
+                  </a>
+                  <a href="https://www.cgu.edu.tw/ai" target="_blank" rel="noreferrer">
+                    人工智慧學系官網
+                    <ExternalLink size={17} aria-hidden="true" />
+                  </a>
+                </nav>
+                <div className="quick-note">
+                  <CalendarDays size={20} aria-hidden="true" />
                   <div>
-                    <h3 className="text-2xl font-black tracking-[-0.03em] sm:text-3xl">{value.title}</h3>
-                    <p className="mt-3 max-w-xl text-sm leading-7 text-[#0b2232]/62 sm:text-base">{value.text}</p>
+                    <strong>本學期行事曆</strong>
+                    <span>正式時程待系學會確認</span>
                   </div>
-                  <span className="w-fit rounded-full bg-[#d9f7eb] px-3 py-1 font-mono text-[10px] tracking-[0.16em] transition-colors group-hover:bg-[#74efc5]">{value.label}</span>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </section>
+
+        <section id="about" className="section about-section">
+          <div className="container">
+            <div className="section-heading centered-heading">
+              <p className="section-label">What we do</p>
+              <h2>把同學真正需要的事，做好。</h2>
+              <p>不用複雜的口號。系學會的工作，就是讓資訊好找、活動好參加、意見有人接住。</p>
+            </div>
+
+            <div className="work-grid">
+              {workItems.map((item) => (
+                <article key={item.index} className="work-card">
+                  <span>{item.index}</span>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
                 </article>
               ))}
             </div>
           </div>
+        </section>
 
-          <div className="mt-20 grid overflow-hidden rounded-[1.75rem] border border-[#0b2232]/12 bg-[#0b2232] text-[#f4f2e9] sm:grid-cols-3">
-            {[['OPEN', '讓資訊更透明'], ['MAKE', '讓想法能落地'], ['TOGETHER', '讓每個人有連結']].map(([label, text], index) => (
-              <div key={label} className={`p-7 sm:p-9 ${index < 2 ? 'border-b border-white/10 sm:border-b-0 sm:border-r' : ''}`}>
-                <p className="font-mono text-[10px] tracking-[0.2em] text-[#74efc5]">{label}</p>
-                <p className="mt-8 text-xl font-bold">{text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#f4f2e9] px-5 pb-24 sm:px-8 sm:pb-32 lg:px-12" aria-label="系學會品牌概念">
-        <figure className="mx-auto max-w-[1400px]">
-          <div className="overflow-hidden rounded-[1.5rem] border border-[#0b2232]/12 bg-[#0b2232] shadow-[0_24px_70px_rgba(11,34,50,0.12)] sm:rounded-[2rem]">
-            <img
-              src={`${import.meta.env.BASE_URL}og.png`}
-              alt="訊號花園品牌視覺：節點與有機路徑由左下向右上生長，象徵學生想法彼此連結並化為行動"
-              width="1730"
-              height="909"
-              className="h-auto w-full"
-            />
-          </div>
-          <figcaption className="mt-4 flex flex-col justify-between gap-2 px-1 font-mono text-[10px] tracking-[0.13em] text-[#0b2232]/42 sm:flex-row">
-            <span>SIGNAL GARDEN / BRAND STUDY 01</span>
-            <span>IDEAS → CONNECTIONS → ACTION</span>
-          </figcaption>
-        </figure>
-      </section>
-
-      <section id="events" className="bg-[#e5ece8] px-5 py-24 text-[#0b2232] sm:px-8 sm:py-32 lg:px-12">
-        <div className="mx-auto max-w-[1400px]">
-          <div className="flex flex-col justify-between gap-8 sm:flex-row sm:items-end">
-            <div>
-              <p className="section-kicker">02 / ON THE CALENDAR</p>
-              <h2 className="mt-6 text-4xl font-black tracking-[-0.045em] sm:text-6xl">近期訊號</h2>
-            </div>
-            <div className="max-w-md sm:text-right">
-              <p className="text-sm leading-7 text-[#0b2232]/62">先以三種代表性活動呈現資訊架構；日期、場地與報名連結會在收到正式資料後替換。</p>
-              <span className="mt-3 inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.16em] text-[#0b2232]/48">
-                <CalendarDays className="h-3.5 w-3.5" aria-hidden="true" /> DEMO CONTENT
-              </span>
-            </div>
-          </div>
-
-          <div className="mt-12 grid gap-5 lg:grid-cols-3">
-            {events.map((event, index) => <EventCard key={event.title} event={event} index={index} />)}
-          </div>
-        </div>
-      </section>
-
-      <section id="team" className="signal-grid bg-[#0b2232] px-5 py-24 text-[#f4f2e9] sm:px-8 sm:py-32 lg:px-12">
-        <div className="mx-auto max-w-[1400px]">
-          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
-            <div>
-              <p className="section-kicker section-kicker-dark">03 / THE TEAM</p>
-              <h2 className="mt-6 max-w-2xl text-balance text-4xl font-black leading-[1.05] tracking-[-0.05em] sm:text-6xl">讓每個想法，<br />都有人接住。</h2>
-            </div>
-            <p className="max-w-xl text-base leading-8 text-white/58 lg:ml-auto">
-              我們來自不同年級與興趣，但都希望把系上的學習、活動與人連得更緊密。以下職務為版面示意，收到正式名單與照片後即可更新。
-            </p>
-          </div>
-
-          <div className="mt-14 grid gap-px overflow-hidden rounded-[1.75rem] border border-white/12 bg-white/12 sm:grid-cols-2 lg:grid-cols-3">
-            {roles.map((item, index) => (
-              <article key={item.role} className="group min-h-[280px] bg-[#102d3f] p-7 transition-colors hover:bg-[#153a4d]">
-                <div className="flex items-start justify-between">
-                  <div className="grid h-16 w-16 place-items-center rounded-full border border-[#74efc5]/25 bg-[#74efc5]/8 font-mono text-xs tracking-[0.12em] text-[#a8e9d2]">{item.code}</div>
-                  <span className="font-mono text-[10px] tracking-[0.16em] text-white/30">0{index + 1}</span>
-                </div>
-                <div className="mt-20">
-                  <p className="font-mono text-[10px] tracking-[0.15em] text-[#74efc5]">姓名／照片待提供</p>
-                  <h3 className="mt-2 text-2xl font-black">{item.role}</h3>
-                  <p className="mt-2 text-sm text-white/48">{item.focus}</p>
-                </div>
-              </article>
-            ))}
-
-            <article className="flex min-h-[280px] flex-col justify-between bg-[#74efc5] p-7 text-[#0b2232]">
-              <span className="font-mono text-[10px] tracking-[0.16em]">NEXT NODE / YOU?</span>
+        <section id="events" className="section events-section">
+          <div className="container">
+            <div className="section-heading split-heading">
               <div>
-                <h3 className="text-3xl font-black tracking-[-0.04em]">下一位可能是你</h3>
-                <p className="mt-3 max-w-xs text-sm leading-6 text-[#0b2232]/65">保留一個位置給願意一起把系上變得更好的人。</p>
+                <p className="section-label">Upcoming events</p>
+                <h2>近期活動</h2>
               </div>
-              <a href="#contact" className="inline-flex w-fit items-center gap-2 border-b border-[#0b2232]/35 pb-1 text-sm font-bold">
-                了解加入方式 <ArrowDownRight className="h-4 w-4" aria-hidden="true" />
-              </a>
-            </article>
-          </div>
-        </div>
-      </section>
+              <p>活動確定後，會在這裡補上正式日期、照片、場地與報名連結。</p>
+            </div>
 
-      <section id="data-needed" className="bg-[#f4f2e9] px-5 py-20 text-[#0b2232] sm:px-8 sm:py-24 lg:px-12">
-        <div className="mx-auto grid max-w-[1400px] gap-10 rounded-[2rem] border border-[#0b2232]/12 bg-white/55 p-6 sm:p-10 lg:grid-cols-[0.8fr_1.2fr] lg:p-14">
-          <div>
-            <p className="section-kicker">PROTOTYPE NOTES</p>
-            <h2 className="mt-5 text-3xl font-black tracking-[-0.04em] sm:text-4xl">下一版，只差你們的真實內容。</h2>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-2">
-            {['正式 Logo 與標準色', '幹部姓名與照片', '活動日期與報名連結', 'Instagram 與聯絡信箱', '精選活動照片 10–20 張', '系學會正式簡介'].map((item, index) => (
-              <div key={item} className="flex items-center gap-4 rounded-2xl border border-[#0b2232]/10 bg-[#f4f2e9] px-4 py-4 text-sm font-semibold">
-                <span className="font-mono text-[10px] text-[#0b2232]/38">0{index + 1}</span>
-                {item}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" className="bg-[#ff9e61] px-5 py-24 text-[#0b2232] sm:px-8 sm:py-32 lg:px-12">
-        <div className="mx-auto max-w-[1400px]">
-          <p className="font-mono text-[10px] font-semibold tracking-[0.2em]">04 / STAY CONNECTED</p>
-          <div className="mt-7 grid gap-10 lg:grid-cols-[1.25fr_0.75fr] lg:items-end">
-            <h2 className="max-w-4xl text-balance text-5xl font-black leading-[0.98] tracking-[-0.06em] sm:text-7xl lg:text-8xl">下一個活動，<br />想和你一起完成。</h2>
-            <div className="lg:pb-2">
-              <p className="max-w-md text-base leading-8 text-[#0b2232]/67">想參加活動、提出合作，或只是有件事想讓系學會知道，都歡迎來找我們。</p>
-              <a href="#data-needed" className="mt-7 inline-flex min-h-12 items-center gap-3 rounded-full bg-[#0b2232] px-6 text-sm font-bold text-[#f4f2e9] transition-transform hover:-translate-y-0.5">
-                補上正式聯絡資訊後啟用
-                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-              </a>
+            <div className="events-grid">
+              {events.map((event) => (
+                <EventCard key={event.number} event={event} />
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <footer className="bg-[#091a27] px-5 py-9 text-[#f4f2e9] sm:px-8 lg:px-12">
-        <div className="mx-auto flex max-w-[1400px] flex-col gap-7 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-3">
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-[#74efc5] text-xs font-black text-[#0b2232]">AI</span>
+        <section id="resources" className="section resources-section">
+          <div className="container resources-grid">
+            <div className="resources-copy">
+              <p className="section-label section-label-light">Student resources</p>
+              <h2>少走一點冤枉路。</h2>
+              <p>
+                從新生常見問題、課程經驗，到競賽與專題資源，之後都會按主題整理，不必再翻遍每個聊天群組。
+              </p>
+              <a href="#contact" className="button button-light">
+                告訴我們你想找什麼
+                <ArrowRight size={18} aria-hidden="true" />
+              </a>
+            </div>
+            <div className="resource-list">
+              {['新生入門', '課程與選課', '競賽與專題', '表單與借用'].map((item, index) => (
+                <div key={item}>
+                  <span>0{index + 1}</span>
+                  <strong>{item}</strong>
+                  <em>資料整理中</em>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="team" className="section team-section">
+          <div className="container team-grid">
             <div>
-              <p className="text-sm font-bold tracking-[0.08em]">CGU AISA</p>
-              <p className="text-[10px] text-white/40">長庚大學人工智慧學系系學會</p>
+              <p className="section-label">Meet the team</p>
+              <h2>事情有人做，訊息有人回。</h2>
+            </div>
+            <div className="team-copy">
+              <p>
+                幹部姓名與照片收到後，這裡會換成正式團隊介紹。目前先保留各組職務，讓之後的內容有清楚位置。
+              </p>
+              <div className="team-roles" aria-label="預計呈現的幹部職務">
+                {['會長', '副會長', '學術', '活動', '公關設計', '財務'].map((role) => (
+                  <span key={role}>{role}</span>
+                ))}
+              </div>
             </div>
           </div>
-          <p className="font-mono text-[10px] tracking-[0.12em] text-white/35">PROTOTYPE · CONTENT SUBJECT TO REVIEW</p>
-          <a href="#top" className="text-sm font-semibold text-[#74efc5]">回到頂端 ↑</a>
+        </section>
+
+        <section id="contact" className="contact-section">
+          <div className="container contact-grid">
+            <div>
+              <p>有活動想參加、有合作想提出，或只是有件事希望系學會知道。</p>
+              <h2>來找我們聊聊。</h2>
+            </div>
+            <div className="contact-action">
+              <span className="contact-icon" aria-hidden="true">
+                <Mail size={27} />
+              </span>
+              <div>
+                <strong>聯絡方式即將補上</strong>
+                <span>Instagram 與系學會信箱整理中</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="site-footer">
+        <div className="container footer-grid">
+          <Brand />
+          <p>長庚大學人工智慧學系系學會</p>
+          <a href="#top">回到頂端 ↑</a>
         </div>
       </footer>
-    </main>
+    </div>
   );
 }

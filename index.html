@@ -3,15 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0b2232" />
+    <meta name="theme-color" content="#1d1d1b" />
     <meta name="description" content="長庚大學人工智慧學系系學會，串連同學、知識與校園生活。" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="zh_TW" />
     <meta property="og:title" content="長庚大學人工智慧學系系學會｜CGU AISA" />
-    <meta property="og:description" content="把想法，訓練成行動。串連同學、知識與校園生活。" />
-    <meta property="og:image" content="https://cguaisa.github.io/AISA.github.io/og.png" />
+    <meta property="og:description" content="課堂之外，我們在這裡碰面。活動、資源、意見與系上日常，都整理在同一個地方。" />
+    <meta property="og:image" content="https://cguaisa.github.io/og.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <script>
+      (() => {
+        try {
+          const savedTheme = localStorage.getItem('aisa-theme');
+          const theme = savedTheme === 'light' || savedTheme === 'dark'
+            ? savedTheme
+            : window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light';
+          document.documentElement.dataset.theme = theme;
+          document.documentElement.style.colorScheme = theme;
+        } catch {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
     <title>長庚大學人工智慧學系系學會｜CGU AISA</title>
   </head>
   <body>
