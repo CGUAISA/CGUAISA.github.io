@@ -78,6 +78,20 @@ const workItems = [
   },
 ];
 
+const leadershipRoles = [
+  { role: '會長', group: '核心協調', description: '統籌會務、年度方向與對外代表。' },
+  { role: '副會長', group: '核心協調', description: '協助統籌會務與跨職務協調。' },
+  { role: '顧問', group: '核心協調', description: '提供經驗、制度與會務建議。' },
+  { role: '活動長', group: '活動與對外', description: '規劃活動內容與現場執行。' },
+  { role: '公關長', group: '活動與對外', description: '負責對外聯繫與社群溝通。' },
+  { role: '美宣長', group: '活動與對外', description: '統籌活動視覺與宣傳設計。' },
+  { role: '總務', group: '行政與資源', description: '管理經費、帳務與行政流程。' },
+  { role: '副總務', group: '行政與資源', description: '協助帳務、採購與核銷事項。' },
+  { role: '秘書長', group: '行政與資源', description: '整理會議紀錄與重要文件。' },
+  { role: '器材長', group: '行政與資源', description: '管理設備借用與活動場務。' },
+  { role: '會議代表', group: '學生代表', description: '出席會議並傳達學生意見。' },
+];
+
 function closeContainingMenu(event: MouseEvent<HTMLAnchorElement>) {
   event.currentTarget.closest('details')?.removeAttribute('open');
 }
@@ -151,6 +165,73 @@ function getInitialTheme(): Theme {
   return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
 }
 
+function TeamPage() {
+  return (
+    <main id="main-content" className="team-page">
+      <section id="top" className="team-page-hero">
+        <div className="container">
+          <nav className="breadcrumb" aria-label="麵包屑">
+            <a href="/">首頁</a>
+            <span aria-hidden="true">/</span>
+            <span>幹部團隊</span>
+          </nav>
+          <p className="section-label">Team directory</p>
+          <h1>系學會幹部</h1>
+          <p className="team-page-intro">
+            目前組織共有 11 個職位。姓名、照片與個人介紹收到後，會直接補進對應的職務卡片。
+          </p>
+          <div className="team-page-summary" aria-label="幹部頁摘要">
+            <div><strong>11</strong><span>個職位</span></div>
+            <div><strong>4</strong><span>個職務群組</span></div>
+            <div><strong>1</strong><span>個共同目標</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section className="team-directory-section">
+        <div className="container">
+          <div className="team-directory-heading">
+            <div>
+              <p className="section-label">Roles & responsibilities</p>
+              <h2>職務一覽</h2>
+            </div>
+            <p>先以職務和工作內容建立架構，不放假姓名或制式人物圖。</p>
+          </div>
+
+          <div className="leadership-grid">
+            {leadershipRoles.map((item, index) => (
+              <article className="leadership-card" key={item.role}>
+                <div className="leadership-card-top">
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  <em>{item.group}</em>
+                </div>
+                <div>
+                  <h3>{item.role}</h3>
+                  <p>{item.description}</p>
+                </div>
+                <small>成員資料待補</small>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="team-page-contact">
+        <div className="container team-page-contact-inner">
+          <div>
+            <p>想加入團隊，或想找特定職務的幹部？</p>
+            <h2>先從一封訊息開始。</h2>
+          </div>
+          <a className="button team-contact-button" href="/#contact">
+            前往聯絡資訊
+            <ArrowRight size={18} aria-hidden="true" />
+          </a>
+        </div>
+      </section>
+    </main>
+  );
+}
+
 export default function Home() {
   const [theme, setTheme] = useState<Theme>(getInitialTheme);
 
@@ -158,38 +239,45 @@ export default function Home() {
     document.documentElement.dataset.theme = theme;
     document.documentElement.style.colorScheme = theme;
     localStorage.setItem('aisa-theme', theme);
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute('content', theme === 'dark' ? '#0f0f0e' : '#ffffff');
   }, [theme]);
 
   const toggleTheme = () => {
     setTheme((current) => (current === 'light' ? 'dark' : 'light'));
   };
 
+  const isTeamPage = window.location.pathname.replace(/\/+$/, '').endsWith('/team');
+  const homeSectionHref = (section: string) =>
+    isTeamPage ? `/${section}` : section;
+
   return (
-    <div className="site-shell">
+    <div className="site-shell final-design">
       <a className="skip-link" href="#main-content">
         跳至主要內容
       </a>
 
       <header className="site-header">
         <div className="container header-inner">
-          <a href="#top" className="brand-link" aria-label="CGU AISA 首頁">
+          <a href={isTeamPage ? '/' : homeSectionHref('#top')} className="brand-link" aria-label="CGU AISA 首頁">
             <Brand />
           </a>
 
           <nav className="desktop-nav" aria-label="主要導覽">
             <DesktopMenu label="關於系學會">
-              <a href="#about" onClick={closeContainingMenu}>我們在做什麼</a>
-              <a href="#team" onClick={closeContainingMenu}>幹部團隊</a>
+              <a href={homeSectionHref('#about')} onClick={closeContainingMenu}>我們在做什麼</a>
+              <a href="/team/" onClick={closeContainingMenu} aria-current={isTeamPage ? 'page' : undefined}>幹部團隊</a>
             </DesktopMenu>
             <DesktopMenu label="活動資訊">
-              <a href="#news" onClick={closeContainingMenu}>最新消息</a>
-              <a href="#events" onClick={closeContainingMenu}>近期活動</a>
+              <a href={homeSectionHref('#news')} onClick={closeContainingMenu}>最新消息</a>
+              <a href={homeSectionHref('#events')} onClick={closeContainingMenu}>近期活動</a>
             </DesktopMenu>
             <DesktopMenu label="學生資源">
-              <a href="#resources" onClick={closeContainingMenu}>新生懶人包</a>
-              <a href="#resources" onClick={closeContainingMenu}>學習與競賽</a>
+              <a href={homeSectionHref('#resources')} onClick={closeContainingMenu}>新生懶人包</a>
+              <a href={homeSectionHref('#resources')} onClick={closeContainingMenu}>學習與競賽</a>
             </DesktopMenu>
-            <a href="#news">消息</a>
+            <a href={homeSectionHref('#news')}>消息</a>
           </nav>
 
           <button
@@ -203,7 +291,7 @@ export default function Home() {
             <span>{theme === 'dark' ? '日間' : '夜間'}</span>
           </button>
 
-          <a className="header-cta" href="#contact">
+          <a className="header-cta" href={homeSectionHref('#contact')}>
             聯絡我們
             <ArrowUpRight size={17} aria-hidden="true" />
           </a>
@@ -211,18 +299,18 @@ export default function Home() {
           <details className="mobile-menu">
             <summary>選單</summary>
             <nav aria-label="行動版導覽">
-              <a href="#about" onClick={closeContainingMenu}>關於系學會</a>
-              <a href="#news" onClick={closeContainingMenu}>最新消息</a>
-              <a href="#events" onClick={closeContainingMenu}>近期活動</a>
-              <a href="#resources" onClick={closeContainingMenu}>學生資源</a>
-              <a href="#team" onClick={closeContainingMenu}>幹部團隊</a>
-              <a href="#contact" onClick={closeContainingMenu}>聯絡我們</a>
+              <a href={homeSectionHref('#about')} onClick={closeContainingMenu}>關於系學會</a>
+              <a href={homeSectionHref('#news')} onClick={closeContainingMenu}>最新消息</a>
+              <a href={homeSectionHref('#events')} onClick={closeContainingMenu}>近期活動</a>
+              <a href={homeSectionHref('#resources')} onClick={closeContainingMenu}>學生資源</a>
+              <a href="/team/" onClick={closeContainingMenu} aria-current={isTeamPage ? 'page' : undefined}>幹部團隊</a>
+              <a href={homeSectionHref('#contact')} onClick={closeContainingMenu}>聯絡我們</a>
             </nav>
           </details>
         </div>
       </header>
 
-      <main id="main-content">
+      {isTeamPage ? <TeamPage /> : <main id="main-content">
         <section id="top" className="hero">
           <div className="container hero-grid">
             <div className="hero-copy">
@@ -409,10 +497,14 @@ export default function Home() {
                 幹部姓名與照片收到後，這裡會換成正式團隊介紹。目前先保留各組職務，讓之後的內容有清楚位置。
               </p>
               <div className="team-roles" aria-label="預計呈現的幹部職務">
-                {['會長', '副會長', '學術', '活動', '公關設計', '財務'].map((role) => (
-                  <span key={role}>{role}</span>
+                {leadershipRoles.map((item) => (
+                  <span key={item.role}>{item.role}</span>
                 ))}
               </div>
+              <a className="team-page-link" href="/team/">
+                查看完整幹部頁
+                <ArrowRight size={17} aria-hidden="true" />
+              </a>
             </div>
           </div>
         </section>
@@ -434,7 +526,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-      </main>
+      </main>}
 
       <footer className="site-footer">
         <div className="container footer-grid">
