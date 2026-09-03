@@ -711,31 +711,122 @@ summary:focus-visible {
   color: var(--accent-text);
 }
 
-.quick-note {
-  display: flex;
-  gap: 12px;
+.mini-calendar {
   margin-top: 26px;
-  padding: 17px;
+  padding: 18px;
   background: var(--surface-raised);
 }
 
-.quick-note svg {
-  flex: 0 0 auto;
-  color: var(--accent-text);
+.mini-calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
-.quick-note div {
+.mini-calendar-header > div:first-child {
   display: grid;
+  gap: 3px;
+}
+
+.mini-calendar-header span {
+  color: var(--accent-text);
+  font-family: Arial, sans-serif;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.mini-calendar-header h4 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.mini-calendar-controls {
+  display: flex;
   gap: 4px;
 }
 
-.quick-note strong {
-  font-size: 13px;
+.mini-calendar-controls button {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  place-items: center;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
 }
 
-.quick-note span {
+.mini-calendar-controls button:hover {
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+
+.mini-calendar-weekdays,
+.mini-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-top: 14px;
+  text-align: center;
+}
+
+.mini-calendar-weekdays span {
   color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.mini-calendar-grid {
+  margin-top: 7px;
+}
+
+.mini-calendar-grid time {
+  display: grid;
+  min-height: 30px;
+  place-items: center;
+  color: var(--text-soft);
+  font-family: Arial, sans-serif;
   font-size: 11px;
+  font-weight: 700;
+}
+
+.mini-calendar-grid time.is-outside {
+  color: var(--muted);
+  opacity: 0.36;
+}
+
+.mini-calendar-grid time.is-today {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.mini-calendar-note {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 14px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.mini-calendar-note span:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--text-soft);
+  font-weight: 700;
+}
+
+.mini-calendar-note i {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
 }
 
 .about-section,
@@ -1437,7 +1528,7 @@ summary:focus-visible {
     gap: 30px;
   }
 
-  .quick-note {
+  .mini-calendar {
     grid-column: 1 / -1;
     margin-top: 0;
   }
@@ -1609,7 +1700,7 @@ summary:focus-visible {
     padding: 24px;
   }
 
-  .quick-note {
+  .mini-calendar {
     margin-top: 24px;
   }
 

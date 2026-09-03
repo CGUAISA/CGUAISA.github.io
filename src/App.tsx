@@ -4,6 +4,8 @@ import {
   ArrowUpRight,
   CalendarDays,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   ExternalLink,
   Mail,
   Moon,
@@ -157,6 +159,71 @@ function EventCard({ event }: { event: (typeof events)[number] }) {
         </div>
       </div>
     </article>
+  );
+}
+
+function MiniCalendar() {
+  const today = new Date();
+  const [visibleMonth, setVisibleMonth] = useState(
+    () => new Date(today.getFullYear(), today.getMonth(), 1),
+  );
+  const year = visibleMonth.getFullYear();
+  const month = visibleMonth.getMonth();
+  const firstWeekday = new Date(year, month, 1).getDay();
+  const todayKey = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+  const calendarDays = Array.from({ length: 42 }, (_, index) => {
+    const date = new Date(year, month, index - firstWeekday + 1);
+    return {
+      date,
+      inCurrentMonth: date.getMonth() === month,
+      isToday: `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}` === todayKey,
+    };
+  });
+
+  return (
+    <section className="mini-calendar" aria-label="月份行事曆">
+      <div className="mini-calendar-header">
+        <div>
+          <span>Semester calendar</span>
+          <h4>{year} 年 {month + 1} 月</h4>
+        </div>
+        <div className="mini-calendar-controls">
+          <button
+            type="button"
+            onClick={() => setVisibleMonth(new Date(year, month - 1, 1))}
+            aria-label="上個月"
+          >
+            <ChevronLeft size={15} aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            onClick={() => setVisibleMonth(new Date(year, month + 1, 1))}
+            aria-label="下個月"
+          >
+            <ChevronRight size={15} aria-hidden="true" />
+          </button>
+        </div>
+      </div>
+      <div className="mini-calendar-weekdays" aria-hidden="true">
+        {['日', '一', '二', '三', '四', '五', '六'].map((day) => <span key={day}>{day}</span>)}
+      </div>
+      <div className="mini-calendar-grid">
+        {calendarDays.map(({ date, inCurrentMonth, isToday }) => (
+          <time
+            key={`${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`}
+            dateTime={`${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`}
+            className={`${inCurrentMonth ? '' : 'is-outside'}${isToday ? ' is-today' : ''}`}
+            aria-current={isToday ? 'date' : undefined}
+          >
+            {date.getDate()}
+          </time>
+        ))}
+      </div>
+      <p className="mini-calendar-note">
+        <span><i aria-hidden="true" />今天・{today.getMonth() + 1}/{today.getDate()}</span>
+        <span>活動日期待確認</span>
+      </p>
+    </section>
   );
 }
 
@@ -411,13 +478,7 @@ export default function Home() {
                     <ExternalLink size={17} aria-hidden="true" />
                   </a>
                 </nav>
-                <div className="quick-note">
-                  <CalendarDays size={20} aria-hidden="true" />
-                  <div>
-                    <strong>本學期行事曆</strong>
-                    <span>正式時程待系學會確認</span>
-                  </div>
-                </div>
+                <MiniCalendar />
               </aside>
             </div>
           </div>
@@ -465,12 +526,12 @@ export default function Home() {
           <div className="container resources-grid">
             <div className="resources-copy">
               <p className="section-label section-label-light">Student resources</p>
-              <h2>少走一點冤枉路。</h2>
+              <h2>新生懶人包</h2>
               <p>
-                從新生常見問題、課程經驗，到競賽與專題資源，之後都會按主題整理，不必再翻遍每個聊天群組。
+                選課、校園生活、學習資源與常用表單，會依主題整理在這裡。
               </p>
               <a href="#contact" className="button button-light">
-                告訴我們你想找什麼
+                資料整理中
                 <ArrowRight size={18} aria-hidden="true" />
               </a>
             </div>
@@ -490,11 +551,11 @@ export default function Home() {
           <div className="container team-grid">
             <div>
               <p className="section-label">Meet the team</p>
-              <h2>事情有人做，訊息有人回。</h2>
+              <h2>幹部團隊</h2>
             </div>
             <div className="team-copy">
               <p>
-                幹部姓名與照片收到後，這裡會換成正式團隊介紹。目前先保留各組職務，讓之後的內容有清楚位置。
+                職務與成員資料確認後，會在這裡更新正式介紹。
               </p>
               <div className="team-roles" aria-label="預計呈現的幹部職務">
                 {leadershipRoles.map((item) => (
