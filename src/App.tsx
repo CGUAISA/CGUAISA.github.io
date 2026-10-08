@@ -274,10 +274,6 @@ function TeamPage() {
           <div className="leadership-grid">
             {leadershipRoles.map((item, index) => (
               <article className="leadership-card" key={item.role} data-reveal="up" data-reveal-delay={String((index % 3) * 100)}>
-                <div className="leadership-card-top">
-                  <span>{String(index + 1).padStart(2, '0')}</span>
-                  <em>{item.group}</em>
-                </div>
                 <div>
                   <h3>{item.role}</h3>
                 </div>
