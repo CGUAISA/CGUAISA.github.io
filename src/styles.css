@@ -951,7 +951,7 @@ summary:focus-visible {
   line-height: 1;
 }
 
-.event-poster > p {
+.event-poster > h3 {
   position: absolute;
   bottom: 23px;
   left: 24px;

@@ -41,21 +41,18 @@ const notices = [
 const events = [
   {
     number: '01',
-    category: '認識彼此',
     title: '新生交流',
     state: '企劃中',
     tone: 'orange',
   },
   {
     number: '02',
-    category: '一起動手',
-    title: '實作工作坊',
+    title: '工作坊',
     state: '企劃中',
     tone: 'blue',
   },
   {
     number: '03',
-    category: '分享作品',
     title: '成果交流',
     state: '企劃中',
     tone: 'lime',
@@ -144,16 +141,10 @@ function EventCard({ event }: { event: (typeof events)[number] }) {
   return (
     <article className="event-card" data-reveal="up" data-reveal-delay={String((Number(event.number) - 1) * 100)}>
       <div className={`event-poster event-poster-${event.tone}`}>
-        <div className="event-poster-top">
-          <span>COMING SOON</span>
-          <span>CGU AISA</span>
-        </div>
-        <strong>{event.number}</strong>
-        <p>{event.title}</p>
+        <strong aria-hidden="true">{event.number}</strong>
+        <h3>{event.title}</h3>
       </div>
       <div className="event-body">
-        <p className="event-category">{event.category}</p>
-        <h3>{event.title}</h3>
         <div className="event-meta">
           <CalendarDays size={15} aria-hidden="true" />
           <span>{event.state}</span>

@@ -397,7 +397,7 @@
   min-height: 235px;
 }
 
-.reference-design .event-poster > p {
+.reference-design .event-poster > h3 {
   font-size: 27px;
   font-weight: 600;
   letter-spacing: 0.05em;
@@ -419,6 +419,9 @@
 }
 
 .reference-design .event-meta {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
   font-size: 12px;
 }
 
