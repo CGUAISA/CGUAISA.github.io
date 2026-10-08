@@ -186,8 +186,9 @@
 
 .reference-design .contact-channels {
   display: grid;
-  width: min(430px, 100%);
+  width: min(720px, 100%);
   min-width: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
 }
 
@@ -307,6 +308,7 @@
 @media (max-width: 700px) {
   .reference-design .contact-channels {
     width: 100%;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
