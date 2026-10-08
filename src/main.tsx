@@ -4,6 +4,7 @@ import App from './App';
 import './styles.css';
 import './reference.css';
 import './footer.css';
+import './courses.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

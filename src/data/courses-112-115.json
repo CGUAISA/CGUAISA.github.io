@@ -1,0 +1,2117 @@
+[
+  {
+    "admissionYear": 112,
+    "program": "學系",
+    "sourceUrl": "https://www.cgu.edu.tw/Uploads/upload/71e09395-03a4-4ddd-9be7-d2a965c1e578.pdf",
+    "revision": "115.4.16修訂",
+    "verifiedOn": "2026-10-08",
+    "courses": [
+      {
+        "name": "離散數學",
+        "grades": [
+          1
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "程式設計",
+        "grades": [
+          1
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "智慧計算導論",
+        "grades": [
+          1
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "機率與統計",
+        "grades": [
+          1
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "資訊安全",
+        "grades": [
+          1
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "AI程式語言",
+        "grades": [
+          1
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "普通物理學",
+        "grades": [
+          1
+        ],
+        "semester": "upper",
+        "credits": 2,
+        "kind": "required"
+      },
+      {
+        "name": "有機化學",
+        "grades": [
+          1
+        ],
+        "semester": "upper",
+        "credits": 2,
+        "kind": "required"
+      },
+      {
+        "name": "普通生物學",
+        "grades": [
+          1
+        ],
+        "semester": "lower",
+        "credits": 2,
+        "kind": "required"
+      },
+      {
+        "name": "微積分(1)",
+        "grades": [
+          1
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "微積分(2)",
+        "grades": [
+          1
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "線性代數",
+        "grades": [
+          2
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "機器學習",
+        "grades": [
+          2
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "大腦與認知科學",
+        "grades": [
+          2
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "資料結構",
+        "grades": [
+          2
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "深度學習",
+        "grades": [
+          2
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "演算法",
+        "grades": [
+          2
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "專題研究(1)",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 0,
+        "kind": "required"
+      },
+      {
+        "name": "專題研究(2)",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 1,
+        "kind": "required"
+      },
+      {
+        "name": "電腦視覺",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "資料探勘",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "自然語言處理與應用",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "專題演講",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 1,
+        "kind": "required"
+      },
+      {
+        "name": "專題研究(3)",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 1,
+        "kind": "required"
+      },
+      {
+        "name": "行動應用程式開發",
+        "grades": [
+          2
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "Web應用程式開發",
+        "grades": [
+          2
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "計算機網路",
+        "grades": [
+          2
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "人體疾病概論",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 2,
+        "kind": "elective"
+      },
+      {
+        "name": "資料科學",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "作業系統",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "體學概論",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 2,
+        "kind": "elective"
+      },
+      {
+        "name": "平行程式設計",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "雲端系統",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "實習(1)",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 4,
+        "kind": "elective"
+      },
+      {
+        "name": "實習(2)",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 4,
+        "kind": "elective"
+      },
+      {
+        "name": "海外研讀",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 1,
+        "kind": "elective"
+      },
+      {
+        "name": "虛擬與擴充實境",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective",
+        "note": "✽ 請選讀大學部113學年度入學三年級開設課程"
+      },
+      {
+        "name": "健康資料管理與分析",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective",
+        "note": "✽ 請選讀大學部113學年度入學三年級開設課程"
+      },
+      {
+        "name": "深度學習專題",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "語音處理",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective",
+        "note": "✽ 請選讀大學部113學年度入學三年級開設課程"
+      },
+      {
+        "name": "資訊檢索與擷取",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective",
+        "note": "✽ 請選讀大學部113學年度入學三年級開設課程"
+      },
+      {
+        "name": "智慧物聯網",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程；★ 英語授課",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "區塊鏈技術基礎與應用",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "基因組數據科學",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "智慧網宇實體系統",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程；★ 英語授課",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "多代理人系統導論",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "量子計算導論",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程；★ 英語授課",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "生物資訊分析",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程；★ 英語授課",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "醫學影像處理",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "深度學習應用",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "臨床資訊工程",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程；★ 英語授課",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "生成式人工智慧應用",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "進階人工智慧程式設計",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程；★ 英語授課",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "資安結構",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；★ 英語授課",
+        "group": "碩士班選修"
+      }
+    ],
+    "notes": [
+      "畢業128學分；必修60學分、選修40學分，其中本系開設選修至少30學分。",
+      "✽ 課程須選讀大學部113學年度入學三年級開設課程；年級與學期仍依112級原表欄位記錄。",
+      "虛線欄位為本系碩士班開設課程，可認列系選修；資料依原表建議年級與學期記錄，實際開課以當學期公告為準。",
+      "★ 表示英語授課。"
+    ]
+  },
+  {
+    "admissionYear": 113,
+    "program": "學系",
+    "sourceUrl": "https://www.cgu.edu.tw/Uploads/upload/50421861-cc5c-4335-9ead-b15f7ca716df.pdf",
+    "revision": "115.4.16修訂",
+    "verifiedOn": "2026-10-08",
+    "courses": [
+      {
+        "name": "程式設計",
+        "grades": [
+          1
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "智慧計算導論",
+        "grades": [
+          1
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "離散數學",
+        "grades": [
+          1
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "AI程式語言",
+        "grades": [
+          1
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "資訊安全",
+        "grades": [
+          1
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "微積分",
+        "grades": [
+          1
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "普通物理學",
+        "grades": [
+          1
+        ],
+        "semester": "upper",
+        "credits": 2,
+        "kind": "required"
+      },
+      {
+        "name": "有機化學",
+        "grades": [
+          1
+        ],
+        "semester": "upper",
+        "credits": 2,
+        "kind": "required"
+      },
+      {
+        "name": "普通生物學",
+        "grades": [
+          1
+        ],
+        "semester": "lower",
+        "credits": 2,
+        "kind": "required"
+      },
+      {
+        "name": "線性代數",
+        "grades": [
+          2
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "資料結構",
+        "grades": [
+          2
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "機器學習",
+        "grades": [
+          2
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "機率與統計",
+        "grades": [
+          2
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "資料探勘",
+        "grades": [
+          2
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "演算法",
+        "grades": [
+          2
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "專題研究(1)",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 0,
+        "kind": "required"
+      },
+      {
+        "name": "專題研究(2)",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 1,
+        "kind": "required"
+      },
+      {
+        "name": "電腦視覺",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "資料分析",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "深度學習",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "自然語言處理與應用",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "雲端系統",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "人工智慧講座",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 1,
+        "kind": "required"
+      },
+      {
+        "name": "專題研究(3)",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 1,
+        "kind": "required"
+      },
+      {
+        "name": "行動應用程式開發",
+        "grades": [
+          2
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "大腦與認知科學",
+        "grades": [
+          2
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "Web應用程式開發",
+        "grades": [
+          2
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "計算機網路",
+        "grades": [
+          2
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "人體疾病概論",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 2,
+        "kind": "elective"
+      },
+      {
+        "name": "體學概論",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 2,
+        "kind": "elective"
+      },
+      {
+        "name": "平行程式設計",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "作業系統",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "虛擬與擴充實境",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "健康資料管理與分析",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "語音處理",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "實習(1)",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 4,
+        "kind": "elective"
+      },
+      {
+        "name": "實習(2)",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 4,
+        "kind": "elective"
+      },
+      {
+        "name": "海外研讀",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 1,
+        "kind": "elective"
+      },
+      {
+        "name": "深度學習專題",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "資訊檢索與擷取",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "智慧物聯網",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程；★ 英語授課",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "區塊鏈技術基礎與應用",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "基因組數據科學",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "智慧網宇實體系統",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程；★ 英語授課",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "多代理人系統導論",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "量子計算導論",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程；★ 英語授課",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "生物資訊分析",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程；★ 英語授課",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "醫學影像處理",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "深度學習應用",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "臨床資訊工程",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程；★ 英語授課",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "生成式人工智慧應用",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "進階人工智慧程式設計",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程；★ 英語授課",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "資安結構",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；★ 英語授課",
+        "group": "碩士班選修"
+      }
+    ],
+    "notes": [
+      "畢業128學分；必修60學分、選修40學分，其中本系開設選修至少30學分。",
+      "虛線欄位為本系碩士班開設課程，可認列系選修；資料依原表建議年級與學期記錄，實際開課以當學期公告為準。",
+      "★ 表示英語授課。"
+    ]
+  },
+  {
+    "admissionYear": 114,
+    "program": "學系",
+    "sourceUrl": "https://www.cgu.edu.tw/Uploads/upload/8920742e-b20f-4a29-ae67-443a589993dc.pdf",
+    "revision": "115.4.16修訂",
+    "verifiedOn": "2026-10-08",
+    "courses": [
+      {
+        "name": "程式設計",
+        "grades": [
+          1
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "智慧計算導論",
+        "grades": [
+          1
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "離散數學",
+        "grades": [
+          1
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "AI程式語言",
+        "grades": [
+          1
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "微積分",
+        "grades": [
+          1
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "普通物理學",
+        "grades": [
+          1
+        ],
+        "semester": "upper",
+        "credits": 2,
+        "kind": "required"
+      },
+      {
+        "name": "有機化學",
+        "grades": [
+          1
+        ],
+        "semester": "upper",
+        "credits": 2,
+        "kind": "required"
+      },
+      {
+        "name": "普通生物學",
+        "grades": [
+          1
+        ],
+        "semester": "lower",
+        "credits": 2,
+        "kind": "required"
+      },
+      {
+        "name": "線性代數",
+        "grades": [
+          2
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "資料結構與演算法",
+        "grades": [
+          2
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "資料探勘",
+        "grades": [
+          2
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "機率與統計",
+        "grades": [
+          2
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "機器學習",
+        "grades": [
+          2
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "演算法設計",
+        "grades": [
+          2
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "專題研究(1)",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 1,
+        "kind": "required"
+      },
+      {
+        "name": "專題研究(2)",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 1,
+        "kind": "required"
+      },
+      {
+        "name": "電腦視覺",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "資料分析",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "深度學習",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "人工智慧講座",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 1,
+        "kind": "required"
+      },
+      {
+        "name": "雲端系統",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "自然語言處理與應用",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "資訊安全",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "專題研究(3)",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 1,
+        "kind": "required"
+      },
+      {
+        "name": "行動應用程式開發",
+        "grades": [
+          2
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "大腦與認知科學",
+        "grades": [
+          2
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "Web應用程式開發",
+        "grades": [
+          2
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "計算機網路",
+        "grades": [
+          2
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "人體疾病概論",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 2,
+        "kind": "elective"
+      },
+      {
+        "name": "體學概論",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 2,
+        "kind": "elective"
+      },
+      {
+        "name": "平行程式設計",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "作業系統",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "虛擬與擴充實境",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "健康資料管理與分析",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "語音處理",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "實習(1)",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 4,
+        "kind": "elective"
+      },
+      {
+        "name": "實習(2)",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 4,
+        "kind": "elective"
+      },
+      {
+        "name": "海外研讀",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 1,
+        "kind": "elective"
+      },
+      {
+        "name": "深度學習專題",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "資訊檢索與擷取",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "智慧物聯網",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程；★ 英語授課",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "區塊鏈技術基礎與應用",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "基因組數據科學",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "智慧網宇實體系統",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程；★ 英語授課",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "多代理人系統導論",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "量子計算導論",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程；★ 英語授課",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "生物資訊分析",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程；★ 英語授課",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "醫學影像處理",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "深度學習應用",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "臨床資訊工程",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程；★ 英語授課",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "生成式人工智慧應用",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "進階人工智慧程式設計",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程；★ 英語授課",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "資安結構",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；★ 英語授課",
+        "group": "碩士班選修"
+      }
+    ],
+    "notes": [
+      "畢業128學分；必修61學分、選修43學分，其中本系開設選修至少33學分。",
+      "他系選修最多承認10學分；資工系大三（含）以上課程可另認列本系選修，最多12學分。",
+      "虛線欄位為本系碩士班開設課程，可認列系選修；資料依原表建議年級與學期記錄，實際開課以當學期公告為準。",
+      "★ 表示英語授課。"
+    ]
+  },
+  {
+    "admissionYear": 115,
+    "program": "學系",
+    "sourceUrl": "https://www.cgu.edu.tw/Uploads/upload/ea32b91a-0b4a-42d6-af47-6bc76bedecbf.pdf",
+    "revision": "115.4.16修訂",
+    "verifiedOn": "2026-10-08",
+    "courses": [
+      {
+        "name": "程式設計",
+        "grades": [
+          1
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "智慧計算導論",
+        "grades": [
+          1
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "離散數學",
+        "grades": [
+          1
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "AI程式語言",
+        "grades": [
+          1
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "微積分",
+        "grades": [
+          1
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "物件導向程式設計",
+        "grades": [
+          1
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "人工智慧應用實務",
+        "grades": [
+          1
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "線性代數",
+        "grades": [
+          2
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "資料結構與演算法",
+        "grades": [
+          2
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "資料探勘",
+        "grades": [
+          2
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "機率與統計",
+        "grades": [
+          2
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "機器學習",
+        "grades": [
+          2
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "演算法設計",
+        "grades": [
+          2
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "專題研究(1)",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 1,
+        "kind": "required"
+      },
+      {
+        "name": "專題研究(2)",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 1,
+        "kind": "required"
+      },
+      {
+        "name": "電腦視覺",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "資料分析",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "深度學習",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "人工智慧講座",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 1,
+        "kind": "required"
+      },
+      {
+        "name": "雲端系統",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "自然語言處理與應用",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "資訊安全",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "required"
+      },
+      {
+        "name": "專題研究(3)",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 1,
+        "kind": "required"
+      },
+      {
+        "name": "普通物理學",
+        "grades": [
+          1
+        ],
+        "semester": "upper",
+        "credits": 2,
+        "kind": "elective",
+        "group": "基礎自然科學三選一"
+      },
+      {
+        "name": "有機化學",
+        "grades": [
+          1
+        ],
+        "semester": "upper",
+        "credits": 2,
+        "kind": "elective",
+        "group": "基礎自然科學三選一"
+      },
+      {
+        "name": "普通生物學",
+        "grades": [
+          1
+        ],
+        "semester": "lower",
+        "credits": 2,
+        "kind": "elective",
+        "group": "基礎自然科學三選一"
+      },
+      {
+        "name": "計算機概論",
+        "grades": [
+          1
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "行動應用程式開發",
+        "grades": [
+          2
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "大腦與認知科學",
+        "grades": [
+          2
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "Web應用程式開發",
+        "grades": [
+          2
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "計算機網路",
+        "grades": [
+          2
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "人體疾病概論",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 2,
+        "kind": "elective"
+      },
+      {
+        "name": "體學概論",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 2,
+        "kind": "elective"
+      },
+      {
+        "name": "平行程式設計",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "作業系統",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "虛擬與擴充實境",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "健康資料管理與分析",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "語音處理",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "實習(1)",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 4,
+        "kind": "elective"
+      },
+      {
+        "name": "實習(2)",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 4,
+        "kind": "elective"
+      },
+      {
+        "name": "海外研讀",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 1,
+        "kind": "elective"
+      },
+      {
+        "name": "深度學習專題",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "資訊檢索與擷取",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective"
+      },
+      {
+        "name": "智慧物聯網",
+        "grades": [
+          3
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程；★ 英語授課",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "區塊鏈技術基礎與應用",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "基因組數據科學",
+        "grades": [
+          3
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "智慧網宇實體系統",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程；★ 英語授課",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "多代理人系統導論",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "量子計算導論",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程；★ 英語授課",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "生物資訊分析",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程；★ 英語授課",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "醫學影像處理",
+        "grades": [
+          4
+        ],
+        "semester": "upper",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "深度學習應用",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "臨床資訊工程",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程；★ 英語授課",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "生成式人工智慧應用",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "進階人工智慧程式設計",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；原表標示進階課程；★ 英語授課",
+        "group": "碩士班選修"
+      },
+      {
+        "name": "資安結構",
+        "grades": [
+          4
+        ],
+        "semester": "lower",
+        "credits": 3,
+        "kind": "elective",
+        "note": "碩士班選修；原表為選課建議版，實際開課以當學期公告為準；★ 英語授課",
+        "group": "碩士班選修"
+      }
+    ],
+    "notes": [
+      "畢業128學分；必修61學分、選修43學分，其中本系開設選修至少33學分。",
+      "普通物理學、有機化學、普通生物學三選一，且須修習通過。",
+      "他系選修最多承認10學分；資工系大三（含）以上課程可另認列本系選修，最多12學分。",
+      "虛線欄位為本系碩士班開設課程，可認列系選修；資料依原表建議年級與學期記錄，實際開課以當學期公告為準。",
+      "★ 表示英語授課。"
+    ]
+  }
+]

@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import ResourceTabs from './components/ResourceTabs';
 import WorkVisual from './components/WorkVisual';
+import CoursesPage from './components/CoursesPage';
 import { useScrollReveal } from './hooks/useScrollReveal';
 
 type Theme = 'light' | 'dark';
@@ -333,9 +334,12 @@ export default function Home() {
     setTheme((current) => (current === 'light' ? 'dark' : 'light'));
   };
 
-  const isTeamPage = window.location.pathname.replace(/\/+$/, '').endsWith('/team');
+  const pagePath = window.location.pathname.replace(/\/index\.html$/, '').replace(/\/+$/, '');
+  const isTeamPage = pagePath === '/team';
+  const isCoursesPage = pagePath === '/courses';
+  const isSubpage = isTeamPage || isCoursesPage;
   const homeSectionHref = (section: string) =>
-    isTeamPage ? `/${section}` : section;
+    isSubpage ? `/${section}` : section;
 
   return (
     <div className="site-shell final-design reference-design">
@@ -345,7 +349,7 @@ export default function Home() {
 
       <header className="site-header">
         <div className="container header-inner">
-          <a href={isTeamPage ? '/' : homeSectionHref('#top')} className="brand-link" aria-label="CGU AISA 首頁">
+          <a href={isSubpage ? '/' : homeSectionHref('#top')} className="brand-link" aria-label="CGU AISA 首頁">
             <Brand />
           </a>
 
@@ -360,6 +364,7 @@ export default function Home() {
             </DesktopMenu>
             <DesktopMenu label="學生資源">
               <a href={homeSectionHref('#resources')} onClick={closeContainingMenu}>新生懶人包</a>
+              <a href="/courses/" onClick={closeContainingMenu} aria-current={isCoursesPage ? 'page' : undefined}>課程與選課</a>
               <a href={homeSectionHref('#resources')} onClick={closeContainingMenu}>學習與競賽</a>
             </DesktopMenu>
             <a href={homeSectionHref('#news')}>消息</a>
@@ -388,6 +393,7 @@ export default function Home() {
               <a href={homeSectionHref('#news')} onClick={closeContainingMenu}>最新消息</a>
               <a href={homeSectionHref('#events')} onClick={closeContainingMenu}>近期活動</a>
               <a href={homeSectionHref('#resources')} onClick={closeContainingMenu}>學生資源</a>
+              <a href="/courses/" onClick={closeContainingMenu} aria-current={isCoursesPage ? 'page' : undefined}>課程與選課</a>
               <a href="/team/" onClick={closeContainingMenu} aria-current={isTeamPage ? 'page' : undefined}>幹部團隊</a>
               <a href={homeSectionHref('#contact')} onClick={closeContainingMenu}>聯絡我們</a>
             </nav>
@@ -395,7 +401,7 @@ export default function Home() {
         </div>
       </header>
 
-      {isTeamPage ? <TeamPage /> : <main id="main-content">
+      {isTeamPage ? <TeamPage /> : isCoursesPage ? <CoursesPage /> : <main id="main-content">
         <section id="top" className="hero">
           <div className="container hero-grid">
             <div className="hero-copy">
@@ -447,6 +453,10 @@ export default function Home() {
                   </a>
                   <a href="#resources">
                     新生懶人包
+                    <ArrowUpRight size={18} aria-hidden="true" />
+                  </a>
+                  <a href="/courses/">
+                    課程與選課
                     <ArrowUpRight size={18} aria-hidden="true" />
                   </a>
                   <a href="#contact">
@@ -562,7 +572,7 @@ export default function Home() {
           <div className="footer-columns">
             <section className="footer-column footer-about" aria-labelledby="footer-about-title">
               <h2 id="footer-about-title">系學會</h2>
-              <a className="footer-brand" href={isTeamPage ? '/' : '#top'} aria-label="CGU AISA 首頁">
+              <a className="footer-brand" href={isSubpage ? '/' : '#top'} aria-label="CGU AISA 首頁">
                 <Brand />
               </a>
               <p className="footer-school">長庚大學</p>
@@ -592,6 +602,7 @@ export default function Home() {
               <h2 id="footer-resources-title">學生資源</h2>
               <ul className="footer-links">
                 <li><a href={homeSectionHref('#resources')}>新生懶人包</a></li>
+                <li><a href="/courses/" aria-current={isCoursesPage ? 'page' : undefined}>課程與選課</a></li>
                 <li><a href={homeSectionHref('#events')}>近期活動</a></li>
                 <li><a href={homeSectionHref('#calendar')}>行事曆</a></li>
               </ul>

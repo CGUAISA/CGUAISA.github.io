@@ -6,7 +6,7 @@ export default defineConfig({
   base: './',
   build: {
     rollupOptions: {
-      input: ['index.html', 'team/index.html'],
+      input: ['index.html', 'team/index.html', 'courses/index.html'],
     },
   },
   css: {

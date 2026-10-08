@@ -30,3 +30,5 @@ git push origin main
 ```
 
 推送到 `main` 後，GitHub Actions 會自動建置並發布。可在儲存庫的 Actions 查看結果。
+
+科目表更新請參考[課程資料維護](course-data.md)。

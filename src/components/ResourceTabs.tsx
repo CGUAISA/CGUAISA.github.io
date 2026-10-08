@@ -1,5 +1,5 @@
 import { useId, useRef, useState, type KeyboardEvent } from 'react';
-import { BookOpen, ClipboardList, GraduationCap, Trophy } from 'lucide-react';
+import { ArrowRight, BookOpen, ClipboardList, GraduationCap, Trophy } from 'lucide-react';
 
 const categories = [
   { label: '新生入門', Icon: GraduationCap },
@@ -76,7 +76,14 @@ export default function ResourceTabs() {
       >
         <div className="resource-panel-copy">
           <h3>{selectedCategory.label}</h3>
-          <p className="resource-panel-status">資料整理中</p>
+          {selectedCategory.label === '課程與選課' ? (
+            <>
+              <p className="resource-panel-status">依入學學年度查看科目表</p>
+              <a className="resource-course-link" href="/courses/">
+                查看科目表 <ArrowRight size={17} aria-hidden="true" />
+              </a>
+            </>
+          ) : <p className="resource-panel-status">資料整理中</p>}
         </div>
         <div className="resource-panel-illustration" aria-hidden="true">
           <SelectedIcon className="resource-panel-icon" size={44} strokeWidth={1.4} />
