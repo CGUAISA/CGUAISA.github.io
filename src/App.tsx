@@ -364,10 +364,6 @@ export default function Home() {
           <div className="container hero-grid">
             <div className="hero-copy">
               <p className="eyebrow">Chang Gung University · Department of AI</p>
-              <h1>
-                課堂之外，
-                <span>我們在這裡碰面。</span>
-              </h1>
               <div className="hero-actions">
                 <a className="button button-primary" href="#events">
                   看近期活動
