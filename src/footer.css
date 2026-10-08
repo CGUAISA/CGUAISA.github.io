@@ -82,13 +82,21 @@
 }
 
 .reference-design .footer-contact-list li {
+  display: block;
+  min-width: 0;
+}
+
+.reference-design .footer-contact-channel {
   display: grid;
-  min-height: 44px;
-  grid-template-columns: 18px minmax(0, auto) 1fr;
+  min-height: 60px;
+  grid-template-columns: 18px minmax(0, 1fr);
   align-items: center;
   column-gap: 11px;
+  padding-block: 6px;
+  color: var(--footer-fg);
   font-size: 14px;
   letter-spacing: 0.03em;
+  transition: color 220ms ease;
 }
 
 .reference-design .footer-contact-list svg {
@@ -96,15 +104,27 @@
   stroke-width: 1.6;
 }
 
-.reference-design .footer-contact-list small {
-  justify-self: end;
-  color: var(--footer-subtle);
-  font-size: 12px;
-  letter-spacing: 0.04em;
+.reference-design .footer-contact-copy {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
 }
 
-.reference-design .footer-links a,
-.reference-design .footer-contact-link {
+.reference-design .footer-contact-copy strong {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.8;
+}
+
+.reference-design .footer-contact-copy small {
+  color: var(--footer-subtle);
+  font-size: 12px;
+  line-height: 1.7;
+  letter-spacing: 0.04em;
+  overflow-wrap: anywhere;
+}
+
+.reference-design .footer-links a {
   display: inline-flex;
   min-height: 44px;
   align-items: center;
@@ -121,13 +141,7 @@
   padding-block: 6px;
 }
 
-.reference-design .footer-contact-link {
-  margin-top: 12px;
-  color: var(--accent-text);
-}
-
 .reference-design .footer-links a svg,
-.reference-design .footer-contact-link svg,
 .reference-design .footer-back-to-top svg {
   flex: 0 0 auto;
   stroke-width: 1.6;
@@ -170,16 +184,51 @@
   scroll-margin-top: 112px;
 }
 
+.reference-design .contact-channels {
+  display: grid;
+  width: min(430px, 100%);
+  min-width: 0;
+  gap: 12px;
+}
+
+.reference-design .contact-channels .contact-action {
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  min-height: 90px;
+  grid-template-columns: 50px minmax(0, 1fr) 18px;
+  align-items: center;
+  gap: 15px;
+  transition: border-color 220ms ease;
+}
+
+.reference-design .contact-channels .contact-action > div {
+  min-width: 0;
+}
+
+.reference-design .contact-channels .contact-action > div > span {
+  color: var(--muted);
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.reference-design .contact-channels .contact-action > svg {
+  color: var(--accent-text);
+}
+
+.reference-design .contact-channels .contact-action:focus-visible {
+  outline-color: var(--contact-text);
+}
+
 @media (hover: hover) and (pointer: fine) {
   .reference-design .footer-brand:hover,
   .reference-design .footer-links a:hover,
-  .reference-design .footer-contact-link:hover,
+  .reference-design .footer-contact-channel:hover,
   .reference-design .footer-back-to-top:hover {
     color: var(--accent-text);
   }
 
-  .reference-design .footer-links a:hover svg,
-  .reference-design .footer-contact-link:hover svg {
+  .reference-design .footer-links a:hover svg {
     translate: 2px -2px;
   }
 
@@ -189,6 +238,10 @@
 
   .reference-design .footer-back-to-top:hover svg {
     translate: 0 -3px;
+  }
+
+  .reference-design .contact-channels .contact-action:hover {
+    border-color: var(--accent);
   }
 }
 
@@ -233,12 +286,37 @@
     padding-inline: 10px;
     font-size: 12px;
   }
+
+  .reference-design .contact-channels .contact-action {
+    grid-template-columns: 40px minmax(0, 1fr) 16px;
+    gap: 10px;
+    padding: 18px 14px;
+  }
+
+  .reference-design .contact-channels .contact-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .reference-design .contact-channels .contact-action > svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media (max-width: 700px) {
+  .reference-design .contact-channels {
+    width: 100%;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .reference-design .site-footer *,
   .reference-design .site-footer *::before,
-  .reference-design .site-footer *::after {
+  .reference-design .site-footer *::after,
+  .reference-design .contact-channels *,
+  .reference-design .contact-channels *::before,
+  .reference-design .contact-channels *::after {
     animation: none !important;
     transition: none !important;
   }

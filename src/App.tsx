@@ -23,6 +23,12 @@ import { useScrollReveal } from './hooks/useScrollReveal';
 
 type Theme = 'light' | 'dark';
 
+const contact = {
+  instagramUrl: 'https://www.instagram.com/cgu.ai/',
+  instagramHandle: '@cgu.ai',
+  email: 'cguai2026@gmail.com',
+};
+
 const notices = [
   {
     marker: '待公告',
@@ -554,14 +560,17 @@ export default function Home() {
             <div data-reveal="left">
               <h2>聯絡我們</h2>
             </div>
-            <div className="contact-action" data-reveal="right">
-              <span className="contact-icon" aria-hidden="true">
-                <Mail size={27} />
-              </span>
-              <div>
-                <strong>聯絡方式即將補上</strong>
-                <span>Instagram 與系學會信箱整理中</span>
-              </div>
+            <div className="contact-channels" data-reveal="right">
+              <a className="contact-action" href={contact.instagramUrl} target="_blank" rel="noopener noreferrer" aria-label={`Instagram：${contact.instagramHandle}（開啟新分頁）`}>
+                <span className="contact-icon" aria-hidden="true"><Camera size={27} /></span>
+                <div><strong>Instagram</strong><span>{contact.instagramHandle}</span></div>
+                <ArrowUpRight size={18} aria-hidden="true" />
+              </a>
+              <a className="contact-action" href={`mailto:${contact.email}`} aria-label={`寄信到系學會信箱：${contact.email}`}>
+                <span className="contact-icon" aria-hidden="true"><Mail size={27} /></span>
+                <div><strong>系學會信箱</strong><span>{contact.email}</span></div>
+                <ArrowUpRight size={18} aria-hidden="true" />
+              </a>
             </div>
           </div>
         </section>
@@ -582,20 +591,18 @@ export default function Home() {
               <h2 id="footer-contact-title">聯絡方式</h2>
               <ul className="footer-contact-list">
                 <li>
-                  <Camera size={18} aria-hidden="true" />
-                  <span>Instagram</span>
-                  <small>待補</small>
+                  <a className="footer-contact-channel" href={contact.instagramUrl} target="_blank" rel="noopener noreferrer" aria-label={`Instagram：${contact.instagramHandle}（開啟新分頁）`}>
+                    <Camera size={18} aria-hidden="true" />
+                    <span className="footer-contact-copy"><strong>Instagram</strong><small>{contact.instagramHandle}</small></span>
+                  </a>
                 </li>
                 <li>
-                  <Mail size={18} aria-hidden="true" />
-                  <span>系學會信箱</span>
-                  <small>待補</small>
+                  <a className="footer-contact-channel" href={`mailto:${contact.email}`} aria-label={`寄信到系學會信箱：${contact.email}`}>
+                    <Mail size={18} aria-hidden="true" />
+                    <span className="footer-contact-copy"><strong>系學會信箱</strong><small>{contact.email}</small></span>
+                  </a>
                 </li>
               </ul>
-              <a className="footer-contact-link" href={homeSectionHref('#contact')}>
-                聯絡資訊
-                <ArrowUpRight size={16} aria-hidden="true" />
-              </a>
             </section>
 
             <nav className="footer-column" aria-labelledby="footer-resources-title">
