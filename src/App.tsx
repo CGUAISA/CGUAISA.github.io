@@ -2,15 +2,21 @@ import { useEffect, useState, type MouseEvent, type ReactNode } from 'react';
 import {
   ArrowRight,
   ArrowUpRight,
+  BookOpen,
   CalendarDays,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
   ExternalLink,
   Mail,
+  MessageCircle,
   Moon,
   Sun,
+  Users,
 } from 'lucide-react';
+import ResourceTabs from './components/ResourceTabs';
+import WorkVisual from './components/WorkVisual';
+import { useScrollReveal } from './hooks/useScrollReveal';
 
 type Theme = 'light' | 'dark';
 
@@ -60,14 +66,17 @@ const workItems = [
   {
     index: '01',
     title: '活動與交流',
+    icon: Users,
   },
   {
     index: '02',
     title: '資訊與資源',
+    icon: BookOpen,
   },
   {
     index: '03',
     title: '意見與溝通',
+    icon: MessageCircle,
   },
 ];
 
@@ -85,6 +94,8 @@ const leadershipRoles = [
   { role: '器材長', group: '行政與資源' },
   { role: '會議代表', group: '學生代表' },
 ];
+
+const leadershipGroups = [...new Set(leadershipRoles.map((item) => item.group))];
 
 function closeContainingMenu(event: MouseEvent<HTMLAnchorElement>) {
   event.currentTarget.closest('details')?.removeAttribute('open');
@@ -118,7 +129,7 @@ function DesktopMenu({ label, children }: { label: string; children: ReactNode }
 
 function NoticeRow({ notice }: { notice: (typeof notices)[number] }) {
   return (
-    <article className="notice-row">
+    <article className="notice-row" data-reveal="up">
       <span className="notice-marker">{notice.marker}</span>
       <div className="notice-copy">
         <span className="notice-category">{notice.category}</span>
@@ -131,7 +142,7 @@ function NoticeRow({ notice }: { notice: (typeof notices)[number] }) {
 
 function EventCard({ event }: { event: (typeof events)[number] }) {
   return (
-    <article className="event-card">
+    <article className="event-card" data-reveal="up" data-reveal-delay={String((Number(event.number) - 1) * 100)}>
       <div className={`event-poster event-poster-${event.tone}`}>
         <div className="event-poster-top">
           <span>COMING SOON</span>
@@ -148,6 +159,18 @@ function EventCard({ event }: { event: (typeof events)[number] }) {
           <span>{event.state}</span>
         </div>
       </div>
+    </article>
+  );
+}
+
+function WorkFeature({ item, direction }: { item: (typeof workItems)[number]; direction: 'left' | 'right' }) {
+  const Icon = item.icon;
+
+  return (
+    <article className="work-feature" data-reveal={direction} data-reveal-delay={item.index === '03' ? '100' : '0'}>
+      <span className="work-feature-index" aria-hidden="true">{item.index}</span>
+      <span className="work-feature-icon" aria-hidden="true"><Icon size={30} strokeWidth={1.5} /></span>
+      <h3>{item.title}</h3>
     </article>
   );
 }
@@ -232,18 +255,17 @@ function TeamPage() {
             <span aria-hidden="true">/</span>
             <span>幹部團隊</span>
           </nav>
-          <h1>系學會幹部</h1>
+          <h1 data-reveal="up">系學會幹部</h1>
           <div className="team-page-summary" aria-label="幹部頁摘要">
-            <div><strong>12</strong><span>個職位</span></div>
-            <div><strong>4</strong><span>個職務群組</span></div>
-            <div><strong>1</strong><span>個共同目標</span></div>
+            <div><strong>{leadershipRoles.length}</strong><span>個職位</span></div>
+            <div><strong>{leadershipGroups.length}</strong><span>個職務群組</span></div>
           </div>
         </div>
       </section>
 
       <section className="team-directory-section">
         <div className="container">
-          <div className="team-directory-heading">
+          <div className="team-directory-heading" data-reveal="up">
             <div>
               <h2>職務一覽</h2>
             </div>
@@ -251,7 +273,7 @@ function TeamPage() {
 
           <div className="leadership-grid">
             {leadershipRoles.map((item, index) => (
-              <article className="leadership-card" key={item.role}>
+              <article className="leadership-card" key={item.role} data-reveal="up" data-reveal-delay={String((index % 3) * 100)}>
                 <div className="leadership-card-top">
                   <span>{String(index + 1).padStart(2, '0')}</span>
                   <em>{item.group}</em>
@@ -283,11 +305,36 @@ function TeamPage() {
 
 export default function Home() {
   const [theme, setTheme] = useState<Theme>(getInitialTheme);
+  useScrollReveal();
+
+  useEffect(() => {
+    if (!window.location.hash) return;
+
+    let targetId: string;
+    try {
+      targetId = decodeURIComponent(window.location.hash.slice(1));
+    } catch {
+      return;
+    }
+
+    const target = document.getElementById(targetId);
+    if (!target) return;
+
+    // Cross-page anchors resolve after React has mounted their target sections.
+    const frame = window.requestAnimationFrame(() => {
+      target.scrollIntoView({ behavior: 'instant', block: 'start' });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
     document.documentElement.style.colorScheme = theme;
-    localStorage.setItem('aisa-theme', theme);
+    try {
+      localStorage.setItem('aisa-theme', theme);
+    } catch {
+      // Theme switching also works when browser storage is unavailable.
+    }
     document
       .querySelector('meta[name="theme-color"]')
       ?.setAttribute('content', theme === 'dark' ? '#0f0f0e' : '#ffffff');
@@ -302,7 +349,7 @@ export default function Home() {
     isTeamPage ? `/${section}` : section;
 
   return (
-    <div className="site-shell final-design">
+    <div className="site-shell final-design reference-design">
       <a className="skip-link" href="#main-content">
         跳至主要內容
       </a>
@@ -386,7 +433,7 @@ export default function Home() {
 
         <section id="news" className="section news-section">
           <div className="container">
-            <div className="section-heading split-heading">
+            <div className="section-heading split-heading" data-reveal="up">
               <div>
                 <h2>最新消息</h2>
               </div>
@@ -399,7 +446,7 @@ export default function Home() {
                 ))}
               </div>
 
-              <aside className="quick-panel" aria-label="常用入口">
+              <aside className="quick-panel" aria-label="常用入口" data-reveal="right">
                 <div className="quick-panel-heading">
                   <span>Quick links</span>
                   <h3>常用入口</h3>
@@ -430,24 +477,25 @@ export default function Home() {
 
         <section id="about" className="section about-section">
           <div className="container">
-            <div className="section-heading centered-heading">
+            <div className="section-heading centered-heading" data-reveal="up">
               <h2>系學會工作</h2>
             </div>
 
-            <div className="work-grid">
-              {workItems.map((item) => (
-                <article key={item.index} className="work-card">
-                  <span>{item.index}</span>
-                  <h3>{item.title}</h3>
-                </article>
-              ))}
+            <div className="work-stage">
+              <div className="work-side">
+                <WorkFeature item={workItems[0]} direction="left" />
+              </div>
+              <WorkVisual />
+              <div className="work-side">
+                {workItems.slice(1).map((item) => <WorkFeature key={item.index} item={item} direction="right" />)}
+              </div>
             </div>
           </div>
         </section>
 
         <section id="events" className="section events-section">
           <div className="container">
-            <div className="section-heading split-heading">
+            <div className="section-heading split-heading" data-reveal="up">
               <div>
                 <h2>近期活動</h2>
               </div>
@@ -463,45 +511,51 @@ export default function Home() {
 
         <section id="resources" className="section resources-section">
           <div className="container resources-grid">
-            <div className="resources-copy">
+            <div className="resources-copy" data-reveal="up">
               <h2>新生懶人包</h2>
             </div>
-            <div className="resource-list">
-              {['新生入門', '課程與選課', '競賽與專題', '表單與借用'].map((item, index) => (
-                <div key={item}>
-                  <span>0{index + 1}</span>
-                  <strong>{item}</strong>
-                </div>
-              ))}
+            <div data-reveal="up">
+              <ResourceTabs />
             </div>
           </div>
         </section>
 
         <section id="team" className="section team-section">
-          <div className="container team-grid">
-            <div>
+          <div className="container team-overview">
+            <div className="section-heading centered-heading" data-reveal="up">
               <h2>幹部團隊</h2>
             </div>
-            <div className="team-copy">
-              <div className="team-roles" aria-label="預計呈現的幹部職務">
-                {leadershipRoles.map((item) => (
-                  <span key={item.role}>{item.role}</span>
-                ))}
-              </div>
-              <a className="team-page-link" href="/team/">
-                查看完整幹部頁
-                <ArrowRight size={17} aria-hidden="true" />
-              </a>
+            <div className="team-overview-table-wrapper" data-reveal="fade">
+              <table className="team-overview-table">
+                <caption className="sr-only">系學會幹部職務一覽</caption>
+                <thead>
+                  <tr><th scope="col">職務群組</th><th scope="col">職位</th></tr>
+                </thead>
+                <tbody>
+                  {leadershipGroups.map((group) => (
+                    <tr key={group}>
+                      <th scope="row" className="team-group-name">{group}</th>
+                      <td className="team-group-roles">
+                        {leadershipRoles.filter((item) => item.group === group).map((item) => <span key={item.role}>{item.role}</span>)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
+            <a className="team-page-link" href="/team/">
+              查看幹部團隊
+              <ArrowRight size={17} aria-hidden="true" />
+            </a>
           </div>
         </section>
 
         <section id="contact" className="contact-section">
           <div className="container contact-grid">
-            <div>
+            <div data-reveal="left">
               <h2>聯絡我們</h2>
             </div>
-            <div className="contact-action">
+            <div className="contact-action" data-reveal="right">
               <span className="contact-icon" aria-hidden="true">
                 <Mail size={27} />
               </span>

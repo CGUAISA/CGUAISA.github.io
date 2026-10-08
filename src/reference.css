@@ -1,0 +1,957 @@
+/* Reference-inspired type, spacing, and motion for the accepted AISA layout. */
+.reference-design {
+  --hero: var(--page);
+  --hero-text: var(--text);
+  --hero-muted: var(--muted);
+  --hero-line: var(--line);
+  font-family: "Montserrat", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  line-height: 1.8;
+}
+
+.reference-design h1,
+.reference-design h2,
+.reference-design h3,
+.reference-design h4 {
+  font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.reference-design .container {
+  width: min(calc(100% - 64px), var(--container));
+}
+
+.reference-design .section {
+  padding-block: 110px;
+  scroll-margin-top: 96px;
+}
+
+.reference-design .section-heading,
+.reference-design .resources-copy,
+.reference-design .team-overview > div:first-child {
+  max-width: 850px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.reference-design .split-heading {
+  display: block;
+}
+
+.reference-design .section-heading h2,
+.reference-design .resources-copy h2,
+.reference-design .team-grid h2,
+.reference-design .team-overview h2,
+.reference-design .team-directory-heading h2,
+.reference-design .contact-grid h2,
+.reference-design .team-page-contact h2 {
+  margin: 0;
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.05em;
+}
+
+.reference-design .eyebrow,
+.reference-design .section-label,
+.reference-design .brand-copy strong,
+.reference-design .quick-panel-heading span,
+.reference-design .mini-calendar-header span,
+.reference-design .poster-heading,
+.reference-design .event-poster-top,
+.reference-design .work-feature-index,
+.reference-design .work-visual-caption,
+.reference-design .leadership-card-top,
+.reference-design .team-page-summary strong {
+  font-family: "Montserrat", "Noto Sans TC", sans-serif;
+}
+
+.reference-design .header-inner {
+  min-height: 88px;
+}
+
+.reference-design .desktop-nav {
+  gap: 26px;
+  font-weight: 600;
+}
+
+.reference-design .header-cta,
+.reference-design .theme-toggle,
+.reference-design .button,
+.reference-design .mobile-menu > summary {
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.reference-design .header-cta,
+.reference-design .button {
+  transition: background-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+}
+
+.reference-design .header-cta svg,
+.reference-design .button svg,
+.reference-design .team-page-link svg,
+.reference-design .quick-panel nav a svg {
+  transition: translate 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reference-design .desktop-menu-panel {
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 12px 36px color-mix(in srgb, var(--shadow) 10%, transparent);
+}
+
+.reference-design .desktop-menu-panel a {
+  border-radius: 7px;
+}
+
+.reference-design .hero-grid {
+  width: min(calc(100% - 64px), 1280px);
+  min-height: 650px;
+  grid-template-columns: minmax(280px, 0.76fr) minmax(0, 1.24fr);
+  gap: 52px;
+  padding-block: 62px;
+}
+
+.reference-design .hero-copy {
+  padding: 28px 0;
+}
+
+.reference-design .hero h1 {
+  font-size: clamp(38px, 3.8vw, 54px);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+}
+
+.reference-design .hero .eyebrow {
+  max-width: 350px;
+  color: var(--accent-text);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 2;
+  letter-spacing: 0.12em;
+}
+
+.reference-design .hero-actions {
+  margin-top: 28px;
+}
+
+.reference-design .hero-poster {
+  width: 100%;
+  height: clamp(380px, 40vw, 520px);
+  min-height: 0;
+  max-height: 520px;
+  padding: 30px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--muted);
+  box-shadow: none;
+  transform: none;
+}
+
+.reference-design .poster-heading {
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+
+.reference-design .content-grid {
+  gap: 48px;
+  margin-top: 54px;
+}
+
+.reference-design .notice-list {
+  border-top: 1px solid var(--line);
+}
+
+.reference-design .notice-row {
+  padding: 29px 8px;
+  transition: background-color 220ms ease, border-color 220ms ease;
+}
+
+.reference-design .notice-marker {
+  border-color: var(--line);
+  border-radius: 9px;
+  background: var(--surface);
+  color: var(--text-soft);
+  font-weight: 500;
+}
+
+.reference-design .notice-copy h3 {
+  margin-top: 5px;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.8;
+  letter-spacing: 0.03em;
+}
+
+.reference-design .notice-category {
+  font-weight: 500;
+}
+
+.reference-design .quick-panel {
+  padding: 28px;
+  border-radius: 14px;
+}
+
+.reference-design .quick-panel-heading h3 {
+  margin: 8px 0 22px;
+  font-size: 23px;
+}
+
+.reference-design .quick-panel nav {
+  border-top-color: var(--line);
+}
+
+.reference-design .quick-panel nav a {
+  font-size: 13px;
+  font-weight: 500;
+  transition: color 220ms ease;
+}
+
+.reference-design .mini-calendar {
+  border-radius: 10px;
+}
+
+.reference-design .mini-calendar-controls button {
+  border-radius: 6px;
+}
+
+.reference-design .mini-calendar-grid time.is-today {
+  border-radius: 6px;
+}
+
+.reference-design .about-section,
+.reference-design .team-section {
+  background: var(--page);
+}
+
+.reference-design .work-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 320px) minmax(0, 1fr);
+  align-items: center;
+  gap: 38px;
+  margin-top: 54px;
+  padding: 54px 44px;
+  border-radius: 24px;
+  background: var(--surface);
+}
+
+.reference-design .work-side {
+  display: grid;
+  gap: 22px;
+  min-width: 0;
+}
+
+.reference-design .work-feature {
+  position: relative;
+  display: flex;
+  min-height: 140px;
+  align-items: center;
+  gap: 16px;
+  padding: 28px 22px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface-raised);
+  transition: border-color 250ms ease, box-shadow 250ms ease, transform 250ms ease;
+}
+
+.reference-design .work-feature-index {
+  position: absolute;
+  top: 11px;
+  right: 15px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.reference-design .work-feature-icon {
+  width: 27px;
+  height: 27px;
+  flex: 0 0 auto;
+  color: var(--accent-text);
+  stroke-width: 1.5;
+}
+
+.reference-design .work-feature h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+}
+
+.reference-design .work-visual {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 1;
+  margin-inline: auto;
+  border: 1px solid color-mix(in srgb, var(--accent) 14%, var(--line));
+  border-radius: 24px;
+  background: color-mix(in srgb, var(--accent) 7%, var(--surface-raised));
+}
+
+.reference-design .work-visual-scale {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  transform: scale(var(--scroll-scale, 1));
+  transform-origin: center;
+  will-change: transform;
+}
+
+.reference-design .work-emblem {
+  width: 85%;
+  height: 85%;
+  color: var(--accent);
+}
+
+.reference-design .work-emblem-ring {
+  opacity: 0.24;
+  stroke-width: 1;
+}
+
+.reference-design .work-emblem-orbit {
+  opacity: 0.38;
+  stroke-width: 1;
+}
+
+.reference-design .work-emblem-monogram {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+}
+
+.reference-design .work-orbit-card {
+  position: absolute;
+  display: flex;
+  width: 76px;
+  height: 74px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface-raised);
+  color: var(--accent-text);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  box-shadow: 0 8px 22px color-mix(in srgb, var(--shadow) 5%, transparent);
+}
+
+.reference-design .work-orbit-card svg {
+  width: 26px;
+  height: 26px;
+  stroke-width: 1.5;
+}
+
+.reference-design .orbit-card-one {
+  top: 34px;
+  left: -12px;
+  rotate: -7deg;
+}
+
+.reference-design .orbit-card-two {
+  top: 90px;
+  right: -12px;
+  rotate: 6deg;
+}
+
+.reference-design .orbit-card-three {
+  bottom: 46px;
+  left: 25px;
+  rotate: 4deg;
+}
+
+.reference-design .work-visual-caption {
+  position: absolute;
+  right: 20px;
+  bottom: 14px;
+  margin: 0;
+  color: var(--accent-text);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+}
+
+.reference-design .events-grid {
+  gap: 24px;
+  margin-top: 54px;
+}
+
+.reference-design .event-card {
+  border-radius: 14px;
+  transition: border-color 250ms ease, transform 250ms ease, box-shadow 250ms ease;
+}
+
+.reference-design .event-poster {
+  min-height: 235px;
+}
+
+.reference-design .event-poster > p {
+  font-size: 27px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.reference-design .event-poster > strong {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+}
+
+.reference-design .event-body {
+  padding: 26px;
+}
+
+.reference-design .event-body h3 {
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.reference-design .event-meta {
+  font-size: 12px;
+}
+
+.reference-design .resources-section {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.reference-design .resources-grid {
+  display: block;
+}
+
+.reference-design .resource-tabs {
+  max-width: 1000px;
+  margin: 50px auto 0;
+}
+
+.reference-design .resource-tablist {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.reference-design .resource-tab {
+  position: relative;
+  display: flex;
+  min-height: 72px;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 14px 12px 20px;
+  border: 0;
+  border-radius: 10px 10px 0 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  transition: background-color 220ms ease, color 220ms ease;
+}
+
+.reference-design .resource-tab::after {
+  position: absolute;
+  right: 20px;
+  bottom: -1px;
+  left: 20px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--accent);
+  content: "";
+  scale: 0 1;
+  transition: scale 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reference-design .resource-tab.is-active {
+  color: var(--accent-text);
+}
+
+.reference-design .resource-tab.is-active::after {
+  scale: 1 1;
+}
+
+.reference-design .resource-tab-icon {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  stroke-width: 1.6;
+}
+
+.reference-design .resource-tab-panel {
+  display: grid;
+  min-height: 300px;
+  grid-template-columns: 1fr 180px;
+  align-items: center;
+  gap: 40px;
+  margin-top: 28px;
+  padding: 48px 64px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface-raised);
+  color: var(--text);
+  animation: resource-panel-enter 340ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.reference-design .resource-panel-copy h3 {
+  margin: 0;
+  font-size: 27px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  line-height: 1.5;
+}
+
+.reference-design .resource-panel-status {
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+  letter-spacing: 0.04em;
+}
+
+.reference-design .resource-panel-illustration {
+  display: grid;
+  width: 160px;
+  min-height: 174px;
+  justify-items: center;
+  align-content: center;
+  gap: 25px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--accent-text);
+  rotate: 4deg;
+}
+
+.reference-design .resource-panel-lines {
+  display: grid;
+  width: 100%;
+  justify-items: start;
+  gap: 8px;
+}
+
+.reference-design .resource-panel-lines span {
+  width: 100%;
+  height: 3px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--accent) 20%, var(--line));
+}
+
+.reference-design .resource-panel-lines span:nth-child(2) {
+  width: 75%;
+}
+
+.reference-design .resource-panel-lines span:nth-child(3) {
+  width: 88%;
+}
+
+.reference-design .team-grid,
+.reference-design .team-overview {
+  display: block;
+  text-align: center;
+}
+
+.reference-design .team-grid h2 {
+  max-width: none;
+}
+
+.reference-design .team-overview-table-wrapper {
+  max-width: 1000px;
+  margin: 50px auto 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface-raised);
+}
+
+.reference-design .team-overview-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.reference-design .team-overview-table th,
+.reference-design .team-overview-table td {
+  padding: 23px 32px;
+  font-size: 15px;
+  line-height: 1.8;
+  letter-spacing: 0.04em;
+}
+
+.reference-design .team-overview-table thead {
+  background: var(--surface);
+  color: var(--muted);
+}
+
+.reference-design .team-overview-table thead th {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.reference-design .team-overview-table tbody tr {
+  border-top: 1px solid var(--line);
+  transition: background-color 220ms ease;
+}
+
+.reference-design .team-group-name {
+  width: 29%;
+  font-weight: 600;
+}
+
+.reference-design .team-group-roles {
+  color: var(--text-soft);
+  font-weight: 400;
+}
+
+.reference-design .team-group-roles span {
+  display: inline-block;
+  margin: 3px 24px 3px 0;
+}
+
+.reference-design .team-page-link {
+  margin-top: 30px;
+  border-bottom-color: var(--line);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.reference-design .contact-section {
+  padding-block: 90px;
+}
+
+.reference-design .contact-grid {
+  align-items: center;
+}
+
+.reference-design .contact-action {
+  padding: 22px 26px;
+  border: 1px solid color-mix(in srgb, var(--contact-text) 15%, transparent);
+  border-radius: 14px;
+}
+
+.reference-design .contact-icon {
+  border-radius: 10px;
+}
+
+.reference-design .contact-action strong {
+  font-weight: 600;
+}
+
+.reference-design .contact-action span {
+  line-height: 1.8;
+}
+
+.reference-design .site-footer {
+  padding-block: 42px;
+}
+
+.reference-design .team-page-hero {
+  padding-block: 54px 80px;
+}
+
+.reference-design .breadcrumb {
+  margin-bottom: 48px;
+}
+
+.reference-design .team-page-hero h1 {
+  font-size: 48px;
+  line-height: 1.4;
+  letter-spacing: 0.05em;
+}
+
+.reference-design .team-page-summary {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  max-width: 720px;
+  margin-top: 40px;
+  border: 0;
+}
+
+.reference-design .team-page-summary div {
+  min-height: 126px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface-raised);
+}
+
+.reference-design .team-page-summary strong {
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.reference-design .team-page-summary span {
+  font-weight: 500;
+}
+
+.reference-design .team-directory-heading {
+  display: block;
+  text-align: center;
+}
+
+.reference-design .leadership-grid {
+  gap: 22px;
+  margin-top: 50px;
+}
+
+.reference-design .leadership-card {
+  min-height: 252px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  transition: border-color 250ms ease, transform 250ms ease, box-shadow 250ms ease;
+}
+
+.reference-design .leadership-card h3 {
+  font-size: 26px;
+  letter-spacing: 0.05em;
+}
+
+.reference-design .leadership-card small {
+  font-weight: 500;
+}
+
+.reference-design .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+html.motion-ready .reference-design [data-reveal] {
+  transition: opacity 650ms cubic-bezier(0.22, 1, 0.36, 1), translate 650ms cubic-bezier(0.22, 1, 0.36, 1), scale 650ms cubic-bezier(0.22, 1, 0.36, 1), border-color 250ms ease, box-shadow 250ms ease, transform 250ms ease;
+}
+
+html.motion-ready .reference-design [data-reveal]:not(.is-visible) {
+  opacity: 0;
+  translate: 0 26px;
+}
+
+html.motion-ready .reference-design [data-reveal="left"]:not(.is-visible) {
+  translate: -36px 0;
+}
+
+html.motion-ready .reference-design [data-reveal="right"]:not(.is-visible) {
+  translate: 36px 0;
+}
+
+html.motion-ready .reference-design [data-reveal="fade"]:not(.is-visible) {
+  translate: none;
+}
+
+html.motion-ready .reference-design [data-reveal="scale"]:not(.is-visible) {
+  translate: none;
+  scale: 0.96;
+}
+
+html.motion-ready .reference-design [data-reveal-delay="100"] { transition-delay: 100ms; }
+html.motion-ready .reference-design [data-reveal-delay="180"] { transition-delay: 180ms; }
+html.motion-ready .reference-design [data-reveal-delay="200"] { transition-delay: 200ms; }
+html.motion-ready .reference-design [data-reveal-delay="260"] { transition-delay: 260ms; }
+html.motion-ready .reference-design [data-reveal-delay="320"] { transition-delay: 320ms; }
+
+html.motion-ready .reference-design [data-reveal]:focus-within {
+  opacity: 1;
+  translate: none;
+  scale: 1;
+  transition-delay: 0ms;
+}
+
+@keyframes resource-panel-enter {
+  from { opacity: 0; translate: 0 10px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .reference-design .header-cta:hover,
+  .reference-design .button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 12%, transparent);
+  }
+
+  .reference-design .header-cta:hover svg { translate: 2px -2px; }
+  .reference-design .button:hover svg,
+  .reference-design .team-page-link:hover svg { translate: 4px 0; }
+  .reference-design .quick-panel nav a:hover svg { translate: 2px -2px; }
+
+  .reference-design .notice-row:hover {
+    border-color: color-mix(in srgb, var(--accent) 30%, var(--line));
+    background: var(--surface);
+  }
+
+  .reference-design .work-feature:hover,
+  .reference-design .event-card:hover,
+  .reference-design .leadership-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 12px 30px color-mix(in srgb, var(--shadow) 8%, transparent);
+    transform: translateY(-4px);
+  }
+
+  .reference-design .resource-tab:hover {
+    background: color-mix(in srgb, var(--accent) 4%, transparent);
+    color: var(--accent-text);
+  }
+
+  .reference-design .team-overview-table tbody tr:hover {
+    background: var(--surface);
+  }
+}
+
+@media (max-width: 1100px) {
+  .reference-design .work-stage {
+    grid-template-columns: minmax(0, 1fr) minmax(220px, 270px) minmax(0, 1fr);
+    gap: 24px;
+    padding: 44px 28px;
+  }
+
+  .reference-design .work-feature {
+    gap: 12px;
+    padding-inline: 16px;
+  }
+
+  .reference-design .work-feature h3 { font-size: 16px; }
+}
+
+@media (max-width: 1040px) {
+  .reference-design .hero-grid {
+    min-height: auto;
+    grid-template-columns: minmax(230px, 0.8fr) minmax(0, 1.2fr);
+    gap: 32px;
+    padding-block: 54px;
+  }
+
+  .reference-design .hero-copy { padding: 20px 0; }
+  .reference-design .hero-poster { height: 420px; }
+  .reference-design .content-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 800px) {
+  .reference-design .work-stage {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding: 42px 28px 28px;
+  }
+
+  .reference-design .work-visual {
+    grid-row: 1;
+    width: min(80%, 300px);
+    margin-bottom: 18px;
+  }
+
+  .reference-design .work-side { gap: 22px; }
+  .reference-design .work-feature { min-height: 112px; padding: 28px; }
+  .reference-design .work-feature h3 { font-size: 18px; }
+}
+
+@media (max-width: 700px) {
+  .reference-design .container { width: min(calc(100% - 40px), var(--container)); }
+  .reference-design .header-inner { min-height: 74px; }
+  .reference-design .section { padding-block: 76px; }
+
+  .reference-design .section-heading h2,
+  .reference-design .resources-copy h2,
+  .reference-design .team-grid h2,
+  .reference-design .team-overview h2,
+  .reference-design .team-directory-heading h2,
+  .reference-design .contact-grid h2,
+  .reference-design .team-page-contact h2 {
+    font-size: 32px;
+    line-height: 1.5;
+  }
+
+  .reference-design .hero-grid {
+    width: min(calc(100% - 40px), 1280px);
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding-block: 44px 50px;
+  }
+
+  .reference-design .hero-copy { max-width: none; padding: 0; }
+  .reference-design .hero .eyebrow { max-width: none; margin-bottom: 0; font-size: 10px; }
+  .reference-design .hero h1 { font-size: 36px; }
+  .reference-design .hero-actions { margin-top: 22px; }
+  .reference-design .hero-poster { height: 340px; padding: 24px; }
+  .reference-design .content-grid { gap: 30px; margin-top: 38px; }
+  .reference-design .notice-row { padding: 24px 0; }
+  .reference-design .notice-copy h3 { font-size: 15px; }
+  .reference-design .quick-panel { padding: 24px; }
+  .reference-design .work-stage { margin-top: 38px; border-radius: 18px; }
+  .reference-design .events-grid { margin-top: 38px; }
+  .reference-design .event-poster { min-height: 250px; }
+  .reference-design .resource-tabs { margin-top: 34px; }
+  .reference-design .resource-tablist { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 12px; }
+  .reference-design .resource-tab { min-height: 66px; gap: 9px; padding: 13px 6px; font-size: 14px; }
+  .reference-design .resource-tab::after { right: 10px; left: 10px; }
+  .reference-design .resource-tab-panel { min-height: 250px; grid-template-columns: 1fr 106px; gap: 20px; padding: 30px 24px; }
+  .reference-design .resource-panel-copy h3 { font-size: 21px; }
+  .reference-design .resource-panel-illustration { width: 100px; min-height: 130px; padding: 20px; gap: 20px; }
+  .reference-design .resource-panel-icon { width: 35px; height: 35px; }
+  .reference-design .resource-panel-status { font-size: 13px; }
+  .reference-design .team-overview-table-wrapper { margin-top: 36px; }
+  .reference-design .team-overview-table th,
+  .reference-design .team-overview-table td { padding: 20px 16px; font-size: 13px; letter-spacing: 0.02em; }
+  .reference-design .team-group-name { width: 34%; }
+  .reference-design .team-group-roles span { margin-right: 14px; }
+  .reference-design .contact-section { padding-block: 64px; }
+  .reference-design .contact-grid { gap: 32px; }
+  .reference-design .contact-action { width: 100%; min-width: 0; padding: 20px; }
+  .reference-design .contact-action strong { font-size: 14px; }
+  .reference-design .site-footer { padding-block: 34px; }
+  .reference-design .footer-grid { gap: 18px; }
+  .reference-design .team-page-hero { padding-block: 36px 54px; }
+  .reference-design .team-page-hero h1 { font-size: 36px; }
+  .reference-design .breadcrumb { margin-bottom: 36px; }
+  .reference-design .team-page-summary { gap: 8px; margin-top: 30px; }
+  .reference-design .team-page-summary div { min-height: 112px; padding: 16px 12px; }
+  .reference-design .team-page-summary strong { font-size: 27px; }
+  .reference-design .team-page-summary span { font-size: 10px; }
+  .reference-design .leadership-grid { margin-top: 36px; }
+
+  html.motion-ready .reference-design [data-reveal="left"]:not(.is-visible),
+  html.motion-ready .reference-design [data-reveal="right"]:not(.is-visible) { translate: 0 20px; }
+}
+
+@media (max-width: 380px) {
+  .reference-design .brand-copy strong { font-size: 13px; }
+  .reference-design .brand-copy small { font-size: 8px; }
+  .reference-design .brand-lockup { gap: 8px; }
+  .reference-design .resource-tab-panel { grid-template-columns: 1fr; }
+  .reference-design .resource-panel-illustration { display: none; }
+}
+
+@media (hover: none) {
+  .reference-design .header-cta:hover,
+  .reference-design .event-card:hover,
+  .reference-design .leadership-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reference-design *,
+  .reference-design *::before,
+  .reference-design *::after { animation: none !important; transition: none !important; }
+  html.motion-ready .reference-design [data-reveal],
+  html.motion-ready .reference-design [data-reveal]:not(.is-visible) { opacity: 1; translate: none; scale: 1; }
+  .reference-design .work-visual-scale { transform: none; will-change: auto; }
+}
