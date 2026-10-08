@@ -1,0 +1,245 @@
+/* Spacious footer, using the same blue/day and orange/night palette as the site. */
+.reference-design .site-footer {
+  --footer-fg: var(--text);
+  --footer-subtle: var(--muted);
+  --footer-rule: var(--line);
+  scroll-margin-top: 96px;
+  padding-block: 80px 28px;
+  background: var(--surface);
+  color: var(--footer-fg);
+}
+
+:root[data-theme="dark"] .reference-design .site-footer {
+  --footer-fg: var(--footer-text);
+  --footer-subtle: var(--footer-muted);
+  --footer-rule: var(--line);
+  background: var(--footer);
+}
+
+.reference-design .footer-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.05fr) repeat(2, minmax(0, 0.9fr));
+  align-items: start;
+  gap: clamp(32px, 4vw, 64px);
+}
+
+.reference-design .footer-column {
+  min-width: 0;
+}
+
+.reference-design .footer-column h2 {
+  margin: 0 0 24px;
+  color: var(--accent-text);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.06em;
+}
+
+.reference-design .footer-brand {
+  display: inline-flex;
+  max-width: 100%;
+  padding-block: 5px;
+}
+
+.reference-design .footer-brand .brand-lockup {
+  gap: 10px;
+}
+
+.reference-design .footer-brand .brand-mark {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  color: var(--accent-text);
+  font-size: 20px;
+}
+
+.reference-design .footer-brand .brand-copy strong {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.reference-design .footer-brand .brand-copy small {
+  color: var(--footer-subtle);
+  font-size: 9px;
+}
+
+.reference-design .footer-school {
+  margin: 17px 0 0;
+  color: var(--footer-subtle);
+  font-size: 14px;
+  letter-spacing: 0.04em;
+}
+
+.reference-design .footer-contact-list,
+.reference-design .footer-links {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reference-design .footer-contact-list li {
+  display: grid;
+  min-height: 44px;
+  grid-template-columns: 18px minmax(0, auto) 1fr;
+  align-items: center;
+  column-gap: 11px;
+  font-size: 14px;
+  letter-spacing: 0.03em;
+}
+
+.reference-design .footer-contact-list svg {
+  color: var(--accent-text);
+  stroke-width: 1.6;
+}
+
+.reference-design .footer-contact-list small {
+  justify-self: end;
+  color: var(--footer-subtle);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+.reference-design .footer-links a,
+.reference-design .footer-contact-link {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 9px;
+  color: var(--footer-fg);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.8;
+  letter-spacing: 0.04em;
+  transition: color 220ms ease;
+}
+
+.reference-design .footer-links a {
+  padding-block: 6px;
+}
+
+.reference-design .footer-contact-link {
+  margin-top: 12px;
+  color: var(--accent-text);
+}
+
+.reference-design .footer-links a svg,
+.reference-design .footer-contact-link svg,
+.reference-design .footer-back-to-top svg {
+  flex: 0 0 auto;
+  stroke-width: 1.6;
+  transition: translate 220ms ease;
+}
+
+.reference-design .footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid var(--footer-rule);
+}
+
+.reference-design .footer-bottom small {
+  color: var(--footer-subtle);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+
+.reference-design .footer-back-to-top {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 8px 14px;
+  border: 1px solid var(--footer-rule);
+  border-radius: 10px;
+  color: var(--footer-fg);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  transition: color 220ms ease, border-color 220ms ease;
+}
+
+.reference-design #calendar {
+  scroll-margin-top: 112px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .reference-design .footer-brand:hover,
+  .reference-design .footer-links a:hover,
+  .reference-design .footer-contact-link:hover,
+  .reference-design .footer-back-to-top:hover {
+    color: var(--accent-text);
+  }
+
+  .reference-design .footer-links a:hover svg,
+  .reference-design .footer-contact-link:hover svg {
+    translate: 2px -2px;
+  }
+
+  .reference-design .footer-back-to-top:hover {
+    border-color: var(--accent);
+  }
+
+  .reference-design .footer-back-to-top:hover svg {
+    translate: 0 -3px;
+  }
+}
+
+@media (max-width: 900px) {
+  .reference-design .footer-columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 44px 48px;
+  }
+}
+
+@media (max-width: 540px) {
+  .reference-design .site-footer {
+    padding-block: 56px 26px;
+  }
+
+  .reference-design .footer-columns {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 34px;
+  }
+
+  .reference-design .footer-column h2 {
+    margin-bottom: 14px;
+  }
+
+  .reference-design .footer-contact-list {
+    max-width: 300px;
+  }
+
+  .reference-design .footer-bottom {
+    gap: 16px;
+    margin-top: 42px;
+    padding-top: 22px;
+  }
+
+  .reference-design .footer-bottom small {
+    font-size: 11px;
+    letter-spacing: 0.02em;
+  }
+
+  .reference-design .footer-back-to-top {
+    gap: 7px;
+    padding-inline: 10px;
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reference-design .site-footer *,
+  .reference-design .site-footer *::before,
+  .reference-design .site-footer *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

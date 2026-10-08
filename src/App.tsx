@@ -3,10 +3,12 @@ import {
   ArrowRight,
   ArrowUpRight,
   BookOpen,
+  Camera,
   CalendarDays,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
+  ChevronUp,
   ExternalLink,
   Mail,
   MessageCircle,
@@ -185,7 +187,7 @@ function MiniCalendar() {
   });
 
   return (
-    <section className="mini-calendar" aria-label="月份行事曆">
+    <section id="calendar" className="mini-calendar" aria-label="月份行事曆">
       <div className="mini-calendar-header">
         <div>
           <span>Semester calendar</span>
@@ -555,11 +557,68 @@ export default function Home() {
         </section>
       </main>}
 
-      <footer className="site-footer">
-        <div className="container footer-grid">
-          <Brand />
-          <p>長庚大學人工智慧學系系學會</p>
-          <a href="#top">回到頂端 ↑</a>
+      <footer id="footer" className="site-footer">
+        <div className="container">
+          <div className="footer-columns">
+            <section className="footer-column footer-about" aria-labelledby="footer-about-title">
+              <h2 id="footer-about-title">系學會</h2>
+              <a className="footer-brand" href={isTeamPage ? '/' : '#top'} aria-label="CGU AISA 首頁">
+                <Brand />
+              </a>
+              <p className="footer-school">長庚大學</p>
+            </section>
+
+            <section className="footer-column" aria-labelledby="footer-contact-title">
+              <h2 id="footer-contact-title">聯絡方式</h2>
+              <ul className="footer-contact-list">
+                <li>
+                  <Camera size={18} aria-hidden="true" />
+                  <span>Instagram</span>
+                  <small>待補</small>
+                </li>
+                <li>
+                  <Mail size={18} aria-hidden="true" />
+                  <span>系學會信箱</span>
+                  <small>待補</small>
+                </li>
+              </ul>
+              <a className="footer-contact-link" href={homeSectionHref('#contact')}>
+                聯絡資訊
+                <ArrowUpRight size={16} aria-hidden="true" />
+              </a>
+            </section>
+
+            <nav className="footer-column" aria-labelledby="footer-resources-title">
+              <h2 id="footer-resources-title">學生資源</h2>
+              <ul className="footer-links">
+                <li><a href={homeSectionHref('#resources')}>新生懶人包</a></li>
+                <li><a href={homeSectionHref('#events')}>近期活動</a></li>
+                <li><a href={homeSectionHref('#calendar')}>行事曆</a></li>
+              </ul>
+            </nav>
+
+            <nav className="footer-column" aria-labelledby="footer-links-title">
+              <h2 id="footer-links-title">快速連結</h2>
+              <ul className="footer-links">
+                <li><a href="/">首頁</a></li>
+                <li><a href="/team/" aria-current={isTeamPage ? 'page' : undefined}>幹部團隊</a></li>
+                <li>
+                  <a href="https://www.cgu.edu.tw/ai" target="_blank" rel="noreferrer" aria-label="學系官網（開啟新分頁）">
+                    學系官網
+                    <ExternalLink size={14} aria-hidden="true" />
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+          <div className="footer-bottom">
+            <small>© {new Date().getFullYear()} CGU AISA</small>
+            <a className="footer-back-to-top" href="#top">
+              回到頂端
+              <ChevronUp size={18} aria-hidden="true" />
+            </a>
+          </div>
         </div>
       </footer>
     </div>
