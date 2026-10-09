@@ -19,6 +19,8 @@ import {
 import ResourceTabs from './components/ResourceTabs';
 import WorkVisual from './components/WorkVisual';
 import CoursesPage from './components/CoursesPage';
+import EventsPage from './components/EventsPage';
+import { activities, activitiesInMonth, activitiesOnDate, activityHref, tripEvent } from './data/events';
 import { useScrollReveal } from './hooks/useScrollReveal';
 
 type Theme = 'light' | 'dark';
@@ -31,9 +33,10 @@ const contact = {
 
 const notices = [
   {
-    marker: '待公告',
+    marker: '活動',
     category: '活動消息',
-    title: '近期活動資訊整理中',
+    title: `${tripEvent.term} ${tripEvent.title}`,
+    href: activityHref,
   },
   {
     marker: '常駐',
@@ -50,9 +53,10 @@ const notices = [
 const events = [
   {
     number: '01',
-    title: '新生交流',
-    state: '企劃中',
+    title: tripEvent.title,
+    state: tripEvent.dateLabel,
     tone: 'orange',
+    href: activityHref,
   },
   {
     number: '02',
@@ -134,15 +138,21 @@ function DesktopMenu({ label, children }: { label: string; children: ReactNode }
 }
 
 function NoticeRow({ notice }: { notice: (typeof notices)[number] }) {
-  return (
-    <article className="notice-row" data-reveal="up">
+  const content = (
+    <>
       <span className="notice-marker">{notice.marker}</span>
       <div className="notice-copy">
         <span className="notice-category">{notice.category}</span>
         <h3>{notice.title}</h3>
       </div>
       <ArrowRight className="notice-arrow" size={20} aria-hidden="true" />
-    </article>
+    </>
+  );
+
+  return notice.href ? (
+    <a className="notice-row notice-row-link" href={notice.href} data-reveal="up">{content}</a>
+  ) : (
+    <article className="notice-row" data-reveal="up">{content}</article>
   );
 }
 
@@ -158,6 +168,11 @@ function EventCard({ event }: { event: (typeof events)[number] }) {
           <CalendarDays size={15} aria-hidden="true" />
           <span>{event.state}</span>
         </div>
+        {event.href && (
+          <a className="event-card-link" href={event.href}>
+            活動詳情 <ArrowRight size={17} aria-hidden="true" />
+          </a>
+        )}
       </div>
     </article>
   );
@@ -183,6 +198,8 @@ function MiniCalendar() {
   const year = visibleMonth.getFullYear();
   const month = visibleMonth.getMonth();
   const firstWeekday = new Date(year, month, 1).getDay();
+  const monthActivities = activitiesInMonth(year, month);
+  const calendarActivities = monthActivities.length ? monthActivities : activities;
   const todayKey = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
   const calendarDays = Array.from({ length: 42 }, (_, index) => {
     const date = new Date(year, month, index - firstWeekday + 1);
@@ -221,21 +238,42 @@ function MiniCalendar() {
         {['日', '一', '二', '三', '四', '五', '六'].map((day) => <span key={day}>{day}</span>)}
       </div>
       <div className="mini-calendar-grid">
-        {calendarDays.map(({ date, inCurrentMonth, isToday }) => (
-          <time
-            key={`${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`}
-            dateTime={`${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`}
-            className={`${inCurrentMonth ? '' : 'is-outside'}${isToday ? ' is-today' : ''}`}
-            aria-current={isToday ? 'date' : undefined}
-          >
-            {date.getDate()}
-          </time>
-        ))}
+        {calendarDays.map(({ date, inCurrentMonth, isToday }) => {
+          const dateKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+          const dayActivities = activitiesOnDate(dateKey);
+          const dateCell = (
+            <time
+              dateTime={dateKey}
+              className={`${inCurrentMonth ? '' : 'is-outside'}${isToday ? ' is-today' : ''}${dayActivities.length ? ' is-event-day' : ''}`}
+              aria-current={isToday ? 'date' : undefined}
+            >
+              {date.getDate()}
+            </time>
+          );
+          return dayActivities.length ? (
+            <a
+              key={dateKey}
+              className={`calendar-event-day${isToday ? ' is-today' : ''}`}
+              href={`/events/#${dayActivities[0].id}`}
+              aria-label={`${date.getFullYear()} 年 ${date.getMonth() + 1} 月 ${date.getDate()} 日：${dayActivities.map((activity) => activity.title).join('、')}，查看活動詳情`}
+            >{dateCell}</a>
+          ) : <span key={dateKey}>{dateCell}</span>;
+        })}
       </div>
       <p className="mini-calendar-note">
         <span><i aria-hidden="true" />今天・{today.getMonth() + 1}/{today.getDate()}</span>
-        <span>活動日期待確認</span>
+        <span><i className="calendar-event-key" aria-hidden="true" />活動</span>
       </p>
+      <div className="mini-calendar-events">
+        <p className="calendar-events-heading">{monthActivities.length ? '本月活動' : '活動資訊'}</p>
+        {calendarActivities.map((activity) => (
+          <a className="calendar-event-link" key={activity.id} href={`/events/#${activity.id}`}>
+            <strong>{activity.title}</strong>
+            <span>{activity.dateLabel}</span>
+            <ArrowRight size={17} aria-hidden="true" />
+          </a>
+        ))}
+      </div>
     </section>
   );
 }
@@ -343,7 +381,8 @@ export default function Home() {
   const pagePath = window.location.pathname.replace(/\/index\.html$/, '').replace(/\/+$/, '');
   const isTeamPage = pagePath === '/team';
   const isCoursesPage = pagePath === '/courses';
-  const isSubpage = isTeamPage || isCoursesPage;
+  const isEventsPage = pagePath === '/events';
+  const isSubpage = isTeamPage || isCoursesPage || isEventsPage;
   const homeSectionHref = (section: string) =>
     isSubpage ? `/${section}` : section;
 
@@ -365,6 +404,7 @@ export default function Home() {
               <a href="/team/" onClick={closeContainingMenu} aria-current={isTeamPage ? 'page' : undefined}>幹部團隊</a>
             </DesktopMenu>
             <DesktopMenu label="活動資訊">
+              <a href="/events/" onClick={closeContainingMenu} aria-current={isEventsPage ? 'page' : undefined}>活動與報名</a>
               <a href={homeSectionHref('#news')} onClick={closeContainingMenu}>最新消息</a>
               <a href={homeSectionHref('#events')} onClick={closeContainingMenu}>近期活動</a>
             </DesktopMenu>
@@ -398,6 +438,7 @@ export default function Home() {
               <a href={homeSectionHref('#about')} onClick={closeContainingMenu}>關於系學會</a>
               <a href={homeSectionHref('#news')} onClick={closeContainingMenu}>最新消息</a>
               <a href={homeSectionHref('#events')} onClick={closeContainingMenu}>近期活動</a>
+              <a href="/events/" onClick={closeContainingMenu} aria-current={isEventsPage ? 'page' : undefined}>活動與報名</a>
               <a href={homeSectionHref('#resources')} onClick={closeContainingMenu}>學生資源</a>
               <a href="/courses/" onClick={closeContainingMenu} aria-current={isCoursesPage ? 'page' : undefined}>課程與選課</a>
               <a href="/team/" onClick={closeContainingMenu} aria-current={isTeamPage ? 'page' : undefined}>幹部團隊</a>
@@ -407,7 +448,7 @@ export default function Home() {
         </div>
       </header>
 
-      {isTeamPage ? <TeamPage /> : isCoursesPage ? <CoursesPage /> : <main id="main-content">
+      {isTeamPage ? <TeamPage /> : isCoursesPage ? <CoursesPage /> : isEventsPage ? <EventsPage /> : <main id="main-content">
         <section id="top" className="hero">
           <div className="container hero-grid">
             <div className="hero-copy">
@@ -453,7 +494,7 @@ export default function Home() {
                   <h3>常用入口</h3>
                 </div>
                 <nav>
-                  <a href="#events">
+                  <a href="/events/">
                     活動與報名
                     <ArrowUpRight size={18} aria-hidden="true" />
                   </a>
@@ -610,7 +651,7 @@ export default function Home() {
               <ul className="footer-links">
                 <li><a href={homeSectionHref('#resources')}>新生懶人包</a></li>
                 <li><a href="/courses/" aria-current={isCoursesPage ? 'page' : undefined}>課程與選課</a></li>
-                <li><a href={homeSectionHref('#events')}>近期活動</a></li>
+                <li><a href="/events/" aria-current={isEventsPage ? 'page' : undefined}>活動與報名</a></li>
                 <li><a href={homeSectionHref('#calendar')}>行事曆</a></li>
               </ul>
             </nav>

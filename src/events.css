@@ -1,0 +1,453 @@
+.reference-design .events-hero {
+  padding-block: 44px 64px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+  scroll-margin-top: 104px;
+}
+
+.reference-design .events-hero .breadcrumb {
+  margin-bottom: 32px;
+}
+
+.reference-design .events-hero h1 {
+  margin: 0;
+  font-size: 46px;
+  line-height: 1.4;
+}
+
+.reference-design .event-directory {
+  padding-block: 56px 80px;
+}
+
+.reference-design .trip-detail {
+  padding: 36px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface-raised);
+  scroll-margin-top: 112px;
+}
+
+.reference-design .trip-detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.reference-design .trip-term {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.reference-design .trip-detail-header h2 {
+  margin: 0;
+  font-size: 34px;
+  line-height: 1.5;
+}
+
+.reference-design .trip-date {
+  margin: 12px 0 0;
+  color: var(--text-soft);
+  font-size: 18px;
+}
+
+.reference-design .trip-signup {
+  flex: 0 0 auto;
+  min-height: 50px;
+  font-size: 17px;
+}
+
+.reference-design .trip-facts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin: 32px 0 0;
+}
+
+.reference-design .trip-facts > div {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+.reference-design .trip-facts dt {
+  margin-bottom: 10px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.reference-design .trip-facts dd {
+  margin: 0;
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+.reference-design .trip-fees p {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  margin: 0;
+}
+
+.reference-design .trip-fees p + p {
+  margin-top: 8px;
+}
+
+.reference-design .trip-fees span {
+  color: var(--text-soft);
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.reference-design .trip-fees strong {
+  font-size: 18px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.reference-design .trip-deadline-note {
+  margin: 18px 0 0;
+  color: var(--text-soft);
+  font-size: 16px;
+}
+
+.reference-design .trip-notes {
+  margin: 20px 0 0;
+  padding-left: 22px;
+  color: var(--text-soft);
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+.reference-design .trip-notes li + li {
+  margin-top: 7px;
+}
+
+.reference-design .trip-schedule {
+  margin-top: 38px;
+  padding-top: 30px;
+  border-top: 1px solid var(--line);
+}
+
+.reference-design .trip-schedule h3 {
+  margin: 0 0 22px;
+  font-size: 25px;
+}
+
+.reference-design .trip-days {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 30px;
+}
+
+.reference-design .trip-day {
+  min-width: 0;
+}
+
+.reference-design .trip-day h4 {
+  margin: 0 0 16px;
+  color: var(--accent-text);
+  font-size: 20px;
+  line-height: 1.6;
+}
+
+.reference-design .trip-day ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reference-design .trip-day li {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  align-items: baseline;
+  gap: 16px;
+  padding-block: 13px;
+  border-bottom: 1px solid var(--line);
+  color: var(--text-soft);
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.reference-design .trip-day li:first-child {
+  padding-top: 0;
+}
+
+.reference-design .trip-day li:last-child {
+  border-bottom: 0;
+}
+
+.reference-design .trip-day time {
+  color: var(--muted);
+  font-family: "Montserrat", "Noto Sans TC", sans-serif;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.reference-design .trip-day li span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.reference-design .trip-source {
+  margin: 30px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.reference-design .trip-source a {
+  color: var(--accent-text);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.reference-design .mini-calendar-grid a.calendar-event-day {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  min-height: 34px;
+  place-items: center;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--accent) 9%, var(--surface));
+  transition: background-color 180ms ease;
+}
+
+.reference-design .mini-calendar-grid a.calendar-event-day time {
+  width: 100%;
+}
+
+.reference-design .mini-calendar-grid time.is-event-day {
+  position: relative;
+  color: var(--accent-text);
+}
+
+.reference-design .mini-calendar-grid time.is-event-day::after {
+  position: absolute;
+  bottom: 2px;
+  width: 10px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  content: "";
+}
+
+.reference-design .mini-calendar-grid a.calendar-event-day.is-today {
+  background: var(--accent);
+}
+
+.reference-design .mini-calendar-grid a.calendar-event-day.is-today time,
+.reference-design .mini-calendar-grid time.is-event-day.is-today {
+  color: var(--accent-contrast);
+}
+
+.reference-design .mini-calendar-grid a.calendar-event-day:focus-visible {
+  z-index: 1;
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.reference-design .mini-calendar-events {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.reference-design .calendar-events-heading {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.reference-design .mini-calendar-note .calendar-event-key {
+  width: 10px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent-text);
+}
+
+.reference-design .mini-calendar-note span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.reference-design .calendar-event-link {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 2px 12px;
+  min-height: 54px;
+  padding-block: 5px;
+  color: var(--text);
+  transition: color 180ms ease;
+}
+
+.reference-design .calendar-event-link strong {
+  min-width: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.reference-design .calendar-event-link span {
+  grid-column: 1;
+  min-width: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.reference-design .calendar-event-link svg {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  color: var(--accent-text);
+}
+
+.reference-design .mini-calendar-empty {
+  margin: 2px 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.reference-design .event-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  margin-top: 12px;
+  color: var(--accent-text);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.reference-design .event-card-link svg {
+  transition: translate 180ms ease;
+}
+
+.reference-design .notice-row-link:focus-visible {
+  outline-offset: -3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .reference-design .mini-calendar-grid a.calendar-event-day:hover {
+    background: color-mix(in srgb, var(--accent) 17%, var(--surface));
+  }
+
+  .reference-design .mini-calendar-grid a.calendar-event-day.is-today:hover {
+    background: var(--accent-hover);
+  }
+
+  .reference-design .calendar-event-link:hover,
+  .reference-design .notice-row-link:hover .notice-copy h3 {
+    color: var(--accent-text);
+  }
+
+  .reference-design .event-card-link:hover svg {
+    translate: 3px 0;
+  }
+}
+
+@media (max-width: 800px) {
+  .reference-design .trip-days {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 30px;
+  }
+
+  .reference-design .trip-detail {
+    padding: 28px;
+  }
+}
+
+@media (max-width: 700px) {
+  .reference-design .events-hero {
+    padding-block: 32px 44px;
+  }
+
+  .reference-design .events-hero h1 {
+    font-size: 34px;
+    line-height: 1.5;
+  }
+
+  .reference-design .event-directory {
+    padding-block: 36px 54px;
+  }
+
+  .reference-design .trip-detail-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .reference-design .trip-detail-header h2 {
+    font-size: 30px;
+  }
+
+  .reference-design .trip-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 28px;
+  }
+}
+
+@media (max-width: 540px) {
+  .reference-design .events-hero .breadcrumb {
+    margin-bottom: 24px;
+  }
+
+  .reference-design .trip-detail {
+    padding: 24px 18px;
+    border-radius: 12px;
+    scroll-margin-top: 90px;
+  }
+
+  .reference-design .trip-signup {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .reference-design .trip-facts {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .reference-design .trip-facts > div {
+    padding: 16px;
+  }
+
+  .reference-design .trip-facts dt {
+    margin-bottom: 5px;
+  }
+
+  .reference-design .trip-schedule {
+    margin-top: 30px;
+    padding-top: 24px;
+  }
+
+  .reference-design .trip-day li {
+    gap: 12px;
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reference-design .mini-calendar-grid a.calendar-event-day,
+  .reference-design .calendar-event-link,
+  .reference-design .event-card-link svg {
+    transition: none;
+  }
+
+  .reference-design .event-card-link:hover svg {
+    translate: none;
+  }
+}

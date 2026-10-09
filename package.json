@@ -10,7 +10,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "check:courses": "node scripts/verify-curriculum.mjs"
+    "check:courses": "node scripts/verify-curriculum.mjs",
+    "check:events": "node scripts/verify-events.mjs"
   },
   "dependencies": {
     "lucide-react": "1.31.0",
