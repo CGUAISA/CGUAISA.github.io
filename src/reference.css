@@ -5,6 +5,7 @@
   --hero-muted: var(--muted);
   --hero-line: var(--line);
   font-family: "Montserrat", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  font-size: 17px;
   line-height: 1.8;
 }
 
@@ -46,7 +47,7 @@
 .reference-design .contact-grid h2,
 .reference-design .team-page-contact h2 {
   margin: 0;
-  font-size: 42px;
+  font-size: 46px;
   font-weight: 700;
   line-height: 1.4;
   letter-spacing: 0.05em;
@@ -70,8 +71,17 @@
   min-height: 88px;
 }
 
+.reference-design .brand-copy strong {
+  font-size: 19px;
+}
+
+.reference-design .brand-copy small {
+  font-size: 12px;
+}
+
 .reference-design .desktop-nav {
   gap: 26px;
+  font-size: 17px;
   font-weight: 600;
 }
 
@@ -80,7 +90,17 @@
 .reference-design .button,
 .reference-design .mobile-menu > summary {
   border-radius: 12px;
+  font-size: 16px;
   font-weight: 600;
+}
+
+.reference-design .mobile-menu nav a {
+  font-size: 17px;
+}
+
+.reference-design .skip-link,
+.reference-design .breadcrumb {
+  font-size: 14px;
 }
 
 .reference-design .header-cta,
@@ -103,6 +123,7 @@
 
 .reference-design .desktop-menu-panel a {
   border-radius: 7px;
+  font-size: 16px;
 }
 
 .reference-design .hero-grid {
@@ -127,7 +148,7 @@
 .reference-design .hero .eyebrow {
   max-width: 350px;
   color: var(--accent-text);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   line-height: 2;
   letter-spacing: 0.12em;
@@ -154,7 +175,7 @@
 .reference-design .poster-heading {
   border-bottom: 1px solid var(--line);
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.12em;
 }
@@ -178,18 +199,20 @@
   border-radius: 9px;
   background: var(--surface);
   color: var(--text-soft);
+  font-size: 14px;
   font-weight: 500;
 }
 
 .reference-design .notice-copy h3 {
   margin-top: 5px;
-  font-size: 17px;
+  font-size: 19px;
   font-weight: 600;
   line-height: 1.8;
   letter-spacing: 0.03em;
 }
 
 .reference-design .notice-category {
+  font-size: 14px;
   font-weight: 500;
 }
 
@@ -200,7 +223,12 @@
 
 .reference-design .quick-panel-heading h3 {
   margin: 8px 0 22px;
-  font-size: 23px;
+  font-size: 25px;
+}
+
+.reference-design .quick-panel-heading span,
+.reference-design .mini-calendar-header span {
+  font-size: 12px;
 }
 
 .reference-design .quick-panel nav {
@@ -208,13 +236,35 @@
 }
 
 .reference-design .quick-panel nav a {
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 500;
   transition: color 220ms ease;
 }
 
 .reference-design .mini-calendar {
   border-radius: 10px;
+}
+
+.reference-design .mini-calendar-header {
+  flex-wrap: wrap;
+}
+
+.reference-design .mini-calendar-header h4 {
+  font-size: 18px;
+}
+
+.reference-design .mini-calendar-weekdays span {
+  font-size: 12px;
+}
+
+.reference-design .mini-calendar-grid time {
+  min-height: 34px;
+  font-size: 14px;
+}
+
+.reference-design .mini-calendar-note {
+  flex-wrap: wrap;
+  font-size: 13px;
 }
 
 .reference-design .mini-calendar-controls button {
@@ -280,7 +330,7 @@
 
 .reference-design .work-feature h3 {
   margin: 0;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   line-height: 1.6;
   letter-spacing: 0.04em;
@@ -341,7 +391,7 @@
   border-radius: 14px;
   background: var(--surface-raised);
   color: var(--accent-text);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 500;
   line-height: 1.4;
   letter-spacing: 0.04em;
@@ -398,7 +448,7 @@
 }
 
 .reference-design .event-poster > h3 {
-  font-size: 27px;
+  font-size: 29px;
   font-weight: 600;
   letter-spacing: 0.05em;
 }
@@ -413,7 +463,7 @@
 }
 
 .reference-design .event-body h3 {
-  font-size: 21px;
+  font-size: 23px;
   font-weight: 600;
   letter-spacing: 0.04em;
 }
@@ -422,7 +472,7 @@
   margin-top: 0;
   padding-top: 0;
   border-top: 0;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .reference-design .resources-section {
@@ -459,7 +509,7 @@
   background: transparent;
   color: var(--muted);
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 500;
   letter-spacing: 0.04em;
   transition: background-color 220ms ease, color 220ms ease;
@@ -510,7 +560,7 @@
 
 .reference-design .resource-panel-copy h3 {
   margin: 0;
-  font-size: 27px;
+  font-size: 29px;
   font-weight: 600;
   letter-spacing: 0.05em;
   line-height: 1.5;
@@ -519,7 +569,7 @@
 .reference-design .resource-panel-status {
   margin: 16px 0 0;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.8;
   letter-spacing: 0.04em;
 }
@@ -589,7 +639,7 @@
 .reference-design .team-overview-table th,
 .reference-design .team-overview-table td {
   padding: 23px 32px;
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.8;
   letter-spacing: 0.04em;
 }
@@ -600,7 +650,7 @@
 }
 
 .reference-design .team-overview-table thead th {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 500;
 }
 
@@ -627,7 +677,7 @@
 .reference-design .team-page-link {
   margin-top: 30px;
   border-bottom-color: var(--line);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   letter-spacing: 0.04em;
 }
@@ -671,7 +721,7 @@
 }
 
 .reference-design .team-page-hero h1 {
-  font-size: 48px;
+  font-size: 52px;
   line-height: 1.4;
   letter-spacing: 0.05em;
 }
@@ -698,6 +748,7 @@
 }
 
 .reference-design .team-page-summary span {
+  font-size: 14px;
   font-weight: 500;
 }
 
@@ -720,11 +771,12 @@
 }
 
 .reference-design .leadership-card h3 {
-  font-size: 26px;
+  font-size: 28px;
   letter-spacing: 0.05em;
 }
 
 .reference-design .leadership-card small {
+  font-size: 14px;
   font-weight: 500;
 }
 
@@ -830,7 +882,7 @@ html.motion-ready .reference-design [data-reveal]:focus-within {
     padding-inline: 16px;
   }
 
-  .reference-design .work-feature h3 { font-size: 16px; }
+  .reference-design .work-feature h3 { font-size: 18px; }
 }
 
 @media (max-width: 1040px) {
@@ -861,12 +913,14 @@ html.motion-ready .reference-design [data-reveal]:focus-within {
 
   .reference-design .work-side { gap: 22px; }
   .reference-design .work-feature { min-height: 112px; padding: 28px; }
-  .reference-design .work-feature h3 { font-size: 18px; }
+  .reference-design .work-feature h3 { font-size: 20px; }
 }
 
 @media (max-width: 700px) {
   .reference-design .container { width: min(calc(100% - 40px), var(--container)); }
   .reference-design .header-inner { min-height: 74px; }
+  .reference-design .brand-copy strong { font-size: 17px; }
+  .reference-design .brand-copy small { font-size: 11px; }
   .reference-design .section { padding-block: 76px; }
 
   .reference-design .section-heading h2,
@@ -876,7 +930,7 @@ html.motion-ready .reference-design [data-reveal]:focus-within {
   .reference-design .team-directory-heading h2,
   .reference-design .contact-grid h2,
   .reference-design .team-page-contact h2 {
-    font-size: 32px;
+    font-size: 34px;
     line-height: 1.5;
   }
 
@@ -888,29 +942,30 @@ html.motion-ready .reference-design [data-reveal]:focus-within {
   }
 
   .reference-design .hero-copy { max-width: none; padding: 0; }
-  .reference-design .hero .eyebrow { max-width: none; margin-bottom: 0; font-size: 10px; }
+  .reference-design .hero .eyebrow { max-width: none; margin-bottom: 0; font-size: 13px; }
   .reference-design .hero h1 { font-size: 36px; }
   .reference-design .hero-actions { margin-top: 22px; }
   .reference-design .hero-poster { height: 340px; padding: 24px; }
   .reference-design .content-grid { gap: 30px; margin-top: 38px; }
   .reference-design .notice-row { padding: 24px 0; }
-  .reference-design .notice-copy h3 { font-size: 15px; }
+  .reference-design .notice-marker { font-size: 13px; }
+  .reference-design .notice-copy h3 { font-size: 17px; }
   .reference-design .quick-panel { padding: 24px; }
   .reference-design .work-stage { margin-top: 38px; border-radius: 18px; }
   .reference-design .events-grid { margin-top: 38px; }
   .reference-design .event-poster { min-height: 250px; }
   .reference-design .resource-tabs { margin-top: 34px; }
   .reference-design .resource-tablist { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 12px; }
-  .reference-design .resource-tab { min-height: 66px; gap: 9px; padding: 13px 6px; font-size: 14px; }
+  .reference-design .resource-tab { min-height: 66px; gap: 9px; padding: 13px 6px; font-size: 16px; }
   .reference-design .resource-tab::after { right: 10px; left: 10px; }
   .reference-design .resource-tab-panel { min-height: 250px; grid-template-columns: 1fr 106px; gap: 20px; padding: 30px 24px; }
-  .reference-design .resource-panel-copy h3 { font-size: 21px; }
+  .reference-design .resource-panel-copy h3 { font-size: 23px; }
   .reference-design .resource-panel-illustration { width: 100px; min-height: 130px; padding: 20px; gap: 20px; }
   .reference-design .resource-panel-icon { width: 35px; height: 35px; }
-  .reference-design .resource-panel-status { font-size: 13px; }
+  .reference-design .resource-panel-status { font-size: 15px; }
   .reference-design .team-overview-table-wrapper { margin-top: 36px; }
   .reference-design .team-overview-table th,
-  .reference-design .team-overview-table td { padding: 20px 16px; font-size: 13px; letter-spacing: 0.02em; }
+  .reference-design .team-overview-table td { padding: 20px 16px; font-size: 15px; letter-spacing: 0.02em; }
   .reference-design .team-group-name { width: 34%; }
   .reference-design .team-group-roles span { margin-right: 14px; }
   .reference-design .contact-section { padding-block: 64px; }
@@ -920,12 +975,12 @@ html.motion-ready .reference-design [data-reveal]:focus-within {
   .reference-design .site-footer { padding-block: 34px; }
   .reference-design .footer-grid { gap: 18px; }
   .reference-design .team-page-hero { padding-block: 36px 54px; }
-  .reference-design .team-page-hero h1 { font-size: 36px; }
+  .reference-design .team-page-hero h1 { font-size: 40px; }
   .reference-design .breadcrumb { margin-bottom: 36px; }
   .reference-design .team-page-summary { gap: 8px; margin-top: 30px; }
   .reference-design .team-page-summary div { min-height: 112px; padding: 16px 12px; }
   .reference-design .team-page-summary strong { font-size: 27px; }
-  .reference-design .team-page-summary span { font-size: 10px; }
+  .reference-design .team-page-summary span { font-size: 13px; }
   .reference-design .leadership-grid { margin-top: 36px; }
 
   html.motion-ready .reference-design [data-reveal="left"]:not(.is-visible),
@@ -933,8 +988,8 @@ html.motion-ready .reference-design [data-reveal]:focus-within {
 }
 
 @media (max-width: 380px) {
-  .reference-design .brand-copy strong { font-size: 13px; }
-  .reference-design .brand-copy small { font-size: 8px; }
+  .reference-design .brand-copy strong { font-size: 15px; }
+  .reference-design .brand-copy small { font-size: 10px; }
   .reference-design .brand-lockup { gap: 8px; }
   .reference-design .resource-tab-panel { grid-template-columns: 1fr; }
   .reference-design .resource-panel-illustration { display: none; }

@@ -7,14 +7,14 @@
 
 .reference-design .courses-hero h1 {
   margin: 30px 0 14px;
-  font-size: clamp(34px, 4vw, 52px);
+  font-size: clamp(36px, 4vw, 56px);
   line-height: 1.35;
 }
 
 .reference-design .courses-hero p {
   margin: 0;
   color: var(--muted);
-  font-size: 15px;
+  font-size: 17px;
 }
 
 .reference-design .course-directory {
@@ -35,7 +35,7 @@
 
 .reference-design .course-year-field label {
   color: var(--muted);
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .reference-design .course-year-field select {
@@ -47,7 +47,7 @@
   background: var(--surface-raised);
   color: var(--text);
   font: inherit;
-  font-size: 15px;
+  font-size: 17px;
 }
 
 .reference-design .course-source-link,
@@ -57,7 +57,7 @@
   align-items: center;
   gap: 10px;
   color: var(--accent-text);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
 }
 
@@ -71,8 +71,8 @@
   margin-block: 28px 32px;
 }
 
-.reference-design .course-applicability strong { font-size: 16px; }
-.reference-design .course-applicability span { color: var(--muted); font-size: 12px; }
+.reference-design .course-applicability strong { font-size: 18px; }
+.reference-design .course-applicability span { color: var(--muted); font-size: 14px; }
 
 .reference-design .course-grade-tabs {
   display: grid;
@@ -89,7 +89,7 @@
   border-bottom: 3px solid transparent;
   background: transparent;
   color: var(--muted);
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 500;
   cursor: pointer;
 }
@@ -116,14 +116,14 @@
 
 .reference-design .course-semester h3 {
   margin: 0 0 20px;
-  font-size: 21px;
+  font-size: 23px;
 }
 
 .reference-design .course-table {
   width: 100%;
   table-layout: fixed;
   border-collapse: collapse;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.75;
 }
 
@@ -137,7 +137,7 @@
 
 .reference-design .course-table th { text-align: left; font-weight: 500; overflow-wrap: anywhere; }
 .reference-design .course-table th:first-child { padding-right: 12px; }
-.reference-design .course-table thead th { padding-top: 0; color: var(--muted); font-size: 12px; font-weight: 400; }
+.reference-design .course-table thead th { padding-top: 0; color: var(--muted); font-size: 14px; font-weight: 400; }
 .reference-design .course-table tr > :nth-child(2),
 .reference-design .course-table tr > :nth-child(3) { text-align: center; }
 .reference-design .course-table tbody tr:last-child > * { border-bottom: 0; }
@@ -149,7 +149,7 @@
   border-radius: 5px;
   background: var(--surface);
   color: var(--muted);
-  font-size: 11px;
+  font-size: 13px;
   white-space: nowrap;
 }
 
@@ -158,16 +158,16 @@
   background: color-mix(in srgb, var(--accent) 9%, var(--surface));
 }
 
-.reference-design .course-note { margin-top: 4px; font-size: 12px; font-weight: 400; }
-.reference-design .course-group { display: block; margin-top: 5px; color: var(--muted); font-size: 11px; font-weight: 400; }
+.reference-design .course-note { margin-top: 4px; font-size: 14px; font-weight: 400; }
+.reference-design .course-group { display: block; margin-top: 5px; color: var(--muted); font-size: 13px; font-weight: 400; }
 .reference-design .course-note summary { min-height: 44px; padding-block: 10px; color: var(--muted); cursor: pointer; }
 .reference-design .course-note p { margin: 6px 0; color: var(--text-soft); }
-.reference-design .course-empty { margin: 10px 0 20px; color: var(--muted); font-size: 14px; }
+.reference-design .course-empty { margin: 10px 0 20px; color: var(--muted); font-size: 16px; }
 .reference-design .course-unspecified { margin-top: 32px; }
 
-.reference-design .course-provenance { margin-top: 34px; color: var(--muted); font-size: 13px; }
+.reference-design .course-provenance { margin-top: 34px; color: var(--muted); font-size: 14px; }
 .reference-design .course-provenance p { margin: 0 0 12px; }
-.reference-design .course-provenance small { display: block; margin-top: 20px; font-size: 12px; }
+.reference-design .course-provenance small { display: block; margin-top: 20px; font-size: 13px; }
 .reference-design .course-provenance a { color: var(--accent-text); text-decoration: underline; text-underline-offset: 4px; }
 .reference-design .course-curriculum-notes summary { min-height: 44px; padding-block: 10px; color: var(--text-soft); cursor: pointer; }
 .reference-design .course-curriculum-notes ul { margin: 10px 0 18px; padding-left: 22px; }
@@ -175,7 +175,7 @@
 .reference-design .course-curriculum-notes a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; }
 
 .reference-design .course-resources { padding-block: 54px 64px; background: var(--surface); }
-.reference-design .course-resources h2 { margin: 0 0 28px; font-size: 26px; }
+.reference-design .course-resources h2 { margin: 0 0 28px; font-size: 28px; }
 .reference-design .course-resource-links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
 .reference-design .course-resource-links a {
   display: flex;
@@ -187,7 +187,7 @@
   border: 1px solid var(--line);
   border-radius: 10px;
   background: var(--surface-raised);
-  font-size: 15px;
+  font-size: 17px;
 }
 .reference-design .course-resource-links svg { flex-shrink: 0; color: var(--accent-text); }
 
@@ -205,7 +205,7 @@
 @media (max-width: 540px) {
   .reference-design .courses-hero { padding-block: 28px 40px; }
   .reference-design .courses-hero h1 { margin-top: 24px; }
-  .reference-design .courses-hero p { font-size: 13px; }
+  .reference-design .courses-hero p { font-size: 15px; }
   .reference-design .course-directory { padding-block: 34px 48px; }
   .reference-design .course-toolbar { align-items: start; flex-direction: column; gap: 10px; }
   .reference-design .course-year-field { width: 100%; }
@@ -214,7 +214,7 @@
   .reference-design .course-applicability span { width: 100%; }
   .reference-design .course-semester { padding: 20px 16px; }
   .reference-design .course-grade-tabs { margin-bottom: 24px; }
-  .reference-design .course-table { font-size: 13px; }
+  .reference-design .course-table { font-size: 15px; }
   .reference-design .course-credits-col { width: 42px; }
   .reference-design .course-kind-col { width: 48px; }
   .reference-design .course-kind { padding-inline: 5px; }

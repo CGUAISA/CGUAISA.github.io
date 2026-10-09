@@ -30,7 +30,7 @@
 .reference-design .footer-column h2 {
   margin: 0 0 24px;
   color: var(--accent-text);
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   line-height: 1.5;
   letter-spacing: 0.06em;
@@ -55,20 +55,20 @@
 }
 
 .reference-design .footer-brand .brand-copy strong {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   letter-spacing: 0.04em;
 }
 
 .reference-design .footer-brand .brand-copy small {
   color: var(--footer-subtle);
-  font-size: 9px;
+  font-size: 12px;
 }
 
 .reference-design .footer-school {
   margin: 17px 0 0;
   color: var(--footer-subtle);
-  font-size: 14px;
+  font-size: 16px;
   letter-spacing: 0.04em;
 }
 
@@ -94,7 +94,7 @@
   column-gap: 11px;
   padding-block: 6px;
   color: var(--footer-fg);
-  font-size: 14px;
+  font-size: 16px;
   letter-spacing: 0.03em;
   transition: color 220ms ease;
 }
@@ -111,14 +111,14 @@
 }
 
 .reference-design .footer-contact-copy strong {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 1.8;
 }
 
 .reference-design .footer-contact-copy small {
   color: var(--footer-subtle);
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.7;
   letter-spacing: 0.04em;
   overflow-wrap: anywhere;
@@ -130,7 +130,7 @@
   align-items: center;
   gap: 9px;
   color: var(--footer-fg);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 1.8;
   letter-spacing: 0.04em;
@@ -160,7 +160,7 @@
 
 .reference-design .footer-bottom small {
   color: var(--footer-subtle);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.05em;
 }
 
@@ -174,7 +174,7 @@
   border: 1px solid var(--footer-rule);
   border-radius: 10px;
   color: var(--footer-fg);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.04em;
   transition: color 220ms ease, border-color 220ms ease;
@@ -207,9 +207,13 @@
   min-width: 0;
 }
 
+.reference-design .contact-channels .contact-action strong {
+  font-size: 17px;
+}
+
 .reference-design .contact-channels .contact-action > div > span {
   color: var(--muted);
-  font-size: 13px;
+  font-size: 15px;
   overflow-wrap: anywhere;
 }
 
@@ -251,6 +255,22 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 44px 48px;
   }
+
+  .reference-design .contact-channels .contact-action {
+    grid-template-columns: 40px minmax(0, 1fr) 16px;
+    gap: 10px;
+    padding: 18px 14px;
+  }
+
+  .reference-design .contact-channels .contact-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .reference-design .contact-channels .contact-action > svg {
+    width: 16px;
+    height: 16px;
+  }
 }
 
 @media (max-width: 540px) {
@@ -278,30 +298,25 @@
   }
 
   .reference-design .footer-bottom small {
-    font-size: 11px;
+    font-size: 13px;
     letter-spacing: 0.02em;
   }
 
   .reference-design .footer-back-to-top {
     gap: 7px;
     padding-inline: 10px;
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .reference-design .contact-channels .contact-action {
-    grid-template-columns: 40px minmax(0, 1fr) 16px;
-    gap: 10px;
-    padding: 18px 14px;
+    grid-template-columns: 36px minmax(0, 1fr) 16px;
+    gap: 8px;
+    padding: 18px 12px;
   }
 
   .reference-design .contact-channels .contact-icon {
-    width: 40px;
-    height: 40px;
-  }
-
-  .reference-design .contact-channels .contact-action > svg {
-    width: 16px;
-    height: 16px;
+    width: 36px;
+    height: 36px;
   }
 }
 
