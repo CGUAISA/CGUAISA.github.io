@@ -1,5 +1,6 @@
 export type Activity = {
   id: string;
+  status: 'scheduled' | 'cancelled';
   term: string;
   title: string;
   startDate: string;
@@ -21,10 +22,11 @@ export type Activity = {
   }[];
 };
 
-// 行程、費用與報名須知整理自 Google 表單，日期以 115-1 學期換算。
-// 不記錄即時名額或成團狀態；報名資格與最終資訊仍以表單為準。
+// 行程、費用與報名須知為取消前的 Google 表單記錄，日期以 115-1 學期換算。
+// 活動狀態依系學會更新；尚未提供取消原因或取消後的退款安排。
 export const tripEvent: Activity = {
   id: 'trip-115-1',
+  status: 'cancelled',
   term: '115-1',
   title: '系遊',
   startDate: '2026-11-22',
@@ -87,7 +89,8 @@ function isDateKey(dateKey: string): boolean {
 
 export function activitiesOnDate(dateKey: string): Activity[] {
   if (!isDateKey(dateKey)) return [];
-  return activities.filter((activity) => activity.startDate <= dateKey && activity.endDate >= dateKey);
+  return activities.filter((activity) => activity.status === 'scheduled'
+    && activity.startDate <= dateKey && activity.endDate >= dateKey);
 }
 
 export function activitiesInMonth(year: number, monthIndex: number): Activity[] {
@@ -99,7 +102,8 @@ export function activitiesInMonth(year: number, monthIndex: number): Activity[] 
   const lastDate = new Date(`${firstDay}T00:00:00Z`);
   lastDate.setUTCMonth(lastDate.getUTCMonth() + 1, 0);
   const lastDay = lastDate.toISOString().slice(0, 10);
-  return activities.filter((activity) => activity.startDate <= lastDay && activity.endDate >= firstDay);
+  return activities.filter((activity) => activity.status === 'scheduled'
+    && activity.startDate <= lastDay && activity.endDate >= firstDay);
 }
 
 export function registrationDeadlinePassed(activity: Activity, now: Date = new Date()): boolean {

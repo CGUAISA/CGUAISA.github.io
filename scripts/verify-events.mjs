@@ -17,6 +17,7 @@ const isDateKey = (value) => typeof value === 'string'
 for (const activity of activities) {
   assert(activity.id && !ids.has(activity.id), 'Missing or duplicate activity id');
   ids.add(activity.id);
+  assert(['scheduled', 'cancelled'].includes(activity.status), 'Invalid activity status');
   assert(/^\d{3}-[12]$/.test(activity.term), 'Invalid academic term');
   for (const key of ['title', 'dateLabel', 'deadlineLabel', 'capacityNote', 'formationNote', 'refundNote']) {
     assert(typeof activity[key] === 'string' && activity[key].trim(), `Missing ${key}`);
@@ -44,6 +45,7 @@ assert.equal(activities.length, 1, 'Reviewed activity count changed');
 assert.equal(activities[0], tripEvent);
 assert.equal(activityHref, '/events/#trip-115-1');
 assert.equal(tripEvent.id, 'trip-115-1');
+assert.equal(tripEvent.status, 'cancelled');
 assert.equal(tripEvent.term, '115-1');
 assert.equal(tripEvent.title, '系遊');
 assert.equal(tripEvent.startDate, '2026-11-22');
@@ -72,12 +74,12 @@ assert.deepEqual(tripEvent.schedule.map((day) => [day.title, day.dateLabel, day.
   ]],
 ]);
 
-assert.deepEqual(activitiesOnDate('2026-11-22'), [tripEvent]);
-assert.deepEqual(activitiesOnDate('2026-11-23'), [tripEvent]);
+assert.deepEqual(activitiesOnDate('2026-11-22'), [], 'Cancelled trip must not appear on its first date');
+assert.deepEqual(activitiesOnDate('2026-11-23'), [], 'Cancelled trip must not appear on its last date');
 for (const dateKey of ['2026-11-21', '2026-11-24', '2026-10-12', '2025-11-22', '2027-11-22', '2026-02-30', '2026-11-22T00:00:00Z', 'invalid']) {
   assert.deepEqual(activitiesOnDate(dateKey), [], `Unexpected activity on ${dateKey}`);
 }
-assert.deepEqual(activitiesInMonth(2026, 10), [tripEvent]);
+assert.deepEqual(activitiesInMonth(2026, 10), [], 'Cancelled trip must not appear in November');
 for (const [year, monthIndex] of [[2026, 9], [2026, 11], [2025, 10], [2027, 10], [2026, -1], [2026, 12], [2026, 10.5], [NaN, 10]]) {
   assert.deepEqual(activitiesInMonth(year, monthIndex), [], `Unexpected activity in ${year}/${monthIndex + 1}`);
 }
@@ -92,16 +94,37 @@ assert.equal(registrationDeadlinePassed(tripEvent, new Date('2026-10-13T00:00:00
 assert.equal(registrationDeadlinePassed(tripEvent, new Date('2026-10-12T16:00:00Z')), true);
 assert.equal(registrationDeadlinePassed(tripEvent, new Date('2026-10-13T00:00:00.001+08:00')), true);
 
-// A future multi-day activity crossing a month/year boundary must appear in both months.
-const crossingYear = { ...tripEvent, id: 'date-test-only', startDate: '2026-12-31', endDate: '2027-01-02' };
-activities.push(crossingYear);
+// Temporary scheduled fixtures keep normal calendar coverage separate from the cancelled trip.
+const scheduledTrip = { ...tripEvent, id: 'scheduled-date-test-only', status: 'scheduled' };
+const crossingMonth = { ...scheduledTrip, id: 'month-test-only', startDate: '2026-10-31', endDate: '2026-11-02' };
+const crossingYear = { ...scheduledTrip, id: 'year-test-only', startDate: '2026-12-31', endDate: '2027-01-02' };
+const cancelledCrossingMonth = { ...tripEvent, id: 'cancelled-month-test-only', startDate: '2027-02-28', endDate: '2027-03-02' };
+const reviewedActivityCount = activities.length;
+activities.push(scheduledTrip, crossingMonth, crossingYear, cancelledCrossingMonth);
 try {
+  assert.deepEqual(activitiesOnDate('2026-11-22'), [scheduledTrip]);
+  assert.deepEqual(activitiesOnDate('2026-11-23'), [scheduledTrip]);
+  assert.deepEqual(activitiesOnDate('2026-11-21'), []);
+  assert.deepEqual(activitiesOnDate('2026-11-24'), []);
+  assert.deepEqual(activitiesInMonth(2026, 9), [crossingMonth]);
+  assert.deepEqual(activitiesInMonth(2026, 10), [scheduledTrip, crossingMonth]);
+  for (const dateKey of ['2026-10-31', '2026-11-01', '2026-11-02']) {
+    assert.deepEqual(activitiesOnDate(dateKey), [crossingMonth]);
+  }
+  assert.deepEqual(activitiesOnDate('2026-11-03'), []);
   assert.deepEqual(activitiesInMonth(2026, 11), [crossingYear]);
   assert.deepEqual(activitiesInMonth(2027, 0), [crossingYear]);
+  assert.deepEqual(activitiesOnDate('2026-12-31'), [crossingYear]);
   assert.deepEqual(activitiesOnDate('2027-01-01'), [crossingYear]);
+  assert.deepEqual(activitiesOnDate('2027-01-02'), [crossingYear]);
+  assert.deepEqual(activitiesOnDate('2027-01-03'), []);
   assert.deepEqual(activitiesInMonth(2027, 1), []);
+  assert.deepEqual(activitiesInMonth(2027, 2), []);
+  for (const dateKey of ['2027-02-28', '2027-03-01', '2027-03-02']) {
+    assert.deepEqual(activitiesOnDate(dateKey), [], `Cancelled fixture must not appear on ${dateKey}`);
+  }
 } finally {
-  activities.pop();
+  activities.splice(reviewedActivityCount);
 }
 
-console.log('Activity facts, itinerary, calendar ranges and Taipei deadline boundaries — OK');
+console.log('Activity facts, cancellation filtering, calendar ranges and Taipei deadline boundaries — OK');

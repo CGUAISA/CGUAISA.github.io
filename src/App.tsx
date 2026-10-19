@@ -4,7 +4,6 @@ import {
   ArrowUpRight,
   BookOpen,
   Camera,
-  CalendarDays,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
@@ -20,7 +19,7 @@ import ResourceTabs from './components/ResourceTabs';
 import WorkVisual from './components/WorkVisual';
 import CoursesPage from './components/CoursesPage';
 import EventsPage from './components/EventsPage';
-import { activities, activitiesInMonth, activitiesOnDate, activityHref, tripEvent } from './data/events';
+import { activitiesOnDate, activityHref, tripEvent } from './data/events';
 import { useScrollReveal } from './hooks/useScrollReveal';
 
 type Theme = 'light' | 'dark';
@@ -33,9 +32,9 @@ const contact = {
 
 const notices = [
   {
-    marker: '活動',
+    marker: tripEvent.status === 'cancelled' ? '取消' : '活動',
     category: '活動消息',
-    title: `${tripEvent.term} ${tripEvent.title}`,
+    title: `${tripEvent.term} ${tripEvent.title}${tripEvent.status === 'cancelled' ? '（已取消）' : ''}`,
     href: activityHref,
   },
   {
@@ -54,21 +53,19 @@ const events = [
   {
     number: '01',
     title: tripEvent.title,
-    state: tripEvent.dateLabel,
-    tone: 'orange',
+    state: tripEvent.status === 'cancelled' ? '已取消' : tripEvent.dateLabel,
+    cancelled: tripEvent.status === 'cancelled',
     href: activityHref,
   },
   {
     number: '02',
     title: '工作坊',
     state: '企劃中',
-    tone: 'blue',
   },
   {
     number: '03',
     title: '成果交流',
     state: '企劃中',
-    tone: 'lime',
   },
 ];
 
@@ -119,7 +116,7 @@ function Brand() {
       </span>
       <span className="brand-copy">
         <strong>CGU AISA</strong>
-        <small>人工智慧學系系學會</small>
+        <small>長庚大學AI系學會</small>
       </span>
     </span>
   );
@@ -156,24 +153,28 @@ function NoticeRow({ notice }: { notice: (typeof notices)[number] }) {
   );
 }
 
-function EventCard({ event }: { event: (typeof events)[number] }) {
-  return (
-    <article className="event-card" data-reveal="up" data-reveal-delay={String((Number(event.number) - 1) * 100)}>
-      <div className={`event-poster event-poster-${event.tone}`}>
-        <strong aria-hidden="true">{event.number}</strong>
+function EventListItem({ event }: { event: (typeof events)[number] }) {
+  const content = (
+    <>
+      <div className="activity-preview-heading">
         <h3>{event.title}</h3>
+        <span className="activity-preview-state">{event.state}</span>
       </div>
-      <div className="event-body">
-        <div className="event-meta">
-          <CalendarDays size={15} aria-hidden="true" />
-          <span>{event.state}</span>
-        </div>
-        {event.href && (
-          <a className="event-card-link" href={event.href}>
-            活動詳情 <ArrowRight size={17} aria-hidden="true" />
-          </a>
-        )}
-      </div>
+      {event.href && (
+        <span className="activity-preview-action">
+          {event.cancelled ? '查看公告' : '活動詳情'} <ArrowUpRight size={20} aria-hidden="true" />
+        </span>
+      )}
+    </>
+  );
+
+  return event.href ? (
+    <a className={`activity-preview-row ${event.cancelled ? 'is-cancelled' : 'is-scheduled'}`} href={event.href} data-reveal="up">
+      {content}
+    </a>
+  ) : (
+    <article className="activity-preview-row" data-reveal="up">
+      {content}
     </article>
   );
 }
@@ -198,8 +199,6 @@ function MiniCalendar() {
   const year = visibleMonth.getFullYear();
   const month = visibleMonth.getMonth();
   const firstWeekday = new Date(year, month, 1).getDay();
-  const monthActivities = activitiesInMonth(year, month);
-  const calendarActivities = monthActivities.length ? monthActivities : activities;
   const todayKey = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
   const calendarDays = Array.from({ length: 42 }, (_, index) => {
     const date = new Date(year, month, index - firstWeekday + 1);
@@ -214,8 +213,8 @@ function MiniCalendar() {
     <section id="calendar" className="mini-calendar" aria-label="月份行事曆">
       <div className="mini-calendar-header">
         <div>
-          <span>Semester calendar</span>
-          <h4>{year} 年 {month + 1} 月</h4>
+          <span>行事曆</span>
+          <h3 aria-live="polite" aria-atomic="true">{year} 年 {month + 1} 月</h3>
         </div>
         <div className="mini-calendar-controls">
           <button
@@ -264,16 +263,6 @@ function MiniCalendar() {
         <span><i aria-hidden="true" />今天・{today.getMonth() + 1}/{today.getDate()}</span>
         <span><i className="calendar-event-key" aria-hidden="true" />活動</span>
       </p>
-      <div className="mini-calendar-events">
-        <p className="calendar-events-heading">{monthActivities.length ? '本月活動' : '活動資訊'}</p>
-        {calendarActivities.map((activity) => (
-          <a className="calendar-event-link" key={activity.id} href={`/events/#${activity.id}`}>
-            <strong>{activity.title}</strong>
-            <span>{activity.dateLabel}</span>
-            <ArrowRight size={17} aria-hidden="true" />
-          </a>
-        ))}
-      </div>
     </section>
   );
 }
@@ -515,8 +504,26 @@ export default function Home() {
                     <ExternalLink size={17} aria-hidden="true" />
                   </a>
                 </nav>
-                <MiniCalendar />
               </aside>
+            </div>
+          </div>
+        </section>
+
+        <section id="events" className="section events-section home-activities" aria-labelledby="home-activities-title">
+          <div className="container">
+            <div className="section-heading split-heading" data-reveal="up">
+              <div>
+                <h2 id="home-activities-title">近期活動</h2>
+              </div>
+            </div>
+
+            <div className="home-activities-layout">
+              <MiniCalendar />
+              <div className="home-activity-list" aria-label="近期活動列表">
+                {events.map((event) => (
+                  <EventListItem key={event.number} event={event} />
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -535,22 +542,6 @@ export default function Home() {
               <div className="work-side">
                 {workItems.slice(1).map((item) => <WorkFeature key={item.index} item={item} direction="right" />)}
               </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="events" className="section events-section">
-          <div className="container">
-            <div className="section-heading split-heading" data-reveal="up">
-              <div>
-                <h2>近期活動</h2>
-              </div>
-            </div>
-
-            <div className="events-grid">
-              {events.map((event) => (
-                <EventCard key={event.number} event={event} />
-              ))}
             </div>
           </div>
         </section>

@@ -3,6 +3,7 @@ import { registrationDeadlinePassed, tripEvent } from '../data/events';
 
 export default function EventsPage() {
   const deadlinePassed = registrationDeadlinePassed(tripEvent);
+  const cancelled = tripEvent.status === 'cancelled';
 
   return (
     <main id="main-content" className="events-page">
@@ -25,7 +26,7 @@ export default function EventsPage() {
                 <span className="trip-term">{tripEvent.term}</span>
                 <h2 id="trip-title">{tripEvent.title}</h2>
               </div>
-              <a
+              {cancelled ? <span className="trip-status">已取消</span> : <a
                 className="button button-primary trip-signup"
                 href={tripEvent.formUrl}
                 target="_blank"
@@ -34,9 +35,15 @@ export default function EventsPage() {
               >
                 {deadlinePassed ? '查看原表單' : '填寫報名表'}
                 <ArrowUpRight size={19} aria-hidden="true" />
-              </a>
+              </a>}
             </div>
 
+            {cancelled ? (
+              <div className="trip-cancelled-notice">
+                <p>原訂 {tripEvent.dateLabel} 的系遊已取消，不再開放報名。</p>
+                <a href="/#contact">聯絡系學會 <ArrowUpRight size={18} aria-hidden="true" /></a>
+              </div>
+            ) : <>
             <dl className="trip-facts">
               <div>
                 <dt>活動日期</dt>
@@ -90,6 +97,7 @@ export default function EventsPage() {
               依報名表整理，行程與報名狀態以原表單為準。{' '}
               <a href={tripEvent.formUrl} target="_blank" rel="noopener noreferrer" aria-label="原始報名表（開啟新分頁）">原始報名表</a>
             </p>
+            </>}
           </article>
         </div>
       </section>
