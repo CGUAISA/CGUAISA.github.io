@@ -1,5 +1,5 @@
 import { ArrowUpRight } from 'lucide-react';
-import { registrationDeadlinePassed, tripEvent } from '../data/events';
+import { gatheringEvent, registrationDeadlinePassed, tripEvent } from '../data/events';
 
 export default function EventsPage() {
   const deadlinePassed = registrationDeadlinePassed(tripEvent);
@@ -20,22 +20,74 @@ export default function EventsPage() {
 
       <section className="event-directory" aria-label="活動詳情">
         <div className="container">
+          <article className="trip-detail gathering-detail" id={gatheringEvent.id} aria-labelledby="gathering-title">
+            <div className="trip-detail-header">
+              <div>
+                <span className="trip-term">{gatheringEvent.term}</span>
+                <div className="gathering-title-row">
+                  <h2 id="gathering-title">{gatheringEvent.title}</h2>
+                  <span className="trip-status gathering-status">意願調查</span>
+                </div>
+              </div>
+              <a
+                className="button button-primary trip-signup"
+                href={gatheringEvent.formUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="填寫意願調查（開啟新分頁）"
+              >
+                填寫意願調查
+                <ArrowUpRight size={19} aria-hidden="true" />
+              </a>
+            </div>
+
+            <dl className="trip-facts gathering-facts">
+              <div>
+                <dt>預計日期</dt>
+                <dd>
+                  <time dateTime={`${gatheringEvent.startDate}T${gatheringEvent.time}:00+08:00`}>
+                    {gatheringEvent.startDate.replaceAll('-', '/')}（{gatheringEvent.weekdayLabel}）{gatheringEvent.time}
+                  </time>
+                </dd>
+              </div>
+              <div>
+                <dt>地點</dt>
+                <dd>{gatheringEvent.venue}</dd>
+              </div>
+              <div>
+                <dt>系學會費補助</dt>
+                <dd>
+                  額外補助 <strong>NT$ {gatheringEvent.subsidy.amount.toLocaleString('zh-TW')}</strong>
+                  <span className="gathering-eligibility">{gatheringEvent.subsidy.eligibility}</span>
+                </dd>
+              </div>
+            </dl>
+
+            <aside className="gathering-survey-notice" aria-label="意願調查說明">
+              <p>{gatheringEvent.surveyNotice}</p>
+            </aside>
+          </article>
+
           <article className="trip-detail" id={tripEvent.id} aria-labelledby="trip-title">
             <div className="trip-detail-header">
               <div>
                 <span className="trip-term">{tripEvent.term}</span>
                 <h2 id="trip-title">{tripEvent.title}</h2>
               </div>
-              {cancelled ? <span className="trip-status">已取消</span> : <a
-                className="button button-primary trip-signup"
-                href={tripEvent.formUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${deadlinePassed ? '查看原表單' : '填寫報名表'}（開啟新分頁）`}
-              >
-                {deadlinePassed ? '查看原表單' : '填寫報名表'}
-                <ArrowUpRight size={19} aria-hidden="true" />
-              </a>}
+              {cancelled ? (
+                <span className="trip-status">已取消</span>
+              ) : (
+                <a
+                  className="button button-primary trip-signup"
+                  href={tripEvent.formUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${deadlinePassed ? '查看原表單' : '填寫報名表'}（開啟新分頁）`}
+                >
+                  {deadlinePassed ? '查看原表單' : '填寫報名表'}
+                  <ArrowUpRight size={19} aria-hidden="true" />
+                </a>
+              )}
             </div>
 
             {cancelled ? (

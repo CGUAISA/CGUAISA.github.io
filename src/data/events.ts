@@ -1,4 +1,4 @@
-export type Activity = {
+type BaseActivity = {
   id: string;
   status: 'scheduled' | 'cancelled';
   term: string;
@@ -6,15 +6,19 @@ export type Activity = {
   startDate: string;
   endDate: string;
   dateLabel: string;
+  formUrl: string;
+  verifiedOn: string;
+};
+
+export type TripActivity = BaseActivity & {
+  kind: 'trip';
   deadlineLabel: string;
   registrationClosesAt: string;
-  formUrl: string;
   meeting: { place: string; time: string };
   fees: { label: string; amount: number }[];
   capacityNote: string;
   formationNote: string;
   refundNote: string;
-  verifiedOn: string;
   schedule: {
     title: string;
     dateLabel: string;
@@ -22,9 +26,22 @@ export type Activity = {
   }[];
 };
 
+export type GatheringActivity = BaseActivity & {
+  kind: 'gathering';
+  time: string;
+  weekdayLabel: string;
+  venue: string;
+  subsidy: { amount: number; eligibility: string };
+  formPurpose: 'interest-survey';
+  surveyNotice: string;
+};
+
+export type Activity = TripActivity | GatheringActivity;
+
 // 行程、費用與報名須知為取消前的 Google 表單記錄，日期以 115-1 學期換算。
 // 活動狀態依系學會更新；尚未提供取消原因或取消後的退款安排。
-export const tripEvent: Activity = {
+export const tripEvent: TripActivity = {
+  kind: 'trip',
   id: 'trip-115-1',
   status: 'cancelled',
   term: '115-1',
@@ -78,8 +95,29 @@ export const tripEvent: Activity = {
   ],
 };
 
-export const activities: Activity[] = [tripEvent];
+// 依 2026/10/25 系學會提供的公告整理；這是參與意願調查，並非正式報名。
+export const gatheringEvent: GatheringActivity = {
+  kind: 'gathering',
+  id: 'gathering-115-1',
+  status: 'scheduled',
+  term: '115-1',
+  title: '大家聚',
+  startDate: '2026-11-18',
+  endDate: '2026-11-18',
+  dateLabel: '11/18（三）18:30',
+  time: '18:30',
+  weekdayLabel: '三',
+  venue: '聚 日式鍋物',
+  subsidy: { amount: 200, eligibility: '已繳交系學會費的同學' },
+  formPurpose: 'interest-survey',
+  surveyNotice: '本表單僅供參與意願調查，並非正式報名。後續將再公布正式報名資訊。',
+  formUrl: 'https://forms.gle/BZJKAeYBpPhHPmYj9',
+  verifiedOn: '2026-10-25',
+};
+
+export const activities: Activity[] = [gatheringEvent, tripEvent];
 export const activityHref = '/events/#trip-115-1';
+export const gatheringHref = '/events/#gathering-115-1';
 
 function isDateKey(dateKey: string): boolean {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(dateKey)) return false;
@@ -106,6 +144,6 @@ export function activitiesInMonth(year: number, monthIndex: number): Activity[] 
     && activity.startDate <= lastDay && activity.endDate >= firstDay);
 }
 
-export function registrationDeadlinePassed(activity: Activity, now: Date = new Date()): boolean {
+export function registrationDeadlinePassed(activity: TripActivity, now: Date = new Date()): boolean {
   return now.getTime() >= new Date(activity.registrationClosesAt).getTime();
 }

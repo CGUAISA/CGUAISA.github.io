@@ -4,6 +4,8 @@ import {
   activityHref,
   activitiesInMonth,
   activitiesOnDate,
+  gatheringEvent,
+  gatheringHref,
   registrationDeadlinePassed,
   tripEvent,
 } from '../src/data/events.ts';
@@ -17,17 +19,32 @@ const isDateKey = (value) => typeof value === 'string'
 for (const activity of activities) {
   assert(activity.id && !ids.has(activity.id), 'Missing or duplicate activity id');
   ids.add(activity.id);
+  assert(['trip', 'gathering'].includes(activity.kind), 'Invalid activity kind');
   assert(['scheduled', 'cancelled'].includes(activity.status), 'Invalid activity status');
   assert(/^\d{3}-[12]$/.test(activity.term), 'Invalid academic term');
-  for (const key of ['title', 'dateLabel', 'deadlineLabel', 'capacityNote', 'formationNote', 'refundNote']) {
+  for (const key of ['title', 'dateLabel']) {
     assert(typeof activity[key] === 'string' && activity[key].trim(), `Missing ${key}`);
   }
   assert(isDateKey(activity.startDate) && isDateKey(activity.endDate), 'Invalid activity dates');
   assert(activity.startDate <= activity.endDate, 'Activity dates reversed');
   assert(isDateKey(activity.verifiedOn), 'Missing verification date');
+  assert(new URL(activity.formUrl).origin === 'https://forms.gle', 'Unexpected form URL');
+
+  if (activity.kind === 'gathering') {
+    assert(/^\d{2}:\d{2}$/.test(activity.time), 'Invalid gathering time');
+    assert(activity.weekdayLabel.trim() && activity.venue.trim(), 'Missing gathering details');
+    assert(Number.isInteger(activity.subsidy.amount) && activity.subsidy.amount >= 0, 'Invalid subsidy');
+    assert(activity.subsidy.eligibility.trim(), 'Missing subsidy eligibility');
+    assert.equal(activity.formPurpose, 'interest-survey', 'Gathering form must be an interest survey');
+    assert(activity.surveyNotice.trim(), 'Missing interest survey notice');
+    continue;
+  }
+
+  for (const key of ['deadlineLabel', 'capacityNote', 'formationNote', 'refundNote']) {
+    assert(typeof activity[key] === 'string' && activity[key].trim(), `Missing ${key}`);
+  }
   assert(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+08:00$/.test(activity.registrationClosesAt), 'Deadline must explicitly use Taipei time');
   assert(Number.isFinite(Date.parse(activity.registrationClosesAt)), 'Invalid registration deadline');
-  assert(new URL(activity.formUrl).origin === 'https://forms.gle', 'Unexpected form URL');
   assert(activity.meeting.place.trim() && activity.meeting.time.trim(), 'Missing meeting details');
   assert(Array.isArray(activity.fees) && activity.fees.length, 'Missing fees');
   for (const fee of activity.fees) {
@@ -41,9 +58,33 @@ for (const activity of activities) {
   }
 }
 
-assert.equal(activities.length, 1, 'Reviewed activity count changed');
-assert.equal(activities[0], tripEvent);
+assert.equal(activities.length, 2, 'Reviewed activity count changed');
+assert.deepEqual(activities, [gatheringEvent, tripEvent]);
 assert.equal(activityHref, '/events/#trip-115-1');
+assert.equal(gatheringHref, '/events/#gathering-115-1');
+assert.deepEqual(gatheringEvent, {
+  kind: 'gathering',
+  id: 'gathering-115-1',
+  status: 'scheduled',
+  term: '115-1',
+  title: '大家聚',
+  startDate: '2026-11-18',
+  endDate: '2026-11-18',
+  dateLabel: '11/18（三）18:30',
+  time: '18:30',
+  weekdayLabel: '三',
+  venue: '聚 日式鍋物',
+  subsidy: { amount: 200, eligibility: '已繳交系學會費的同學' },
+  formPurpose: 'interest-survey',
+  surveyNotice: '本表單僅供參與意願調查，並非正式報名。後續將再公布正式報名資訊。',
+  formUrl: 'https://forms.gle/BZJKAeYBpPhHPmYj9',
+  verifiedOn: '2026-10-25',
+}, 'Gathering must match the supplied announcement without invented details');
+assert.equal(new Date(`${gatheringEvent.startDate}T00:00:00Z`).getUTCDay(), 3, '11/18 must be Wednesday');
+for (const key of ['fees', 'deadlineLabel', 'registrationClosesAt', 'address', 'capacityNote']) {
+  assert.equal(Object.hasOwn(gatheringEvent, key), false, `Gathering must not invent ${key}`);
+}
+assert.equal(tripEvent.kind, 'trip');
 assert.equal(tripEvent.id, 'trip-115-1');
 assert.equal(tripEvent.status, 'cancelled');
 assert.equal(tripEvent.term, '115-1');
@@ -74,12 +115,15 @@ assert.deepEqual(tripEvent.schedule.map((day) => [day.title, day.dateLabel, day.
   ]],
 ]);
 
+assert.deepEqual(activitiesOnDate('2026-11-18'), [gatheringEvent], 'Gathering must appear on its announced date');
+assert.deepEqual(activitiesOnDate('2026-11-17'), [], 'Gathering must not start a day early');
+assert.deepEqual(activitiesOnDate('2026-11-19'), [], 'Gathering must not continue the next day');
 assert.deepEqual(activitiesOnDate('2026-11-22'), [], 'Cancelled trip must not appear on its first date');
 assert.deepEqual(activitiesOnDate('2026-11-23'), [], 'Cancelled trip must not appear on its last date');
 for (const dateKey of ['2026-11-21', '2026-11-24', '2026-10-12', '2025-11-22', '2027-11-22', '2026-02-30', '2026-11-22T00:00:00Z', 'invalid']) {
   assert.deepEqual(activitiesOnDate(dateKey), [], `Unexpected activity on ${dateKey}`);
 }
-assert.deepEqual(activitiesInMonth(2026, 10), [], 'Cancelled trip must not appear in November');
+assert.deepEqual(activitiesInMonth(2026, 10), [gatheringEvent], 'Only the scheduled gathering must appear in November');
 for (const [year, monthIndex] of [[2026, 9], [2026, 11], [2025, 10], [2027, 10], [2026, -1], [2026, 12], [2026, 10.5], [NaN, 10]]) {
   assert.deepEqual(activitiesInMonth(year, monthIndex), [], `Unexpected activity in ${year}/${monthIndex + 1}`);
 }
@@ -107,7 +151,7 @@ try {
   assert.deepEqual(activitiesOnDate('2026-11-21'), []);
   assert.deepEqual(activitiesOnDate('2026-11-24'), []);
   assert.deepEqual(activitiesInMonth(2026, 9), [crossingMonth]);
-  assert.deepEqual(activitiesInMonth(2026, 10), [scheduledTrip, crossingMonth]);
+  assert.deepEqual(activitiesInMonth(2026, 10), [gatheringEvent, scheduledTrip, crossingMonth]);
   for (const dateKey of ['2026-10-31', '2026-11-01', '2026-11-02']) {
     assert.deepEqual(activitiesOnDate(dateKey), [crossingMonth]);
   }
@@ -127,4 +171,4 @@ try {
   activities.splice(reviewedActivityCount);
 }
 
-console.log('Activity facts, cancellation filtering, calendar ranges and Taipei deadline boundaries — OK');
+console.log('Activity facts, gathering interest survey, cancellation filtering, calendar ranges and Taipei deadline boundaries — OK');

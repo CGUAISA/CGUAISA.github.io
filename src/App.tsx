@@ -19,7 +19,7 @@ import ResourceTabs from './components/ResourceTabs';
 import WorkVisual from './components/WorkVisual';
 import CoursesPage from './components/CoursesPage';
 import EventsPage from './components/EventsPage';
-import { activitiesOnDate, activityHref, tripEvent } from './data/events';
+import { activitiesOnDate, activityHref, gatheringEvent, gatheringHref, tripEvent } from './data/events';
 import { useScrollReveal } from './hooks/useScrollReveal';
 
 type Theme = 'light' | 'dark';
@@ -31,6 +31,12 @@ const contact = {
 };
 
 const notices = [
+  {
+    marker: '調查',
+    category: '活動消息',
+    title: `${gatheringEvent.title}｜參與意願調查`,
+    href: gatheringHref,
+  },
   {
     marker: tripEvent.status === 'cancelled' ? '取消' : '活動',
     category: '活動消息',
@@ -52,18 +58,24 @@ const notices = [
 const events = [
   {
     number: '01',
+    title: gatheringEvent.title,
+    state: `${gatheringEvent.dateLabel} · 意願調查`,
+    href: gatheringHref,
+  },
+  {
+    number: '02',
     title: tripEvent.title,
     state: tripEvent.status === 'cancelled' ? '已取消' : tripEvent.dateLabel,
     cancelled: tripEvent.status === 'cancelled',
     href: activityHref,
   },
   {
-    number: '02',
+    number: '03',
     title: '工作坊',
     state: '企劃中',
   },
   {
-    number: '03',
+    number: '04',
     title: '成果交流',
     state: '企劃中',
   },

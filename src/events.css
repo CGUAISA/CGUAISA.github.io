@@ -27,6 +27,10 @@
   scroll-margin-top: 112px;
 }
 
+.reference-design .trip-detail + .trip-detail {
+  margin-top: 32px;
+}
+
 .reference-design .trip-detail-header {
   display: flex;
   align-items: center;
@@ -122,6 +126,62 @@
   font-weight: 500;
   line-height: 1.8;
   overflow-wrap: anywhere;
+}
+
+.reference-design .gathering-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 18px;
+}
+
+.reference-design .gathering-status {
+  border-color: transparent;
+  background: color-mix(in srgb, var(--accent) 9%, var(--surface-raised));
+  color: var(--accent-text);
+}
+
+.reference-design .gathering-facts {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  padding-top: 26px;
+  border-top: 1px solid var(--line);
+}
+
+.reference-design .gathering-facts > div {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.reference-design .gathering-facts strong {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.reference-design .gathering-eligibility {
+  display: block;
+  margin-top: 4px;
+  color: var(--text-soft);
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.reference-design .gathering-survey-notice {
+  margin-top: 28px;
+  padding: 18px 22px;
+  border-left: 3px solid var(--accent);
+  background: color-mix(in srgb, var(--accent) 6%, var(--surface-raised));
+}
+
+.reference-design .gathering-survey-notice p {
+  max-width: 58ch;
+  margin: 0;
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.9;
 }
 
 .reference-design .trip-fees p {
@@ -640,6 +700,11 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     margin-top: 28px;
   }
+
+  .reference-design .gathering-facts {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 22px;
+  }
 }
 
 @media (max-width: 540px) {
@@ -689,6 +754,10 @@
     scroll-margin-top: 90px;
   }
 
+  .reference-design .trip-detail + .trip-detail {
+    margin-top: 24px;
+  }
+
   .reference-design .trip-signup {
     width: 100%;
     justify-content: center;
@@ -705,6 +774,19 @@
 
   .reference-design .trip-facts dt {
     margin-bottom: 5px;
+  }
+
+  .reference-design .gathering-facts {
+    gap: 22px;
+  }
+
+  .reference-design .gathering-facts > div {
+    padding: 0;
+  }
+
+  .reference-design .gathering-survey-notice {
+    margin-top: 24px;
+    padding: 16px;
   }
 
   .reference-design .trip-schedule {
