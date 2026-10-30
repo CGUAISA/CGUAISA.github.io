@@ -184,6 +184,179 @@
   line-height: 1.9;
 }
 
+.reference-design .gathering-survey-notice a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  margin-top: 8px;
+  color: var(--accent-text);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.reference-design .formal-gathering-detail,
+.reference-design .formal-gathering-heading {
+  min-width: 0;
+}
+
+.reference-design .formal-gathering-header {
+  align-items: flex-start;
+}
+
+.reference-design .formal-gathering-heading {
+  flex: 1 1 auto;
+}
+
+.reference-design .formal-gathering-heading h2 {
+  max-width: 36ch;
+  overflow-wrap: anywhere;
+}
+
+.reference-design .formal-gathering-status {
+  margin-top: 14px;
+}
+
+.reference-design .formal-gathering-introduction {
+  max-width: 78ch;
+  margin: 24px 0 0;
+  color: var(--text-soft);
+  font-size: 18px;
+  line-height: 1.9;
+}
+
+.reference-design .gathering-map-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent-text);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+}
+
+.reference-design .gathering-map-link svg {
+  flex: 0 0 auto;
+}
+
+.reference-design .trip-signup.registration-closed:disabled {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text-soft);
+  cursor: not-allowed;
+  opacity: 1;
+  box-shadow: none;
+  transform: none;
+}
+
+.reference-design .formal-gathering-section {
+  margin-top: 32px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+
+.reference-design .formal-gathering-section h3 {
+  margin: 0 0 16px;
+  font-size: 24px;
+  line-height: 1.5;
+}
+
+.reference-design .formal-gathering-section > p {
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 18px;
+  line-height: 1.9;
+}
+
+.reference-design .formal-gathering-section > p + p {
+  margin-top: 8px;
+}
+
+.reference-design .formal-gathering-section .formal-gathering-examples {
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.reference-design .formal-gathering-section .gathering-table-hint {
+  display: none;
+}
+
+.reference-design .gathering-subsidy-table-wrapper {
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+}
+
+.reference-design .gathering-subsidy-table-wrapper:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.reference-design .gathering-subsidy-table {
+  width: 100%;
+  min-width: 700px;
+  border-collapse: collapse;
+  color: var(--text);
+  font-size: 17px;
+  line-height: 1.8;
+  text-align: left;
+}
+
+.reference-design .gathering-subsidy-table th,
+.reference-design .gathering-subsidy-table td {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.reference-design .gathering-subsidy-table thead th {
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.reference-design .gathering-subsidy-table tbody th {
+  min-width: 170px;
+  font-weight: 500;
+}
+
+.reference-design .gathering-subsidy-table tbody tr:last-child th,
+.reference-design .gathering-subsidy-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.reference-design .gathering-subsidy-amount {
+  color: var(--accent-text);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.reference-design .gathering-rules {
+  margin: 0;
+}
+
+.reference-design .gathering-rules > div + div {
+  margin-top: 24px;
+}
+
+.reference-design .gathering-rules dt {
+  margin-bottom: 6px;
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.reference-design .gathering-rules dd {
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 17px;
+  line-height: 1.9;
+}
+
 .reference-design .trip-fees p {
   display: flex;
   flex-wrap: wrap;
@@ -705,6 +878,13 @@
     grid-template-columns: minmax(0, 1fr);
     gap: 22px;
   }
+
+  .reference-design .formal-gathering-section .gathering-table-hint {
+    display: block;
+    margin: -4px 0 14px;
+    color: var(--muted);
+    font-size: 14px;
+  }
 }
 
 @media (max-width: 540px) {
@@ -786,6 +966,20 @@
 
   .reference-design .gathering-survey-notice {
     margin-top: 24px;
+    padding: 16px;
+  }
+
+  .reference-design .formal-gathering-section {
+    margin-top: 28px;
+    padding-top: 24px;
+  }
+
+  .reference-design .formal-gathering-section h3 {
+    font-size: 22px;
+  }
+
+  .reference-design .gathering-subsidy-table th,
+  .reference-design .gathering-subsidy-table td {
     padding: 16px;
   }
 

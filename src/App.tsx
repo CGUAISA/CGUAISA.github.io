@@ -19,8 +19,9 @@ import ResourceTabs from './components/ResourceTabs';
 import WorkVisual from './components/WorkVisual';
 import CoursesPage from './components/CoursesPage';
 import EventsPage from './components/EventsPage';
-import { activitiesOnDate, activityHref, gatheringEvent, gatheringHref, tripEvent } from './data/events';
+import { activitiesOnDate, activityHref, gatheringEvent, gatheringHref, gatheringRegistrationEvent, gatheringRegistrationHref, tripEvent } from './data/events';
 import { useScrollReveal } from './hooks/useScrollReveal';
+import { useRegistrationDeadline } from './hooks/useRegistrationDeadline';
 
 type Theme = 'light' | 'dark';
 
@@ -34,7 +35,7 @@ const notices = [
   {
     marker: '調查',
     category: '活動消息',
-    title: `${gatheringEvent.title}｜參與意願調查`,
+    title: `${gatheringEvent.title}｜前期意願調查`,
     href: gatheringHref,
   },
   {
@@ -59,7 +60,7 @@ const events = [
   {
     number: '01',
     title: gatheringEvent.title,
-    state: `${gatheringEvent.dateLabel} · 意願調查`,
+    state: `${gatheringEvent.dateLabel} · 前期意願調查`,
     href: gatheringHref,
   },
   {
@@ -340,7 +341,27 @@ function TeamPage() {
 
 export default function Home() {
   const [theme, setTheme] = useState<Theme>(getInitialTheme);
+  const gatheringRegistrationClosed = useRegistrationDeadline(gatheringRegistrationEvent);
   useScrollReveal();
+
+  const homeNotices = [
+    {
+      marker: gatheringRegistrationClosed ? '截止' : '報名',
+      category: '活動消息',
+      title: `${gatheringRegistrationEvent.title}｜${gatheringRegistrationClosed ? '報名已截止' : '正式報名'}`,
+      href: gatheringRegistrationHref,
+    },
+    ...notices,
+  ];
+  const homeEvents = [
+    {
+      number: 'gathering-registration',
+      title: '大家聚・正式報名',
+      state: `${gatheringRegistrationEvent.dateLabel}${gatheringRegistrationClosed ? ' · 報名已截止' : ''}`,
+      href: gatheringRegistrationHref,
+    },
+    ...events,
+  ];
 
   useEffect(() => {
     if (!window.location.hash) return;
@@ -484,8 +505,8 @@ export default function Home() {
 
             <div className="content-grid">
               <div className="notice-list">
-                {notices.map((notice) => (
-                  <NoticeRow key={notice.title} notice={notice} />
+                {homeNotices.map((notice) => (
+                  <NoticeRow key={notice.href ?? notice.title} notice={notice} />
                 ))}
               </div>
 
@@ -532,7 +553,7 @@ export default function Home() {
             <div className="home-activities-layout">
               <MiniCalendar />
               <div className="home-activity-list" aria-label="近期活動列表">
-                {events.map((event) => (
+                {homeEvents.map((event) => (
                   <EventListItem key={event.number} event={event} />
                 ))}
               </div>

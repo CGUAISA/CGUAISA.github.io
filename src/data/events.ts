@@ -8,6 +8,7 @@ type BaseActivity = {
   dateLabel: string;
   formUrl: string;
   verifiedOn: string;
+  calendarVisible?: boolean;
 };
 
 export type TripActivity = BaseActivity & {
@@ -36,7 +37,30 @@ export type GatheringActivity = BaseActivity & {
   surveyNotice: string;
 };
 
-export type Activity = TripActivity | GatheringActivity;
+export type GatheringRegistrationActivity = BaseActivity & {
+  kind: 'gathering-registration';
+  time: string;
+  weekdayLabel: string;
+  venue: string;
+  mapUrl: string;
+  formPurpose: 'registration';
+  deadlineLabel: string;
+  registrationClosesAt: string;
+  introduction: string;
+  advisorRule: string;
+  advisorExamples: string[];
+  subsidyOptions: {
+    id: string;
+    mentee: boolean;
+    paidFee: boolean;
+    amount: number;
+    isMaximum: boolean;
+    detail: string;
+  }[];
+  rules: { title: string; description: string }[];
+};
+
+export type Activity = TripActivity | GatheringActivity | GatheringRegistrationActivity;
 
 // 行程、費用與報名須知為取消前的 Google 表單記錄，日期以 115-1 學期換算。
 // 活動狀態依系學會更新；尚未提供取消原因或取消後的退款安排。
@@ -113,11 +137,59 @@ export const gatheringEvent: GatheringActivity = {
   surveyNotice: '本表單僅供參與意願調查，並非正式報名。後續將再公布正式報名資訊。',
   formUrl: 'https://forms.gle/BZJKAeYBpPhHPmYj9',
   verifiedOn: '2026-10-25',
+  // 保留前期意願調查；同日的月曆入口以正式報名公告為主。
+  calendarVisible: false,
 };
 
-export const activities: Activity[] = [gatheringEvent, tripEvent];
+// 依 2026/10/30 系學會提供的最終公告整理，與前期意願調查分開保留。
+export const gatheringRegistrationEvent: GatheringRegistrationActivity = {
+  kind: 'gathering-registration',
+  id: 'gathering-registration-115-1',
+  status: 'scheduled',
+  term: '115-1',
+  title: '大家聚 × Renata 老師導生家聚',
+  startDate: '2026-11-18',
+  endDate: '2026-11-18',
+  dateLabel: '11/18（三）18:30',
+  time: '18:30',
+  weekdayLabel: '三',
+  venue: '聚 日式鍋物 林口文化店',
+  mapUrl: 'https://share.google/ywTCbH7GbDsL6GPTg',
+  formPurpose: 'registration',
+  deadlineLabel: '2026/11/06（五）23:59',
+  // 截止包含台北時間 11/06 23:59 的整分鐘。
+  registrationClosesAt: '2026-11-07T00:00:00+08:00',
+  introduction: '本學期系上大家聚將與 Renata 老師導生家聚合併辦理，歡迎大家一起聚餐交流！',
+  advisorRule: '學號純數字除以 4 餘數為 3 者，即為 Renata 老師導生。',
+  advisorExamples: ['03', '07', '11', '15'],
+  subsidyOptions: [
+    { id: 'mentee-paid', mentee: true, paidFee: true, amount: 600, isMaximum: true, detail: '導生費 400 元＋系學會現金 200 元' },
+    { id: 'mentee-unpaid', mentee: true, paidFee: false, amount: 400, isMaximum: true, detail: '導生費 400 元' },
+    { id: 'non-mentee-paid', mentee: false, paidFee: true, amount: 200, isMaximum: false, detail: '現場發放現金' },
+    { id: 'non-mentee-unpaid', mentee: false, paidFee: false, amount: 0, isMaximum: false, detail: '自費參加' },
+  ],
+  rules: [
+    {
+      title: '系學會補助（200 元）',
+      description: '活動當天報到時現場發放現金。若實際餐費未達補助總額，剩餘現金可自行保留，無須退回。',
+    },
+    {
+      title: '自付差額',
+      description: '現場個人各自點餐付款，若金額超過補助總額，超出部分由個人負擔。',
+    },
+    {
+      title: '出席規範',
+      description: '名額以表單登記為準，當天需本人到場簽到領取，未到者視同放棄，不得代領。',
+    },
+  ],
+  formUrl: 'https://forms.gle/XcFL4tUAgPeXkHqA7',
+  verifiedOn: '2026-10-30',
+};
+
+export const activities: Activity[] = [gatheringRegistrationEvent, gatheringEvent, tripEvent];
 export const activityHref = '/events/#trip-115-1';
 export const gatheringHref = '/events/#gathering-115-1';
+export const gatheringRegistrationHref = '/events/#gathering-registration-115-1';
 
 function isDateKey(dateKey: string): boolean {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(dateKey)) return false;
@@ -127,7 +199,7 @@ function isDateKey(dateKey: string): boolean {
 
 export function activitiesOnDate(dateKey: string): Activity[] {
   if (!isDateKey(dateKey)) return [];
-  return activities.filter((activity) => activity.status === 'scheduled'
+  return activities.filter((activity) => activity.status === 'scheduled' && activity.calendarVisible !== false
     && activity.startDate <= dateKey && activity.endDate >= dateKey);
 }
 
@@ -140,10 +212,13 @@ export function activitiesInMonth(year: number, monthIndex: number): Activity[] 
   const lastDate = new Date(`${firstDay}T00:00:00Z`);
   lastDate.setUTCMonth(lastDate.getUTCMonth() + 1, 0);
   const lastDay = lastDate.toISOString().slice(0, 10);
-  return activities.filter((activity) => activity.status === 'scheduled'
+  return activities.filter((activity) => activity.status === 'scheduled' && activity.calendarVisible !== false
     && activity.startDate <= lastDay && activity.endDate >= firstDay);
 }
 
-export function registrationDeadlinePassed(activity: TripActivity, now: Date = new Date()): boolean {
+export function registrationDeadlinePassed(
+  activity: Pick<TripActivity | GatheringRegistrationActivity, 'registrationClosesAt'>,
+  now: Date = new Date(),
+): boolean {
   return now.getTime() >= new Date(activity.registrationClosesAt).getTime();
 }

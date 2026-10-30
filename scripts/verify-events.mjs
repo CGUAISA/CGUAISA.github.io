@@ -6,6 +6,8 @@ import {
   activitiesOnDate,
   gatheringEvent,
   gatheringHref,
+  gatheringRegistrationEvent,
+  gatheringRegistrationHref,
   registrationDeadlinePassed,
   tripEvent,
 } from '../src/data/events.ts';
@@ -19,7 +21,7 @@ const isDateKey = (value) => typeof value === 'string'
 for (const activity of activities) {
   assert(activity.id && !ids.has(activity.id), 'Missing or duplicate activity id');
   ids.add(activity.id);
-  assert(['trip', 'gathering'].includes(activity.kind), 'Invalid activity kind');
+  assert(['trip', 'gathering', 'gathering-registration'].includes(activity.kind), 'Invalid activity kind');
   assert(['scheduled', 'cancelled'].includes(activity.status), 'Invalid activity status');
   assert(/^\d{3}-[12]$/.test(activity.term), 'Invalid academic term');
   for (const key of ['title', 'dateLabel']) {
@@ -29,6 +31,27 @@ for (const activity of activities) {
   assert(activity.startDate <= activity.endDate, 'Activity dates reversed');
   assert(isDateKey(activity.verifiedOn), 'Missing verification date');
   assert(new URL(activity.formUrl).origin === 'https://forms.gle', 'Unexpected form URL');
+
+  if (activity.kind === 'gathering-registration') {
+    assert(/^\d{2}:\d{2}$/.test(activity.time), 'Invalid registration event time');
+    assert(activity.weekdayLabel.trim() && activity.venue.trim(), 'Missing registration event details');
+    assert.equal(new URL(activity.mapUrl).origin, 'https://share.google', 'Unexpected venue link');
+    assert.equal(activity.formPurpose, 'registration', 'Formal gathering form must be registration');
+    assert(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+08:00$/.test(activity.registrationClosesAt), 'Registration deadline must explicitly use Taipei time');
+    assert(Number.isFinite(Date.parse(activity.registrationClosesAt)), 'Invalid gathering deadline');
+    assert(activity.deadlineLabel.trim() && activity.introduction.trim() && activity.advisorRule.trim(), 'Missing formal announcement details');
+    assert.equal(activity.subsidyOptions.length, 4, 'All four subsidy eligibility cases must be present');
+    for (const option of activity.subsidyOptions) {
+      assert(Number.isInteger(option.amount) && option.amount >= 0, 'Invalid subsidy amount');
+      assert.equal(typeof option.mentee, 'boolean');
+      assert.equal(typeof option.paidFee, 'boolean');
+      assert.equal(typeof option.isMaximum, 'boolean');
+      assert(option.detail.trim(), 'Missing subsidy detail');
+    }
+    assert.equal(activity.rules.length, 3, 'All dining and payment rules must be present');
+    for (const rule of activity.rules) assert(rule.title.trim() && rule.description.trim(), 'Missing dining rule');
+    continue;
+  }
 
   if (activity.kind === 'gathering') {
     assert(/^\d{2}:\d{2}$/.test(activity.time), 'Invalid gathering time');
@@ -58,10 +81,11 @@ for (const activity of activities) {
   }
 }
 
-assert.equal(activities.length, 2, 'Reviewed activity count changed');
-assert.deepEqual(activities, [gatheringEvent, tripEvent]);
+assert.equal(activities.length, 3, 'Reviewed activity count changed');
+assert.deepEqual(activities, [gatheringRegistrationEvent, gatheringEvent, tripEvent]);
 assert.equal(activityHref, '/events/#trip-115-1');
 assert.equal(gatheringHref, '/events/#gathering-115-1');
+assert.equal(gatheringRegistrationHref, '/events/#gathering-registration-115-1');
 assert.deepEqual(gatheringEvent, {
   kind: 'gathering',
   id: 'gathering-115-1',
@@ -79,11 +103,50 @@ assert.deepEqual(gatheringEvent, {
   surveyNotice: '本表單僅供參與意願調查，並非正式報名。後續將再公布正式報名資訊。',
   formUrl: 'https://forms.gle/BZJKAeYBpPhHPmYj9',
   verifiedOn: '2026-10-25',
+  calendarVisible: false,
 }, 'Gathering must match the supplied announcement without invented details');
 assert.equal(new Date(`${gatheringEvent.startDate}T00:00:00Z`).getUTCDay(), 3, '11/18 must be Wednesday');
 for (const key of ['fees', 'deadlineLabel', 'registrationClosesAt', 'address', 'capacityNote']) {
   assert.equal(Object.hasOwn(gatheringEvent, key), false, `Gathering must not invent ${key}`);
 }
+assert.deepEqual(gatheringRegistrationEvent, {
+  kind: 'gathering-registration',
+  id: 'gathering-registration-115-1',
+  status: 'scheduled',
+  term: '115-1',
+  title: '大家聚 × Renata 老師導生家聚',
+  startDate: '2026-11-18',
+  endDate: '2026-11-18',
+  dateLabel: '11/18（三）18:30',
+  time: '18:30',
+  weekdayLabel: '三',
+  venue: '聚 日式鍋物 林口文化店',
+  mapUrl: 'https://share.google/ywTCbH7GbDsL6GPTg',
+  formPurpose: 'registration',
+  deadlineLabel: '2026/11/06（五）23:59',
+  registrationClosesAt: '2026-11-07T00:00:00+08:00',
+  introduction: '本學期系上大家聚將與 Renata 老師導生家聚合併辦理，歡迎大家一起聚餐交流！',
+  advisorRule: '學號純數字除以 4 餘數為 3 者，即為 Renata 老師導生。',
+  advisorExamples: ['03', '07', '11', '15'],
+  subsidyOptions: [
+    { id: 'mentee-paid', mentee: true, paidFee: true, amount: 600, isMaximum: true, detail: '導生費 400 元＋系學會現金 200 元' },
+    { id: 'mentee-unpaid', mentee: true, paidFee: false, amount: 400, isMaximum: true, detail: '導生費 400 元' },
+    { id: 'non-mentee-paid', mentee: false, paidFee: true, amount: 200, isMaximum: false, detail: '現場發放現金' },
+    { id: 'non-mentee-unpaid', mentee: false, paidFee: false, amount: 0, isMaximum: false, detail: '自費參加' },
+  ],
+  rules: [
+    { title: '系學會補助（200 元）', description: '活動當天報到時現場發放現金。若實際餐費未達補助總額，剩餘現金可自行保留，無須退回。' },
+    { title: '自付差額', description: '現場個人各自點餐付款，若金額超過補助總額，超出部分由個人負擔。' },
+    { title: '出席規範', description: '名額以表單登記為準，當天需本人到場簽到領取，未到者視同放棄，不得代領。' },
+  ],
+  formUrl: 'https://forms.gle/XcFL4tUAgPeXkHqA7',
+  verifiedOn: '2026-10-30',
+}, 'Formal gathering must match the president-approved final announcement');
+assert.notEqual(gatheringRegistrationEvent.id, gatheringEvent.id, 'Survey and registration must retain distinct anchors');
+assert.notEqual(gatheringRegistrationEvent.formUrl, gatheringEvent.formUrl, 'The original interest survey must not be overwritten');
+assert.equal(new Date(`${gatheringRegistrationEvent.startDate}T00:00:00Z`).getUTCDay(), 3, 'The event must be Wednesday');
+assert.equal(new Date('2026-11-06T00:00:00Z').getUTCDay(), 5, 'The deadline must be Friday');
+for (const example of gatheringRegistrationEvent.advisorExamples) assert.equal(Number(example) % 4, 3, 'Advisor examples must have remainder 3');
 assert.equal(tripEvent.kind, 'trip');
 assert.equal(tripEvent.id, 'trip-115-1');
 assert.equal(tripEvent.status, 'cancelled');
@@ -115,7 +178,7 @@ assert.deepEqual(tripEvent.schedule.map((day) => [day.title, day.dateLabel, day.
   ]],
 ]);
 
-assert.deepEqual(activitiesOnDate('2026-11-18'), [gatheringEvent], 'Gathering must appear on its announced date');
+assert.deepEqual(activitiesOnDate('2026-11-18'), [gatheringRegistrationEvent], 'Only the formal event must appear on its announced date');
 assert.deepEqual(activitiesOnDate('2026-11-17'), [], 'Gathering must not start a day early');
 assert.deepEqual(activitiesOnDate('2026-11-19'), [], 'Gathering must not continue the next day');
 assert.deepEqual(activitiesOnDate('2026-11-22'), [], 'Cancelled trip must not appear on its first date');
@@ -123,7 +186,7 @@ assert.deepEqual(activitiesOnDate('2026-11-23'), [], 'Cancelled trip must not ap
 for (const dateKey of ['2026-11-21', '2026-11-24', '2026-10-12', '2025-11-22', '2027-11-22', '2026-02-30', '2026-11-22T00:00:00Z', 'invalid']) {
   assert.deepEqual(activitiesOnDate(dateKey), [], `Unexpected activity on ${dateKey}`);
 }
-assert.deepEqual(activitiesInMonth(2026, 10), [gatheringEvent], 'Only the scheduled gathering must appear in November');
+assert.deepEqual(activitiesInMonth(2026, 10), [gatheringRegistrationEvent], 'The preserved survey must not duplicate the formal calendar entry');
 for (const [year, monthIndex] of [[2026, 9], [2026, 11], [2025, 10], [2027, 10], [2026, -1], [2026, 12], [2026, 10.5], [NaN, 10]]) {
   assert.deepEqual(activitiesInMonth(year, monthIndex), [], `Unexpected activity in ${year}/${monthIndex + 1}`);
 }
@@ -138,6 +201,14 @@ assert.equal(registrationDeadlinePassed(tripEvent, new Date('2026-10-13T00:00:00
 assert.equal(registrationDeadlinePassed(tripEvent, new Date('2026-10-12T16:00:00Z')), true);
 assert.equal(registrationDeadlinePassed(tripEvent, new Date('2026-10-13T00:00:00.001+08:00')), true);
 
+// The final gathering deadline includes the full Taipei 11/06 23:59 minute.
+for (const timestamp of ['2026-10-30T12:00:00+08:00', '2026-11-06T00:00:00+08:00', '2026-11-06T23:59:00+08:00', '2026-11-06T23:59:59.999+08:00', '2026-11-06T15:59:59.999Z']) {
+  assert.equal(registrationDeadlinePassed(gatheringRegistrationEvent, new Date(timestamp)), false, `Registration closed too early at ${timestamp}`);
+}
+for (const timestamp of ['2026-11-07T00:00:00+08:00', '2026-11-07T00:00:00.001+08:00', '2026-11-06T16:00:00Z']) {
+  assert.equal(registrationDeadlinePassed(gatheringRegistrationEvent, new Date(timestamp)), true, `Registration remained open at ${timestamp}`);
+}
+
 // Temporary scheduled fixtures keep normal calendar coverage separate from the cancelled trip.
 const scheduledTrip = { ...tripEvent, id: 'scheduled-date-test-only', status: 'scheduled' };
 const crossingMonth = { ...scheduledTrip, id: 'month-test-only', startDate: '2026-10-31', endDate: '2026-11-02' };
@@ -151,7 +222,7 @@ try {
   assert.deepEqual(activitiesOnDate('2026-11-21'), []);
   assert.deepEqual(activitiesOnDate('2026-11-24'), []);
   assert.deepEqual(activitiesInMonth(2026, 9), [crossingMonth]);
-  assert.deepEqual(activitiesInMonth(2026, 10), [gatheringEvent, scheduledTrip, crossingMonth]);
+  assert.deepEqual(activitiesInMonth(2026, 10), [gatheringRegistrationEvent, scheduledTrip, crossingMonth]);
   for (const dateKey of ['2026-10-31', '2026-11-01', '2026-11-02']) {
     assert.deepEqual(activitiesOnDate(dateKey), [crossingMonth]);
   }
@@ -171,4 +242,4 @@ try {
   activities.splice(reviewedActivityCount);
 }
 
-console.log('Activity facts, gathering interest survey, cancellation filtering, calendar ranges and Taipei deadline boundaries — OK');
+console.log('Activity facts, preserved survey, formal registration subsidies, calendar filtering and Taipei deadline boundaries — OK');

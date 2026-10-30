@@ -1,9 +1,11 @@
 import { ArrowUpRight } from 'lucide-react';
-import { gatheringEvent, registrationDeadlinePassed, tripEvent } from '../data/events';
+import { gatheringEvent, gatheringRegistrationEvent, registrationDeadlinePassed, tripEvent } from '../data/events';
+import { useRegistrationDeadline } from '../hooks/useRegistrationDeadline';
 
 export default function EventsPage() {
   const deadlinePassed = registrationDeadlinePassed(tripEvent);
   const cancelled = tripEvent.status === 'cancelled';
+  const gatheringRegistrationClosed = useRegistrationDeadline(gatheringRegistrationEvent);
 
   return (
     <main id="main-content" className="events-page">
@@ -20,13 +22,119 @@ export default function EventsPage() {
 
       <section className="event-directory" aria-label="活動詳情">
         <div className="container">
+          <article className="trip-detail formal-gathering-detail" id={gatheringRegistrationEvent.id} aria-labelledby="gathering-registration-title">
+            <div className="trip-detail-header formal-gathering-header">
+              <div className="formal-gathering-heading">
+                <span className="trip-term">{gatheringRegistrationEvent.term}</span>
+                <h2 id="gathering-registration-title">{gatheringRegistrationEvent.title}</h2>
+                <span className="trip-status gathering-status formal-gathering-status">正式報名</span>
+              </div>
+              {gatheringRegistrationClosed ? (
+                <button className="button trip-signup registration-closed" type="button" disabled>
+                  報名已截止
+                </button>
+              ) : (
+                <a
+                  className="button button-primary trip-signup"
+                  href={gatheringRegistrationEvent.formUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="填寫正式報名（開啟新分頁）"
+                >
+                  填寫正式報名
+                  <ArrowUpRight size={19} aria-hidden="true" />
+                </a>
+              )}
+            </div>
+
+            <p className="formal-gathering-introduction">{gatheringRegistrationEvent.introduction}</p>
+
+            <dl className="trip-facts gathering-facts">
+              <div>
+                <dt>活動日期</dt>
+                <dd>
+                  <time dateTime={`${gatheringRegistrationEvent.startDate}T${gatheringRegistrationEvent.time}:00+08:00`}>
+                    {gatheringRegistrationEvent.startDate.replaceAll('-', '/')}（{gatheringRegistrationEvent.weekdayLabel}）{gatheringRegistrationEvent.time}
+                  </time>
+                </dd>
+              </div>
+              <div>
+                <dt>用餐地點</dt>
+                <dd>
+                  <a
+                    className="gathering-map-link"
+                    href={gatheringRegistrationEvent.mapUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${gatheringRegistrationEvent.venue}，查看地圖（開啟新分頁）`}
+                  >
+                    {gatheringRegistrationEvent.venue}
+                    <ArrowUpRight size={18} aria-hidden="true" />
+                  </a>
+                </dd>
+              </div>
+              <div>
+                <dt>報名截止</dt>
+                <dd>{gatheringRegistrationEvent.deadlineLabel}</dd>
+              </div>
+            </dl>
+
+            <section className="formal-gathering-section" aria-labelledby="gathering-advisor-title">
+              <h3 id="gathering-advisor-title">導生資格</h3>
+              <p>{gatheringRegistrationEvent.advisorRule}</p>
+              <p className="formal-gathering-examples">例如學號末兩碼為 {gatheringRegistrationEvent.advisorExamples.join('、')}…等。</p>
+            </section>
+
+            <section className="formal-gathering-section" aria-labelledby="gathering-subsidy-title">
+              <h3 id="gathering-subsidy-title">補助金額</h3>
+              <p className="gathering-table-hint">可左右滑動查看完整表格。</p>
+              <div className="gathering-subsidy-table-wrapper" role="region" aria-label="補助金額比較表，可左右捲動" tabIndex={0}>
+                <table className="gathering-subsidy-table">
+                  <caption className="sr-only">依導生資格與系學會費繳交狀態比較補助金額</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">導生資格</th>
+                      <th scope="col">系學會費</th>
+                      <th scope="col">補助金額</th>
+                      <th scope="col">補助說明</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {gatheringRegistrationEvent.subsidyOptions.map((option) => (
+                      <tr key={option.id}>
+                        <th scope="row">{option.mentee ? 'Renata 老師導生' : '非導生'}</th>
+                        <td>{option.paidFee ? '已繳' : '未繳'}</td>
+                        <td className="gathering-subsidy-amount">
+                          {option.amount === 0 ? '無補助' : `${option.isMaximum ? '最高 ' : ''}NT$ ${option.amount.toLocaleString('zh-TW')}`}
+                        </td>
+                        <td>{option.detail}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section className="formal-gathering-section" aria-labelledby="gathering-rules-title">
+              <h3 id="gathering-rules-title">用餐與補助發放規則</h3>
+              <dl className="gathering-rules">
+                {gatheringRegistrationEvent.rules.map((rule) => (
+                  <div key={rule.title}>
+                    <dt>{rule.title}</dt>
+                    <dd>{rule.description}</dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
+          </article>
+
           <article className="trip-detail gathering-detail" id={gatheringEvent.id} aria-labelledby="gathering-title">
             <div className="trip-detail-header">
               <div>
                 <span className="trip-term">{gatheringEvent.term}</span>
                 <div className="gathering-title-row">
                   <h2 id="gathering-title">{gatheringEvent.title}</h2>
-                  <span className="trip-status gathering-status">意願調查</span>
+                  <span className="trip-status gathering-status">前期意願調查</span>
                 </div>
               </div>
               <a
@@ -34,9 +142,9 @@ export default function EventsPage() {
                 href={gatheringEvent.formUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="填寫意願調查（開啟新分頁）"
+                aria-label="開啟前期意願調查（開啟新分頁）"
               >
-                填寫意願調查
+                開啟前期調查
                 <ArrowUpRight size={19} aria-hidden="true" />
               </a>
             </div>
@@ -64,7 +172,10 @@ export default function EventsPage() {
             </dl>
 
             <aside className="gathering-survey-notice" aria-label="意願調查說明">
-              <p>{gatheringEvent.surveyNotice}</p>
+              <p>此為前期意願調查，並非正式報名；正式報名請使用新的正式報名表單。</p>
+              <a href={`#${gatheringRegistrationEvent.id}`}>
+                前往正式報名資訊 <ArrowUpRight size={18} aria-hidden="true" />
+              </a>
             </aside>
           </article>
 
