@@ -365,7 +365,13 @@ summary:focus-visible {
   right: 0;
   left: 0;
   display: grid;
+  /* The percentage follows the containing header's actual height. */
+  max-height: calc(100vh - 100% - 1px);
+  max-height: calc(100dvh - 100% - 1px);
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
   padding: 12px 24px 20px;
+  padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
   border-bottom: 1px solid var(--header-line);
   background: var(--header);
 }

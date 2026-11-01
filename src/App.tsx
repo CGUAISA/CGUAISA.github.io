@@ -55,6 +55,7 @@ const notices = [
     marker: '徵集中',
     category: '學生回饋',
     title: '有什麼事希望系學會協助？',
+    href: '/#contact',
   },
 ];
 
@@ -140,13 +141,14 @@ function DesktopMenu({ label, children }: { label: string; children: ReactNode }
   );
 }
 
-function NoticeRow({ notice }: { notice: (typeof notices)[number] }) {
+function NoticeRow({ notice }: { notice: (typeof notices)[number] & { deadline?: string } }) {
   const content = (
     <>
       <span className="notice-marker">{notice.marker}</span>
       <div className="notice-copy">
         <span className="notice-category">{notice.category}</span>
         <h3>{notice.title}</h3>
+        {notice.deadline && <small className="notice-deadline">{notice.deadline}</small>}
       </div>
       <ArrowRight className="notice-arrow" size={20} aria-hidden="true" />
     </>
@@ -159,12 +161,13 @@ function NoticeRow({ notice }: { notice: (typeof notices)[number] }) {
   );
 }
 
-function EventListItem({ event }: { event: (typeof events)[number] }) {
+function EventListItem({ event }: { event: (typeof events)[number] & { deadline?: string } }) {
   const content = (
     <>
       <div className="activity-preview-heading">
         <h3>{event.title}</h3>
         <span className="activity-preview-state">{event.state}</span>
+        {event.deadline && <small className="activity-preview-deadline">{event.deadline}</small>}
       </div>
       {event.href && (
         <span className="activity-preview-action">
@@ -335,6 +338,7 @@ function TeamPage() {
 export default function Home() {
   const [theme, setTheme] = useState<Theme>(getInitialTheme);
   const gatheringRegistrationClosed = useRegistrationDeadline(gatheringRegistrationEvent);
+  const gatheringDeadlineHint = `報名截止：${gatheringRegistrationEvent.deadlineLabel.replace(/^\d{4}\//, '').replace(/（[^）]*）/, ' ')}`;
   useScrollReveal();
 
   const homeNotices = [
@@ -343,6 +347,7 @@ export default function Home() {
       category: '活動消息',
       title: `${gatheringRegistrationEvent.title}｜${gatheringRegistrationClosed ? '報名已截止' : '正式報名'}`,
       href: gatheringRegistrationHref,
+      deadline: gatheringDeadlineHint,
     },
     ...notices,
   ];
@@ -352,6 +357,7 @@ export default function Home() {
       title: '大家聚・正式報名',
       state: `${gatheringRegistrationEvent.dateLabel}${gatheringRegistrationClosed ? ' · 報名已截止' : ''}`,
       href: gatheringRegistrationHref,
+      deadline: gatheringDeadlineHint,
     },
     ...events,
   ];
@@ -427,7 +433,7 @@ export default function Home() {
             <DesktopMenu label="學生資源">
               <a href="/freshman/" onClick={closeContainingMenu} aria-current={isFreshmanPage ? 'page' : undefined}>新生入門</a>
               <a href="/courses/" onClick={closeContainingMenu} aria-current={isCoursesPage ? 'page' : undefined}>課程與選課</a>
-              <a href={homeSectionHref('#resources')} onClick={closeContainingMenu}>學習與競賽</a>
+              <a href="/?resource=competitions#resources" onClick={closeContainingMenu}>學習與競賽</a>
             </DesktopMenu>
             <a href={homeSectionHref('#news')}>消息</a>
           </nav>
@@ -458,6 +464,7 @@ export default function Home() {
               <a href={homeSectionHref('#resources')} onClick={closeContainingMenu}>學生資源</a>
               <a href="/freshman/" onClick={closeContainingMenu} aria-current={isFreshmanPage ? 'page' : undefined}>新生入門</a>
               <a href="/courses/" onClick={closeContainingMenu} aria-current={isCoursesPage ? 'page' : undefined}>課程與選課</a>
+              <a href="/?resource=competitions#resources" onClick={closeContainingMenu}>學習與競賽</a>
               <a href="/team/" onClick={closeContainingMenu} aria-current={isTeamPage ? 'page' : undefined}>幹部團隊</a>
               <a href={homeSectionHref('#contact')} onClick={closeContainingMenu}>聯絡我們</a>
             </nav>

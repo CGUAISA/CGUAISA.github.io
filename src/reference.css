@@ -216,6 +216,17 @@
   font-weight: 500;
 }
 
+.reference-design .notice-deadline,
+.reference-design .activity-preview-deadline {
+  display: block;
+  margin-top: 8px;
+  color: var(--accent-text);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
 .reference-design .quick-panel {
   padding: 28px;
   border-radius: 14px;

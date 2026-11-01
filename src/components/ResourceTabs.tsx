@@ -2,19 +2,32 @@ import { useId, useRef, useState, type KeyboardEvent } from 'react';
 import { ArrowRight, BookOpen, ClipboardList, GraduationCap, Trophy } from 'lucide-react';
 
 const categories = [
-  { label: '新生入門', Icon: GraduationCap },
-  { label: '課程與選課', Icon: BookOpen },
-  { label: '競賽與專題', Icon: Trophy },
-  { label: '表單與借用', Icon: ClipboardList },
+  { key: 'freshmen', label: '新生入門', Icon: GraduationCap },
+  { key: 'courses', label: '課程與選課', Icon: BookOpen },
+  { key: 'competitions', label: '競賽與專題', Icon: Trophy },
+  { key: 'forms', label: '表單與借用', Icon: ClipboardList },
 ] as const;
+
+function initialSelectedIndex() {
+  const resource = new URLSearchParams(window.location.search).get('resource');
+  const index = categories.findIndex((category) => category.key === resource);
+  return index === -1 ? 0 : index;
+}
 
 export default function ResourceTabs() {
   const id = useId();
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(initialSelectedIndex);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const panelId = `${id}-resource-panel`;
   const selectedCategory = categories[selectedIndex];
   const SelectedIcon = selectedCategory.Icon;
+
+  function selectCategory(index: number) {
+    setSelectedIndex(index);
+    const url = new URL(window.location.href);
+    url.searchParams.set('resource', categories[index].key);
+    if (url.href !== window.location.href) window.history.replaceState(window.history.state, '', url);
+  }
 
   function handleTabKeyDown(event: KeyboardEvent<HTMLButtonElement>, index: number) {
     let nextIndex: number;
@@ -37,16 +50,16 @@ export default function ResourceTabs() {
     }
 
     event.preventDefault();
-    setSelectedIndex(nextIndex);
+    selectCategory(nextIndex);
     tabRefs.current[nextIndex]?.focus();
   }
 
   return (
     <div className="resource-tabs">
       <div className="resource-tablist" role="tablist" aria-label="新生資源分類">
-        {categories.map(({ label, Icon }, index) => (
+        {categories.map(({ key, label, Icon }, index) => (
           <button
-            key={label}
+            key={key}
             ref={(element) => {
               tabRefs.current[index] = element;
             }}
@@ -57,7 +70,7 @@ export default function ResourceTabs() {
             aria-selected={selectedIndex === index}
             aria-controls={panelId}
             tabIndex={selectedIndex === index ? 0 : -1}
-            onClick={() => setSelectedIndex(index)}
+            onClick={() => selectCategory(index)}
             onKeyDown={(event) => handleTabKeyDown(event, index)}
           >
             <Icon className="resource-tab-icon" size={18} aria-hidden="true" />
@@ -67,7 +80,7 @@ export default function ResourceTabs() {
       </div>
 
       <div
-        key={selectedCategory.label}
+        key={selectedCategory.key}
         id={panelId}
         className="resource-tab-panel"
         role="tabpanel"
@@ -76,7 +89,7 @@ export default function ResourceTabs() {
       >
         <div className="resource-panel-copy">
           <h3>{selectedCategory.label}</h3>
-          {selectedCategory.label === '新生入門' ? (
+          {selectedCategory.key === 'freshmen' ? (
             <>
               <p className="resource-panel-status">從入學準備，到四年學習方向。</p>
               <div className="resource-entry-links">
@@ -88,14 +101,28 @@ export default function ResourceTabs() {
                 </a>
               </div>
             </>
-          ) : selectedCategory.label === '課程與選課' ? (
+          ) : selectedCategory.key === 'courses' ? (
             <>
               <p className="resource-panel-status">依入學學年度查看科目表</p>
               <a className="resource-course-link" href="/courses/">
                 查看科目表 <ArrowRight size={17} aria-hidden="true" />
               </a>
             </>
-          ) : selectedCategory.label === '表單與借用' ? (
+          ) : selectedCategory.key === 'competitions' ? (
+            <>
+              <p className="resource-panel-status">學系公告與歷屆專題</p>
+              <div className="resource-entry-links">
+                <a className="resource-course-link" href="https://www.cgu.edu.tw/ai/Subject?nodeId=17719" target="_blank" rel="noopener noreferrer">
+                  競賽資訊 <ArrowRight size={17} aria-hidden="true" />
+                  <span className="sr-only">（開啟新分頁）</span>
+                </a>
+                <a className="resource-course-link" href="https://www.cgu.edu.tw/ai/Subject?nodeId=16543" target="_blank" rel="noopener noreferrer">
+                  畢業專題展 <ArrowRight size={17} aria-hidden="true" />
+                  <span className="sr-only">（開啟新分頁）</span>
+                </a>
+              </div>
+            </>
+          ) : selectedCategory.key === 'forms' ? (
             <>
               <p className="resource-panel-status">學系系統</p>
               <div className="resource-entry-links">
@@ -109,7 +136,7 @@ export default function ResourceTabs() {
                 </a>
               </div>
             </>
-          ) : <p className="resource-panel-status">資料整理中</p>}
+          ) : null}
         </div>
         <div className="resource-panel-illustration" aria-hidden="true">
           <SelectedIcon className="resource-panel-icon" size={44} strokeWidth={1.4} />
