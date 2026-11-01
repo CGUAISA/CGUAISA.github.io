@@ -72,16 +72,6 @@ const events = [
     cancelled: tripEvent.status === 'cancelled',
     href: activityHref,
   },
-  {
-    number: '03',
-    title: '工作坊',
-    state: '企劃中',
-  },
-  {
-    number: '04',
-    title: '成果交流',
-    state: '企劃中',
-  },
 ];
 
 const workItems = [
