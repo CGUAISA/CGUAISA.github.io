@@ -106,6 +106,7 @@ const leadershipRoles = [
   { role: '顧問', group: '核心協調' },
   { role: '秘書長', group: '核心協調' },
   { role: '活動長', group: '活動與對外' },
+  { role: '體育負責人', group: '活動與對外' },
   { role: '公關長', group: '活動與對外' },
   { role: '美宣長', group: '活動與對外' },
   { role: '機動', group: '活動與對外' },
