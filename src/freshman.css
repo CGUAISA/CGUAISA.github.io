@@ -1,0 +1,411 @@
+.reference-design .freshman-page {
+  --freshman-tint: color-mix(in srgb, var(--accent) 7%, var(--surface-raised));
+}
+
+.freshman-page .freshman-hero {
+  padding-top: 44px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+  scroll-margin-top: 96px;
+}
+
+.freshman-page .freshman-hero h1 {
+  margin: 30px 0 36px;
+  font-size: clamp(36px, 4vw, 56px);
+  line-height: 1.35;
+}
+
+.freshman-page .freshman-page-tabs {
+  display: flex;
+  gap: 32px;
+}
+
+.freshman-page .freshman-page-tabs button {
+  min-height: 62px;
+  margin-bottom: -1px;
+  padding: 12px 4px 18px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.freshman-page .freshman-page-tabs button[aria-selected="true"] {
+  border-bottom-color: var(--accent);
+  color: var(--accent-text);
+}
+
+.freshman-page .freshman-directory {
+  padding-block: 42px 80px;
+}
+
+.freshman-page .freshman-directory[hidden] { display: none; }
+
+.freshman-page .freshman-section-intro {
+  margin: 0 0 28px;
+  color: var(--muted);
+  font-size: 17px;
+}
+
+.freshman-page .freshman-roadmap-layout {
+  display: grid;
+  grid-template-columns: minmax(240px, 300px) minmax(0, 1fr);
+  align-items: start;
+  gap: 44px;
+}
+
+.freshman-page .freshman-stage-list {
+  position: relative;
+  display: grid;
+  gap: 12px;
+}
+
+.freshman-page .freshman-stage-list::before {
+  position: absolute;
+  top: 40px;
+  bottom: 40px;
+  left: 26px;
+  width: 1px;
+  background: var(--line);
+  content: '';
+}
+
+.freshman-page .freshman-stage-button {
+  position: relative;
+  display: flex;
+  min-height: 94px;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--text-soft);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+.freshman-page .freshman-stage-button:hover {
+  background: var(--surface);
+}
+
+.freshman-page .freshman-stage-button[aria-selected="true"] {
+  border-color: var(--line);
+  background: var(--surface-raised);
+  color: var(--text);
+}
+
+.freshman-page .freshman-stage-dot {
+  position: relative;
+  flex: 0 0 21px;
+  width: 21px;
+  height: 21px;
+  border: 5px solid var(--page);
+  border-radius: 50%;
+  background: var(--line);
+  box-shadow: 0 0 0 1px var(--line);
+}
+
+.freshman-page .freshman-stage-button[aria-selected="true"] .freshman-stage-dot {
+  background: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.freshman-page .freshman-stage-button > span:nth-child(2) {
+  flex: 1;
+  min-width: 0;
+}
+
+.freshman-page .freshman-stage-button small,
+.freshman-page .freshman-stage-button strong {
+  display: block;
+}
+
+.freshman-page .freshman-stage-button small {
+  margin-bottom: 2px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.freshman-page .freshman-stage-button strong {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.55;
+}
+
+.freshman-page .freshman-stage-button > svg {
+  flex-shrink: 0;
+  color: var(--muted);
+}
+
+.freshman-page .freshman-stage-button[aria-selected="true"] > svg {
+  color: var(--accent-text);
+}
+
+.freshman-page .freshman-stage-detail {
+  min-width: 0;
+  padding: 32px 34px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface-raised);
+}
+
+.freshman-page .freshman-detail-heading > span {
+  color: var(--accent-text);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.freshman-page .freshman-detail-heading h2 {
+  margin: 8px 0 14px;
+  font-size: clamp(26px, 2.5vw, 34px);
+  line-height: 1.45;
+}
+
+.freshman-page .freshman-detail-heading p {
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 17px;
+}
+
+.freshman-page .freshman-guide-items {
+  margin: 30px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.freshman-page .freshman-guide-items > li {
+  padding-block: 22px;
+  border-top: 1px solid var(--line);
+}
+
+.freshman-page .freshman-guide-items h3,
+.freshman-page .freshman-course-section h3,
+.freshman-page .freshman-suggestions h3 {
+  margin: 0 0 8px;
+  font-size: 20px;
+  line-height: 1.6;
+}
+
+.freshman-page .freshman-guide-items p {
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 16px;
+}
+
+.freshman-page .freshman-resource-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 24px;
+  margin-top: 10px;
+}
+
+.freshman-page .freshman-resource-links a,
+.freshman-page .freshman-course-actions a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent-text);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.freshman-page .freshman-resource-links a:hover,
+.freshman-page .freshman-course-actions a:hover {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+
+.freshman-page .freshman-resource-links svg,
+.freshman-page .freshman-course-actions svg { flex-shrink: 0; }
+
+.freshman-page .freshman-guide-note,
+.freshman-page .freshman-source-note {
+  margin: 22px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+.freshman-page .freshman-guide-note {
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.freshman-page .freshman-learning-toolbar {
+  display: flex;
+  align-items: end;
+  gap: 30px;
+  margin-bottom: 34px;
+}
+
+.freshman-page .freshman-learning-toolbar > p {
+  max-width: 440px;
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.freshman-page .freshman-year-field {
+  display: grid;
+  flex-shrink: 0;
+  gap: 9px;
+}
+
+.freshman-page .freshman-year-field label {
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.freshman-page .freshman-year-field select {
+  min-width: 250px;
+  min-height: 50px;
+  padding: 10px 36px 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--surface-raised);
+  color: var(--text);
+  font: inherit;
+  font-size: 17px;
+}
+
+.freshman-page .freshman-course-section { margin-top: 30px; }
+
+.freshman-page .freshman-course-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 14px 0 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.freshman-page .freshman-course-list > li {
+  min-width: 0;
+  padding: 14px 16px;
+  border-radius: 8px;
+  background: var(--surface);
+  overflow-wrap: anywhere;
+}
+
+.freshman-page .freshman-course-list strong {
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+.freshman-page .freshman-course-list span,
+.freshman-page .freshman-course-list small {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.freshman-page .freshman-course-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 22px;
+}
+
+.freshman-page .freshman-course-actions .freshman-primary-link {
+  padding: 9px 16px;
+  border-radius: 9px;
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.freshman-page .freshman-course-actions .freshman-primary-link:hover {
+  background: var(--accent-hover);
+  text-decoration: none;
+}
+
+.freshman-page .freshman-source-note { margin-top: 14px; }
+
+.freshman-page .freshman-suggestions {
+  margin-top: 30px;
+  padding: 24px;
+  border-radius: 10px;
+  background: var(--freshman-tint);
+}
+
+.freshman-page .freshman-suggestions ul {
+  margin: 10px 0 0;
+  padding-left: 22px;
+  color: var(--text-soft);
+  font-size: 16px;
+}
+
+.freshman-page .freshman-suggestions li + li { margin-top: 10px; }
+.freshman-page .freshman-suggestions li::marker { color: var(--accent-text); }
+.freshman-page .freshman-empty { color: var(--muted); font-size: 16px; }
+
+.freshman-page button:focus-visible,
+.freshman-page a:focus-visible,
+.freshman-page select:focus-visible,
+.freshman-page [role="tabpanel"]:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+}
+
+@media (max-width: 900px) {
+  .freshman-page .freshman-roadmap-layout {
+    grid-template-columns: minmax(210px, 250px) minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .freshman-page .freshman-stage-detail { padding: 26px 24px; }
+  .freshman-page .freshman-course-list { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 700px) {
+  .freshman-page .freshman-roadmap-layout { grid-template-columns: minmax(0, 1fr); }
+  .freshman-page .freshman-stage-list { gap: 0; }
+  .freshman-page .freshman-stage-list::before { top: 30px; bottom: 30px; }
+  .freshman-page .freshman-stage-button { min-height: 76px; padding-block: 10px; }
+  .freshman-page .freshman-stage-button > span:nth-child(2) { display: flex; align-items: baseline; gap: 14px; }
+  .freshman-page .freshman-stage-button small { flex-shrink: 0; margin: 0; }
+  .freshman-page .freshman-stage-button strong { font-size: 17px; }
+  .freshman-page .freshman-learning-toolbar { flex-direction: column; align-items: start; gap: 14px; }
+  .freshman-page .freshman-learning-toolbar > p { margin-bottom: 0; }
+  .freshman-page .freshman-course-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 480px) {
+  .freshman-page .freshman-hero { padding-top: 28px; }
+  .freshman-page .freshman-hero h1 { margin-block: 24px 26px; }
+  .freshman-page .freshman-page-tabs { gap: 28px; }
+  .freshman-page .freshman-page-tabs button { min-height: 56px; font-size: 18px; }
+  .freshman-page .freshman-directory { padding-block: 28px 48px; }
+  .freshman-page .freshman-section-intro { font-size: 16px; margin-bottom: 20px; }
+  .freshman-page .freshman-roadmap-layout { gap: 22px; }
+  .freshman-page .freshman-stage-detail { padding: 24px 20px; border-radius: 12px; }
+  .freshman-page .freshman-stage-button { gap: 12px; }
+  .freshman-page .freshman-stage-button > span:nth-child(2) { gap: 10px; }
+  .freshman-page .freshman-stage-button strong { font-size: 16px; }
+  .freshman-page .freshman-detail-heading h2 { font-size: 27px; }
+  .freshman-page .freshman-detail-heading p { font-size: 16px; }
+  .freshman-page .freshman-guide-items { margin-top: 24px; }
+  .freshman-page .freshman-guide-items h3,
+  .freshman-page .freshman-course-section h3,
+  .freshman-page .freshman-suggestions h3 { font-size: 19px; }
+  .freshman-page .freshman-year-field { width: 100%; }
+  .freshman-page .freshman-year-field select { width: 100%; min-width: 0; }
+  .freshman-page .freshman-course-list { grid-template-columns: minmax(0, 1fr); }
+  .freshman-page .freshman-suggestions { padding: 20px 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .freshman-page .freshman-stage-button { transition: none; }
+}

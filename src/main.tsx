@@ -6,6 +6,7 @@ import './reference.css';
 import './footer.css';
 import './courses.css';
 import './events.css';
+import './freshman.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

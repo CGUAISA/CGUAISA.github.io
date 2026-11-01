@@ -19,6 +19,7 @@ import ResourceTabs from './components/ResourceTabs';
 import WorkVisual from './components/WorkVisual';
 import CoursesPage from './components/CoursesPage';
 import EventsPage from './components/EventsPage';
+import FreshmanPage from './components/FreshmanPage';
 import { activitiesOnDate, activityHref, gatheringEvent, gatheringHref, gatheringRegistrationEvent, gatheringRegistrationHref, tripEvent } from './data/events';
 import { useScrollReveal } from './hooks/useScrollReveal';
 import { useRegistrationDeadline } from './hooks/useRegistrationDeadline';
@@ -47,7 +48,8 @@ const notices = [
   {
     marker: '常駐',
     category: '新生專區',
-    title: '新生常見問題與校園資源索引',
+    title: '新生入門與學習路線',
+    href: '/freshman/',
   },
   {
     marker: '徵集中',
@@ -405,7 +407,8 @@ export default function Home() {
   const isTeamPage = pagePath === '/team';
   const isCoursesPage = pagePath === '/courses';
   const isEventsPage = pagePath === '/events';
-  const isSubpage = isTeamPage || isCoursesPage || isEventsPage;
+  const isFreshmanPage = pagePath === '/freshman';
+  const isSubpage = isTeamPage || isCoursesPage || isEventsPage || isFreshmanPage;
   const homeSectionHref = (section: string) =>
     isSubpage ? `/${section}` : section;
 
@@ -432,7 +435,7 @@ export default function Home() {
               <a href={homeSectionHref('#events')} onClick={closeContainingMenu}>近期活動</a>
             </DesktopMenu>
             <DesktopMenu label="學生資源">
-              <a href={homeSectionHref('#resources')} onClick={closeContainingMenu}>新生懶人包</a>
+              <a href="/freshman/" onClick={closeContainingMenu} aria-current={isFreshmanPage ? 'page' : undefined}>新生入門</a>
               <a href="/courses/" onClick={closeContainingMenu} aria-current={isCoursesPage ? 'page' : undefined}>課程與選課</a>
               <a href={homeSectionHref('#resources')} onClick={closeContainingMenu}>學習與競賽</a>
             </DesktopMenu>
@@ -463,6 +466,7 @@ export default function Home() {
               <a href={homeSectionHref('#events')} onClick={closeContainingMenu}>近期活動</a>
               <a href="/events/" onClick={closeContainingMenu} aria-current={isEventsPage ? 'page' : undefined}>活動與報名</a>
               <a href={homeSectionHref('#resources')} onClick={closeContainingMenu}>學生資源</a>
+              <a href="/freshman/" onClick={closeContainingMenu} aria-current={isFreshmanPage ? 'page' : undefined}>新生入門</a>
               <a href="/courses/" onClick={closeContainingMenu} aria-current={isCoursesPage ? 'page' : undefined}>課程與選課</a>
               <a href="/team/" onClick={closeContainingMenu} aria-current={isTeamPage ? 'page' : undefined}>幹部團隊</a>
               <a href={homeSectionHref('#contact')} onClick={closeContainingMenu}>聯絡我們</a>
@@ -471,7 +475,7 @@ export default function Home() {
         </div>
       </header>
 
-      {isTeamPage ? <TeamPage /> : isCoursesPage ? <CoursesPage /> : isEventsPage ? <EventsPage /> : <main id="main-content">
+      {isTeamPage ? <TeamPage /> : isCoursesPage ? <CoursesPage /> : isEventsPage ? <EventsPage /> : isFreshmanPage ? <FreshmanPage /> : <main id="main-content">
         <section id="top" className="hero">
           <div className="container hero-grid">
             <div className="hero-copy">
@@ -521,8 +525,8 @@ export default function Home() {
                     活動與報名
                     <ArrowUpRight size={18} aria-hidden="true" />
                   </a>
-                  <a href="#resources">
-                    新生懶人包
+                  <a href="/freshman/">
+                    新生入門
                     <ArrowUpRight size={18} aria-hidden="true" />
                   </a>
                   <a href="/courses/">
@@ -674,7 +678,7 @@ export default function Home() {
             <nav className="footer-column" aria-labelledby="footer-resources-title">
               <h2 id="footer-resources-title">學生資源</h2>
               <ul className="footer-links">
-                <li><a href={homeSectionHref('#resources')}>新生懶人包</a></li>
+                <li><a href="/freshman/" aria-current={isFreshmanPage ? 'page' : undefined}>新生入門</a></li>
                 <li><a href="/courses/" aria-current={isCoursesPage ? 'page' : undefined}>課程與選課</a></li>
                 <li><a href="/events/" aria-current={isEventsPage ? 'page' : undefined}>活動與報名</a></li>
                 <li><a href={homeSectionHref('#calendar')}>行事曆</a></li>

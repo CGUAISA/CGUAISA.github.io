@@ -574,6 +574,12 @@
   letter-spacing: 0.04em;
 }
 
+.reference-design .resource-entry-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 28px;
+}
+
 .reference-design .resource-panel-illustration {
   display: grid;
   width: 160px;

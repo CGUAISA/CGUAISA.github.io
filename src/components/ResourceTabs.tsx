@@ -76,7 +76,19 @@ export default function ResourceTabs() {
       >
         <div className="resource-panel-copy">
           <h3>{selectedCategory.label}</h3>
-          {selectedCategory.label === '課程與選課' ? (
+          {selectedCategory.label === '新生入門' ? (
+            <>
+              <p className="resource-panel-status">從入學準備，到四年學習方向。</p>
+              <div className="resource-entry-links">
+                <a className="resource-course-link" href="/freshman/">
+                  入學指南 <ArrowRight size={17} aria-hidden="true" />
+                </a>
+                <a className="resource-course-link" href="/freshman/?tab=learning">
+                  學習路線 <ArrowRight size={17} aria-hidden="true" />
+                </a>
+              </div>
+            </>
+          ) : selectedCategory.label === '課程與選課' ? (
             <>
               <p className="resource-panel-status">依入學學年度查看科目表</p>
               <a className="resource-course-link" href="/courses/">
