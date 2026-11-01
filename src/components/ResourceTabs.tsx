@@ -95,6 +95,20 @@ export default function ResourceTabs() {
                 查看科目表 <ArrowRight size={17} aria-hidden="true" />
               </a>
             </>
+          ) : selectedCategory.label === '表單與借用' ? (
+            <>
+              <p className="resource-panel-status">學系系統</p>
+              <div className="resource-entry-links">
+                <a className="resource-course-link" href="http://120.126.23.215:5200/" target="_blank" rel="noopener noreferrer">
+                  物品借用系統 <ArrowRight size={17} aria-hidden="true" />
+                  <span className="sr-only">（開啟新分頁）</span>
+                </a>
+                <a className="resource-course-link" href="http://120.126.23.215:5500/" target="_blank" rel="noopener noreferrer">
+                  海報申請系統 <ArrowRight size={17} aria-hidden="true" />
+                  <span className="sr-only">（開啟新分頁）</span>
+                </a>
+              </div>
+            </>
           ) : <p className="resource-panel-status">資料整理中</p>}
         </div>
         <div className="resource-panel-illustration" aria-hidden="true">
