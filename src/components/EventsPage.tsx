@@ -1,5 +1,5 @@
 import { ArrowUpRight } from 'lucide-react';
-import { gatheringEvent, gatheringRegistrationEvent, registrationDeadlinePassed, tripEvent } from '../data/events';
+import { aiNewsEvent, gatheringEvent, gatheringRegistrationEvent, registrationDeadlinePassed, tripEvent } from '../data/events';
 import { useRegistrationDeadline } from '../hooks/useRegistrationDeadline';
 
 export default function EventsPage() {
@@ -22,6 +22,60 @@ export default function EventsPage() {
 
       <section className="event-directory" aria-label="活動詳情">
         <div className="container">
+          <article className="trip-detail ai-news-detail" id={aiNewsEvent.id} aria-labelledby="ai-news-title">
+            <div className="trip-detail-header ai-news-header">
+              <div className="ai-news-heading">
+                <span className="trip-term">{aiNewsEvent.term}</span>
+                <h2 id="ai-news-title">{aiNewsEvent.title}</h2>
+                <p className="ai-news-subtitle">{aiNewsEvent.subtitle}</p>
+              </div>
+              <a
+                className="button button-primary trip-signup"
+                href={aiNewsEvent.formUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${aiNewsEvent.title}，前往報名表（開啟新分頁）`}
+              >
+                前往報名表
+                <ArrowUpRight size={19} aria-hidden="true" />
+              </a>
+            </div>
+
+            <p className="ai-news-introduction">{aiNewsEvent.introduction}</p>
+
+            <dl className="trip-facts ai-news-facts">
+              <div className="ai-news-date">
+                <dt>日期與時間</dt>
+                <dd>
+                  <time dateTime={`${aiNewsEvent.startDate}T${aiNewsEvent.startTime}:00+08:00`}>
+                    {aiNewsEvent.startDate.replaceAll('-', '/')}（{aiNewsEvent.weekdayLabel}）{aiNewsEvent.startTime}
+                  </time>
+                  {'–'}
+                  <time dateTime={`${aiNewsEvent.endDate}T${aiNewsEvent.endTime}:00+08:00`}>{aiNewsEvent.endTime}</time>
+                </dd>
+              </div>
+              <div>
+                <dt>講者</dt>
+                <dd>{aiNewsEvent.speaker}</dd>
+              </div>
+              <div>
+                <dt>地點</dt>
+                <dd>{aiNewsEvent.venue}</dd>
+              </div>
+              <div>
+                <dt>費用</dt>
+                <dd>{aiNewsEvent.feeLabel}</dd>
+              </div>
+              <div>
+                <dt>餐點</dt>
+                <dd>{aiNewsEvent.mealNote}</dd>
+              </div>
+            </dl>
+
+            <p className="ai-news-audience">{aiNewsEvent.audienceNote}</p>
+            <p className="ai-news-capacity">{aiNewsEvent.capacityNote}</p>
+          </article>
+
           <article className="trip-detail formal-gathering-detail" id={gatheringRegistrationEvent.id} aria-labelledby="gathering-registration-title">
             <div className="trip-detail-header formal-gathering-header">
               <div className="formal-gathering-heading">

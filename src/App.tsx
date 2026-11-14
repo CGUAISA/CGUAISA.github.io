@@ -20,7 +20,10 @@ import WorkVisual from './components/WorkVisual';
 import CoursesPage from './components/CoursesPage';
 import EventsPage from './components/EventsPage';
 import FreshmanPage from './components/FreshmanPage';
-import { activitiesOnDate, activityHref, gatheringEvent, gatheringHref, gatheringRegistrationEvent, gatheringRegistrationHref, tripEvent } from './data/events';
+import {
+  activitiesOnDate, activityHref, aiNewsEvent, aiNewsHref, gatheringEvent,
+  gatheringHref, gatheringRegistrationEvent, gatheringRegistrationHref, tripEvent,
+} from './data/events';
 import { useScrollReveal } from './hooks/useScrollReveal';
 import { useRegistrationDeadline } from './hooks/useRegistrationDeadline';
 
@@ -343,6 +346,12 @@ export default function Home() {
 
   const homeNotices = [
     {
+      marker: '講座',
+      category: '活動消息',
+      title: `${aiNewsEvent.title}｜${aiNewsEvent.subtitle}`,
+      href: aiNewsHref,
+    },
+    {
       marker: gatheringRegistrationClosed ? '截止' : '報名',
       category: '活動消息',
       title: `${gatheringRegistrationEvent.title}｜${gatheringRegistrationClosed ? '報名已截止' : '正式報名'}`,
@@ -352,6 +361,12 @@ export default function Home() {
     ...notices,
   ];
   const homeEvents = [
+    {
+      number: aiNewsEvent.id,
+      title: aiNewsEvent.title,
+      state: `${aiNewsEvent.dateLabel} · 免費參加`,
+      href: aiNewsHref,
+    },
     {
       number: 'gathering-registration',
       title: '大家聚・正式報名',

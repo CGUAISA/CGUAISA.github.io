@@ -4,6 +4,8 @@ import {
   activityHref,
   activitiesInMonth,
   activitiesOnDate,
+  aiNewsEvent,
+  aiNewsHref,
   gatheringEvent,
   gatheringHref,
   gatheringRegistrationEvent,
@@ -21,7 +23,7 @@ const isDateKey = (value) => typeof value === 'string'
 for (const activity of activities) {
   assert(activity.id && !ids.has(activity.id), 'Missing or duplicate activity id');
   ids.add(activity.id);
-  assert(['trip', 'gathering', 'gathering-registration'].includes(activity.kind), 'Invalid activity kind');
+  assert(['trip', 'gathering', 'gathering-registration', 'ai-news'].includes(activity.kind), 'Invalid activity kind');
   assert(['scheduled', 'cancelled'].includes(activity.status), 'Invalid activity status');
   assert(/^\d{3}-[12]$/.test(activity.term), 'Invalid academic term');
   for (const key of ['title', 'dateLabel']) {
@@ -31,6 +33,15 @@ for (const activity of activities) {
   assert(activity.startDate <= activity.endDate, 'Activity dates reversed');
   assert(isDateKey(activity.verifiedOn), 'Missing verification date');
   assert(new URL(activity.formUrl).origin === 'https://forms.gle', 'Unexpected form URL');
+
+  if (activity.kind === 'ai-news') {
+    assert(/^\d{2}:\d{2}$/.test(activity.startTime) && /^\d{2}:\d{2}$/.test(activity.endTime), 'Invalid AI News time');
+    assert(activity.startTime < activity.endTime, 'AI News must end after it starts');
+    for (const key of ['subtitle', 'weekdayLabel', 'speaker', 'venue', 'feeLabel', 'mealNote', 'capacityNote', 'introduction', 'audienceNote']) {
+      assert(typeof activity[key] === 'string' && activity[key].trim(), `Missing AI News ${key}`);
+    }
+    continue;
+  }
 
   if (activity.kind === 'gathering-registration') {
     assert(/^\d{2}:\d{2}$/.test(activity.time), 'Invalid registration event time');
@@ -81,8 +92,36 @@ for (const activity of activities) {
   }
 }
 
-assert.equal(activities.length, 3, 'Reviewed activity count changed');
-assert.deepEqual(activities, [gatheringRegistrationEvent, gatheringEvent, tripEvent]);
+assert.equal(activities.length, 4, 'Reviewed activity count changed');
+assert.deepEqual(activities, [aiNewsEvent, gatheringRegistrationEvent, gatheringEvent, tripEvent]);
+assert.equal(aiNewsHref, '/events/#ai-news-2-115-1');
+assert.deepEqual(aiNewsEvent, {
+  kind: 'ai-news',
+  id: 'ai-news-2-115-1',
+  status: 'scheduled',
+  term: '115-1',
+  title: 'AI News（2）',
+  subtitle: '掌握 AI 最新趨勢',
+  startDate: '2026-11-16',
+  endDate: '2026-11-16',
+  dateLabel: '11/16（一）12:10–13:00',
+  weekdayLabel: '一',
+  startTime: '12:10',
+  endTime: '13:00',
+  speaker: '蔡承恩講師',
+  venue: '管理學院 10 樓公共空間',
+  feeLabel: '完全免費',
+  mealNote: '現場提供便當',
+  capacityNote: '名額有限，額滿即停止報名。',
+  introduction: '邀請蔡承恩講師，輕鬆聊聊近期 AI 領域值得關注的新消息、新技術與未來趨勢，從技術突破到產業應用，一起了解 AI 的新發展。',
+  audienceNote: '無論是否具備 AI 專業背景，都歡迎一起交流。',
+  formUrl: 'https://forms.gle/hf5iPghEAsf4KPEz6',
+  verifiedOn: '2026-11-14',
+}, 'AI News must match the supplied announcement');
+assert.equal(new Date(`${aiNewsEvent.startDate}T00:00:00Z`).getUTCDay(), 1, 'AI News 11/16 must be Monday');
+for (const key of ['deadlineLabel', 'registrationClosesAt', 'capacity', 'capacityCount', 'address']) {
+  assert.equal(Object.hasOwn(aiNewsEvent, key), false, `AI News must not invent ${key}`);
+}
 assert.equal(activityHref, '/events/#trip-115-1');
 assert.equal(gatheringHref, '/events/#gathering-115-1');
 assert.equal(gatheringRegistrationHref, '/events/#gathering-registration-115-1');
@@ -179,6 +218,8 @@ assert.deepEqual(tripEvent.schedule.map((day) => [day.title, day.dateLabel, day.
 ]);
 
 assert.deepEqual(activitiesOnDate('2026-11-18'), [gatheringRegistrationEvent], 'Only the formal event must appear on its announced date');
+assert.deepEqual(activitiesOnDate('2026-11-16'), [aiNewsEvent], 'AI News must appear on its announced date');
+assert.deepEqual(activitiesOnDate('2026-11-15'), [], 'AI News must not start a day early');
 assert.deepEqual(activitiesOnDate('2026-11-17'), [], 'Gathering must not start a day early');
 assert.deepEqual(activitiesOnDate('2026-11-19'), [], 'Gathering must not continue the next day');
 assert.deepEqual(activitiesOnDate('2026-11-22'), [], 'Cancelled trip must not appear on its first date');
@@ -186,7 +227,7 @@ assert.deepEqual(activitiesOnDate('2026-11-23'), [], 'Cancelled trip must not ap
 for (const dateKey of ['2026-11-21', '2026-11-24', '2026-10-12', '2025-11-22', '2027-11-22', '2026-02-30', '2026-11-22T00:00:00Z', 'invalid']) {
   assert.deepEqual(activitiesOnDate(dateKey), [], `Unexpected activity on ${dateKey}`);
 }
-assert.deepEqual(activitiesInMonth(2026, 10), [gatheringRegistrationEvent], 'The preserved survey must not duplicate the formal calendar entry');
+assert.deepEqual(activitiesInMonth(2026, 10), [aiNewsEvent, gatheringRegistrationEvent], 'November must include AI News and formal gathering without duplicating the preserved survey');
 for (const [year, monthIndex] of [[2026, 9], [2026, 11], [2025, 10], [2027, 10], [2026, -1], [2026, 12], [2026, 10.5], [NaN, 10]]) {
   assert.deepEqual(activitiesInMonth(year, monthIndex), [], `Unexpected activity in ${year}/${monthIndex + 1}`);
 }
@@ -222,7 +263,7 @@ try {
   assert.deepEqual(activitiesOnDate('2026-11-21'), []);
   assert.deepEqual(activitiesOnDate('2026-11-24'), []);
   assert.deepEqual(activitiesInMonth(2026, 9), [crossingMonth]);
-  assert.deepEqual(activitiesInMonth(2026, 10), [gatheringRegistrationEvent, scheduledTrip, crossingMonth]);
+  assert.deepEqual(activitiesInMonth(2026, 10), [aiNewsEvent, gatheringRegistrationEvent, scheduledTrip, crossingMonth]);
   for (const dateKey of ['2026-10-31', '2026-11-01', '2026-11-02']) {
     assert.deepEqual(activitiesOnDate(dateKey), [crossingMonth]);
   }
@@ -242,4 +283,4 @@ try {
   activities.splice(reviewedActivityCount);
 }
 
-console.log('Activity facts, preserved survey, formal registration subsidies, calendar filtering and Taipei deadline boundaries — OK');
+console.log('AI News facts, preserved survey, formal registration subsidies, calendar filtering and Taipei deadline boundaries — OK');

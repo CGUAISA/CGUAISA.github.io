@@ -60,7 +60,22 @@ export type GatheringRegistrationActivity = BaseActivity & {
   rules: { title: string; description: string }[];
 };
 
-export type Activity = TripActivity | GatheringActivity | GatheringRegistrationActivity;
+export type AiNewsActivity = BaseActivity & {
+  kind: 'ai-news';
+  subtitle: string;
+  weekdayLabel: string;
+  startTime: string;
+  endTime: string;
+  speaker: string;
+  venue: string;
+  feeLabel: string;
+  mealNote: string;
+  capacityNote: string;
+  introduction: string;
+  audienceNote: string;
+};
+
+export type Activity = TripActivity | GatheringActivity | GatheringRegistrationActivity | AiNewsActivity;
 
 // 行程、費用與報名須知為取消前的 Google 表單記錄，日期以 115-1 學期換算。
 // 活動狀態依系學會更新；尚未提供取消原因或取消後的退款安排。
@@ -186,7 +201,33 @@ export const gatheringRegistrationEvent: GatheringRegistrationActivity = {
   verifiedOn: '2026-10-30',
 };
 
-export const activities: Activity[] = [gatheringRegistrationEvent, gatheringEvent, tripEvent];
+// 依 2026/11/14 系學會提供的公告整理，未另提供固定報名截止日或名額數。
+export const aiNewsEvent: AiNewsActivity = {
+  kind: 'ai-news',
+  id: 'ai-news-2-115-1',
+  status: 'scheduled',
+  term: '115-1',
+  title: 'AI News（2）',
+  subtitle: '掌握 AI 最新趨勢',
+  startDate: '2026-11-16',
+  endDate: '2026-11-16',
+  dateLabel: '11/16（一）12:10–13:00',
+  weekdayLabel: '一',
+  startTime: '12:10',
+  endTime: '13:00',
+  speaker: '蔡承恩講師',
+  venue: '管理學院 10 樓公共空間',
+  feeLabel: '完全免費',
+  mealNote: '現場提供便當',
+  capacityNote: '名額有限，額滿即停止報名。',
+  introduction: '邀請蔡承恩講師，輕鬆聊聊近期 AI 領域值得關注的新消息、新技術與未來趨勢，從技術突破到產業應用，一起了解 AI 的新發展。',
+  audienceNote: '無論是否具備 AI 專業背景，都歡迎一起交流。',
+  formUrl: 'https://forms.gle/hf5iPghEAsf4KPEz6',
+  verifiedOn: '2026-11-14',
+};
+
+export const activities: Activity[] = [aiNewsEvent, gatheringRegistrationEvent, gatheringEvent, tripEvent];
+export const aiNewsHref = '/events/#ai-news-2-115-1';
 export const activityHref = '/events/#trip-115-1';
 export const gatheringHref = '/events/#gathering-115-1';
 export const gatheringRegistrationHref = '/events/#gathering-registration-115-1';

@@ -128,6 +128,59 @@
   overflow-wrap: anywhere;
 }
 
+.reference-design .ai-news-header {
+  align-items: flex-start;
+}
+
+.reference-design .ai-news-heading {
+  min-width: 0;
+}
+
+.reference-design .ai-news-subtitle {
+  margin: 8px 0 0;
+  color: var(--accent-text);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+.reference-design .ai-news-introduction,
+.reference-design .ai-news-audience {
+  max-width: 78ch;
+  margin: 24px 0 0;
+  color: var(--text-soft);
+  font-size: 18px;
+  line-height: 1.9;
+}
+
+.reference-design .ai-news-facts {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  padding-top: 26px;
+  border-top: 1px solid var(--line);
+}
+
+.reference-design .ai-news-facts > div {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.reference-design .ai-news-date {
+  grid-column: span 2;
+}
+
+.reference-design .ai-news-capacity {
+  margin: 18px 0 0;
+  padding: 14px 18px;
+  border-left: 3px solid var(--accent);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.8;
+}
+
 .reference-design .gathering-title-row {
   display: flex;
   flex-wrap: wrap;
@@ -879,6 +932,10 @@
     gap: 22px;
   }
 
+  .reference-design .ai-news-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .reference-design .formal-gathering-section .gathering-table-hint {
     display: block;
     margin: -4px 0 14px;
@@ -962,6 +1019,19 @@
 
   .reference-design .gathering-facts > div {
     padding: 0;
+  }
+
+  .reference-design .ai-news-facts {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .reference-design .ai-news-facts > div {
+    padding: 0;
+  }
+
+  .reference-design .ai-news-date {
+    grid-column: auto;
   }
 
   .reference-design .gathering-survey-notice {
