@@ -1,0 +1,207 @@
+.learning-map {
+  --learning-map-grid: color-mix(in srgb, var(--line) 40%, transparent);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: var(--surface-raised);
+}
+
+.learning-map-canvas {
+  position: relative;
+  height: 370px;
+  isolation: isolate;
+  background-image: radial-gradient(var(--learning-map-grid) .7px, transparent .7px);
+  background-size: 20px 20px;
+}
+
+.learning-map-route {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  fill: none;
+  pointer-events: none;
+}
+
+.learning-map-route-bed {
+  stroke: color-mix(in srgb, var(--accent) 6%, var(--surface-raised));
+  stroke-width: 16px;
+  vector-effect: non-scaling-stroke;
+}
+
+.learning-map-route-line {
+  stroke: color-mix(in srgb, var(--accent) 45%, var(--line));
+  stroke-width: 2px;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  animation: learning-map-draw 900ms ease-out both;
+}
+
+.learning-map-spine { display: none; }
+
+.learning-map-stop {
+  position: absolute;
+  top: 0;
+  width: 23%;
+  height: 342px;
+  padding: 0;
+  transform: translateX(-50%);
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.learning-map-stop-1 { left: 12%; }
+.learning-map-stop-2 { left: 37%; }
+.learning-map-stop-3 { left: 63%; }
+.learning-map-stop-4 { left: 88%; }
+
+.learning-map-node {
+  position: absolute;
+  top: 214px;
+  left: 50%;
+  display: grid;
+  width: 64px;
+  height: 64px;
+  place-items: center;
+  transform: translateX(-50%);
+  border: 2px solid color-mix(in srgb, var(--accent) 34%, var(--line));
+  border-radius: 50%;
+  background: var(--surface-raised);
+  color: var(--accent-text);
+  box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 5%, var(--surface-raised));
+  transition: background-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+}
+
+.learning-map-stop-2 .learning-map-node,
+.learning-map-stop-4 .learning-map-node { top: 54px; }
+
+.learning-map-copy {
+  position: absolute;
+  top: 28px;
+  left: 0;
+  display: block;
+  width: 100%;
+  padding: 0 5px;
+}
+
+.learning-map-stop-2 .learning-map-copy,
+.learning-map-stop-4 .learning-map-copy { top: 146px; }
+
+.learning-map-year {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 550;
+  line-height: 1.5;
+  letter-spacing: .12em;
+}
+
+.learning-map-title {
+  display: block;
+  font-size: clamp(18px, 1.7vw, 21px);
+  font-weight: 750;
+  line-height: 1.6;
+  text-wrap: balance;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.learning-map-courses {
+  display: grid;
+  gap: 3px;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.65;
+  text-wrap: balance;
+}
+
+.learning-map-stop.is-selected .learning-map-node {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-contrast);
+  box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 12%, var(--surface-raised)), 0 5px 16px color-mix(in srgb, var(--shadow) 12%, transparent);
+}
+
+.learning-map-stop.is-selected .learning-map-title,
+.learning-map-stop.is-selected .learning-map-year { color: var(--accent-text); }
+
+.learning-map-stop:focus-visible { outline: none; }
+
+.learning-map-stop:focus-visible .learning-map-node {
+  outline: 3px solid var(--accent-text);
+  outline-offset: 7px;
+}
+
+@media (hover: hover) {
+  .learning-map-stop:hover .learning-map-node {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 10px color-mix(in srgb, var(--accent) 10%, var(--surface-raised));
+  }
+  .learning-map-stop:hover .learning-map-title { color: var(--accent-text); }
+}
+
+@keyframes learning-map-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+@media (max-width: 760px) {
+  .learning-map { border-radius: 20px; }
+  .learning-map-canvas { height: auto; padding: 8px 22px 18px; }
+  .learning-map-route { display: none; }
+  .learning-map-spine {
+    position: absolute;
+    z-index: -1;
+    top: 50px;
+    bottom: 70px;
+    left: 49px;
+    display: block;
+    width: 2px;
+    background: color-mix(in srgb, var(--accent) 38%, var(--line));
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 5%, var(--surface-raised));
+  }
+  .learning-map-stop {
+    position: relative;
+    top: auto;
+    left: auto;
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr);
+    align-items: start;
+    gap: 20px;
+    width: 100%;
+    height: auto;
+    min-height: 132px;
+    padding: 14px 0;
+    transform: none;
+    text-align: left;
+  }
+  .learning-map-stop:last-child { min-height: 0; }
+  .learning-map-stop .learning-map-node {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 56px;
+    height: 56px;
+    margin-top: 3px;
+    transform: none;
+  }
+  .learning-map-stop .learning-map-copy { position: static; padding: 0; }
+  .learning-map-year { margin-bottom: 3px; font-size: 14px; }
+  .learning-map-title { font-size: 18px; text-wrap: initial; }
+  .learning-map-courses { gap: 1px; margin-top: 6px; font-size: 14px; text-wrap: initial; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .learning-map-route-line { animation: none; }
+  .learning-map-node { transition: none; }
+}

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { ArrowRight, ArrowUpRight, ExternalLink } from 'lucide-react';
 import { curricula, type Grade } from '../data/curriculum';
 import { getRoadmapCourses, learningStages, onboardingStages, onboardingSourcesVerifiedOn, type GuideLink } from '../data/freshman';
+import LearningMap from './LearningMap';
 
 type GuideTab = 'guide' | 'learning';
 
@@ -55,7 +56,7 @@ export default function FreshmanPage() {
   const [selection, setSelection] = useState(initialSelection);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const guideRefs = useRef<Array<HTMLButtonElement | null>>([]);
-  const learningRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const learningDetailRef = useRef<HTMLDivElement>(null);
   const guideStage = onboardingStages.find((item) => item.id === selection.stage)!;
   const learningStage = learningStages.find((item) => item.grade === selection.grade)!;
   const curriculum = curricula.find((item) => item.admissionYear === selection.year)!;
@@ -86,12 +87,19 @@ export default function FreshmanPage() {
     guideRefs.current[nextIndex]?.focus();
   }
 
-  function handleLearningKeyDown(event: KeyboardEvent<HTMLButtonElement>, index: number) {
-    const nextIndex = nextTabIndex(event, index, learningStages.length);
-    if (nextIndex === null) return;
-    event.preventDefault();
-    setSelection((current) => ({ ...current, grade: learningStages[nextIndex].grade }));
-    learningRefs.current[nextIndex]?.focus();
+  function selectLearningGrade(grade: Grade, revealDetails: boolean) {
+    setSelection((current) => ({ ...current, grade }));
+    if (!revealDetails || !window.matchMedia('(max-width: 760px)').matches) return;
+
+    window.requestAnimationFrame(() => {
+      const detail = learningDetailRef.current;
+      if (!detail) return;
+      detail.focus({ preventScroll: true });
+      detail.scrollIntoView({
+        block: 'start',
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
+      });
+    });
   }
 
   return (
@@ -194,6 +202,10 @@ export default function FreshmanPage() {
       >
         <div className="container">
           <div className="freshman-learning-toolbar">
+            <div className="freshman-learning-intro">
+              <h2>四年學習路線</h2>
+              <p>點選年級，看看這個階段的課程與建議。</p>
+            </div>
             <div className="freshman-year-field">
               <label htmlFor="freshman-admission-year">入學學年度</label>
               <select
@@ -204,77 +216,60 @@ export default function FreshmanPage() {
                 {curricula.map((item) => <option key={item.admissionYear} value={item.admissionYear}>{item.admissionYear} 學年度入學</option>)}
               </select>
             </div>
-            <p>依入學年度查看課程節點，再安排自己的學習方向。</p>
           </div>
 
-          <div className="freshman-roadmap-layout">
-            <div className="freshman-stage-list" role="tablist" aria-label="學習年級" aria-orientation="vertical">
-              {learningStages.map((stage, index) => (
-                <button
-                  key={stage.grade}
-                  ref={(element) => { learningRefs.current[index] = element; }}
-                  id={`freshman-learning-${stage.grade}`}
-                  className="freshman-stage-button"
-                  type="button"
-                  role="tab"
-                  aria-selected={selection.grade === stage.grade}
-                  aria-controls="freshman-learning-detail"
-                  tabIndex={selection.grade === stage.grade ? 0 : -1}
-                  onClick={() => setSelection((current) => ({ ...current, grade: stage.grade }))}
-                  onKeyDown={(event) => handleLearningKeyDown(event, index)}
-                >
-                  <span className="freshman-stage-dot" aria-hidden="true" />
-                  <span><small>{gradeLabels[stage.grade - 1]}</small><strong>{stage.title}</strong></span>
-                  <ArrowRight size={18} aria-hidden="true" />
-                </button>
-              ))}
-            </div>
+          <div className="freshman-learning-layout">
+            <LearningMap curriculum={curriculum} grade={selection.grade} onSelect={selectLearningGrade} />
 
             <div
+              ref={learningDetailRef}
               id="freshman-learning-detail"
-              className="freshman-stage-detail"
+              className="freshman-stage-detail freshman-learning-detail"
               role="tabpanel"
               aria-labelledby={`freshman-learning-${selection.grade}`}
               tabIndex={0}
             >
-              <div className="freshman-detail-heading">
-                <span>{gradeLabels[selection.grade - 1]} · {selection.year} 學年度入學</span>
-                <h2>{learningStage.title}</h2>
-                <p>{learningStage.description}</p>
-              </div>
-
-              <section className="freshman-course-section" aria-labelledby="freshman-course-title">
-                <h3 id="freshman-course-title">必修科目節選</h3>
-                {roadmapCourses.length > 0 ? (
-                  <ul className="freshman-course-list">
-                    {roadmapCourses.map((course, index) => (
-                      <li key={`${course.name}-${course.semester}-${index}`}>
-                        <strong>{course.name}</strong>
-                        <span>
-                          {course.semester === 'upper' ? '上學期' : course.semester === 'lower' ? '下學期' : '未指定學期'}
-                          {' · '}{course.kind === 'required' ? '必修' : '選修'}
-                        </span>
-                        {course.note && <small>{course.note}</small>}
-                      </li>
-                    ))}
-                  </ul>
-                ) : <p className="freshman-empty">此年級的科目請至完整科目表查看。</p>}
-                <div className="freshman-course-actions">
-                  <a className="freshman-primary-link" href={`/courses/?year=${selection.year}&grade=${selection.grade}`}>
-                    查看{gradeLabels[selection.grade - 1]}完整科目表 <ArrowRight size={18} aria-hidden="true" />
-                  </a>
-                  <a href={curriculum.sourceUrl} target="_blank" rel="noopener noreferrer">
-                    官方科目表 PDF <ExternalLink size={16} aria-hidden="true" />
-                    <span className="sr-only">（開啟新分頁）</span>
-                  </a>
+              <div className="freshman-learning-detail-grid">
+                <div className="freshman-learning-summary">
+                  <div className="freshman-detail-heading">
+                    <span>{gradeLabels[selection.grade - 1]} · {selection.year} 學年度入學</span>
+                    <h2>{learningStage.title}</h2>
+                    <p>{learningStage.description}</p>
+                  </div>
+                  <section className="freshman-suggestions" aria-labelledby="freshman-suggestion-title">
+                    <h3 id="freshman-suggestion-title">系學會學習建議</h3>
+                    <ul>{learningStage.suggestions.map((suggestion) => <li key={suggestion}>{suggestion}</li>)}</ul>
+                  </section>
                 </div>
-                <p className="freshman-source-note">科目表資料核對：{curriculum.verifiedOn}。此處為節選，完整科目與修課規定請查看原表。</p>
-              </section>
 
-              <section className="freshman-suggestions" aria-labelledby="freshman-suggestion-title">
-                <h3 id="freshman-suggestion-title">系學會學習建議</h3>
-                <ul>{learningStage.suggestions.map((suggestion) => <li key={suggestion}>{suggestion}</li>)}</ul>
-              </section>
+                <section className="freshman-course-section" aria-labelledby="freshman-course-title">
+                  <h3 id="freshman-course-title">必修科目節選</h3>
+                  {roadmapCourses.length > 0 ? (
+                    <ul className="freshman-course-list">
+                      {roadmapCourses.map((course, index) => (
+                        <li key={`${course.name}-${course.semester}-${index}`}>
+                          <strong>{course.name}</strong>
+                          <span>
+                            {course.semester === 'upper' ? '上學期' : course.semester === 'lower' ? '下學期' : '未指定學期'}
+                            {' · '}{course.kind === 'required' ? '必修' : '選修'}
+                          </span>
+                          {course.note && <small>{course.note}</small>}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : <p className="freshman-empty">此年級的科目請至完整科目表查看。</p>}
+                  <div className="freshman-course-actions">
+                    <a className="freshman-primary-link" href={`/courses/?year=${selection.year}&grade=${selection.grade}`}>
+                      查看{gradeLabels[selection.grade - 1]}完整科目表 <ArrowRight size={18} aria-hidden="true" />
+                    </a>
+                    <a href={curriculum.sourceUrl} target="_blank" rel="noopener noreferrer">
+                      官方科目表 PDF <ExternalLink size={16} aria-hidden="true" />
+                      <span className="sr-only">（開啟新分頁）</span>
+                    </a>
+                  </div>
+                  <p className="freshman-source-note">科目表資料核對：{curriculum.verifiedOn}。此處為節選，完整科目與修課規定請查看原表。</p>
+                </section>
+              </div>
               <p className="freshman-guide-note">路線圖提供學習方向，並非先修規定或當學期開課表；實際修課以適用科目表與校方公告為準。</p>
             </div>
           </div>

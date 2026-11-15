@@ -409,3 +409,65 @@
 @media (prefers-reduced-motion: reduce) {
   .freshman-page .freshman-stage-button { transition: none; }
 }
+
+.freshman-page .freshman-learning-toolbar {
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.freshman-page .freshman-learning-intro h2 {
+  margin: 0 0 10px;
+  color: var(--text);
+  font-size: clamp(26px, 3vw, 34px);
+  line-height: 1.5;
+}
+
+.freshman-page .freshman-learning-intro p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.freshman-page .freshman-learning-layout {
+  display: grid;
+  gap: 32px;
+}
+
+.freshman-page .freshman-learning-detail {
+  scroll-margin-top: 110px;
+}
+
+.freshman-page .freshman-learning-detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  align-items: start;
+  gap: 36px;
+}
+
+.freshman-page .freshman-learning-detail .freshman-course-section {
+  margin-top: 0;
+}
+
+.freshman-page .freshman-learning-detail .freshman-suggestions {
+  margin-top: 24px;
+  padding: 22px;
+}
+
+@media (max-width: 1000px) {
+  .freshman-page .freshman-learning-detail-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+}
+
+@media (max-width: 760px) {
+  .freshman-page .freshman-learning-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .freshman-page .freshman-learning-layout { gap: 24px; }
+  .freshman-page .freshman-learning-detail { scroll-margin-top: 92px; }
+}

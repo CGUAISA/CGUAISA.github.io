@@ -7,6 +7,7 @@ import './footer.css';
 import './courses.css';
 import './events.css';
 import './freshman.css';
+import './learning-map.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
