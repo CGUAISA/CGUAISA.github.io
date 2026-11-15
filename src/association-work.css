@@ -1,0 +1,174 @@
+.reference-design .association-work-section {
+  padding-block: 80px;
+}
+
+.reference-design .association-work-header {
+  max-width: none;
+  margin: 0 0 30px;
+  text-align: left;
+}
+
+.reference-design .association-work-header h2 {
+  margin: 0;
+  font-size: clamp(30px, 3vw, 42px);
+  line-height: 1.5;
+}
+
+.reference-design .association-work-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background-color: var(--surface-raised);
+  background-image: radial-gradient(color-mix(in srgb, var(--line) 40%, transparent) .7px, transparent .7px);
+  background-size: 20px 20px;
+}
+
+.reference-design .association-work-card {
+  display: flex;
+  min-width: 0;
+  min-height: 256px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 26px;
+  padding: 34px 36px 28px;
+  color: var(--text);
+  text-decoration: none;
+  transition: background-color 180ms ease;
+}
+
+.reference-design .association-work-card + .association-work-card {
+  border-left: 1px solid var(--line);
+}
+
+.reference-design .association-work-icon {
+  display: grid;
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  place-items: center;
+  border: 2px solid color-mix(in srgb, var(--accent) 34%, var(--line));
+  border-radius: 50%;
+  background: var(--surface-raised);
+  color: var(--accent-text);
+  box-shadow: 0 0 0 7px color-mix(in srgb, var(--accent) 5%, var(--surface-raised));
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.reference-design .association-work-copy {
+  min-width: 0;
+}
+
+.reference-design .association-work-copy h3 {
+  margin: 0 0 10px;
+  font-size: clamp(22px, 2vw, 26px);
+  font-weight: 650;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.reference-design .association-work-link {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 12px;
+  color: var(--accent-text);
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+.reference-design .association-work-link svg {
+  flex-shrink: 0;
+  transition: transform 180ms ease;
+}
+
+.reference-design .association-work-card:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: -5px;
+}
+
+.reference-design .team-page-summary-single {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 340px;
+}
+
+@media (hover: hover) {
+  .reference-design .association-work-card:hover {
+    background-color: color-mix(in srgb, var(--accent) 4%, transparent);
+  }
+
+  .reference-design .association-work-card:hover .association-work-icon {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--accent-contrast);
+  }
+
+  .reference-design .association-work-card:hover .association-work-link svg {
+    transform: translateX(4px);
+  }
+}
+
+@media (max-width: 1000px) {
+  .reference-design .association-work-card {
+    padding-inline: 24px;
+  }
+}
+
+@media (max-width: 760px) {
+  .reference-design .association-work-section {
+    padding-block: 58px;
+  }
+
+  .reference-design .association-work-header {
+    margin-bottom: 24px;
+  }
+
+  .reference-design .association-work-grid {
+    grid-template-columns: minmax(0, 1fr);
+    border-radius: 20px;
+  }
+
+  .reference-design .association-work-card {
+    min-height: 144px;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+    padding: 24px 28px;
+  }
+
+  .reference-design .association-work-card + .association-work-card {
+    border-top: 1px solid var(--line);
+    border-left: 0;
+  }
+
+  .reference-design .association-work-icon {
+    width: 56px;
+    height: 56px;
+  }
+
+  .reference-design .association-work-copy h3 {
+    margin-bottom: 2px;
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 400px) {
+  .reference-design .association-work-card {
+    gap: 18px;
+    padding-inline: 22px;
+  }
+
+  .reference-design .association-work-copy h3 {
+    font-size: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reference-design .association-work-card,
+  .reference-design .association-work-icon,
+  .reference-design .association-work-link svg {
+    transition: none;
+  }
+}

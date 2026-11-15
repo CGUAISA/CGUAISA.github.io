@@ -62,6 +62,7 @@ export type GatheringRegistrationActivity = BaseActivity & {
 
 export type AiNewsActivity = BaseActivity & {
   kind: 'ai-news';
+  registrationStatus: 'open' | 'closed';
   subtitle: string;
   weekdayLabel: string;
   startTime: string;
@@ -202,8 +203,10 @@ export const gatheringRegistrationEvent: GatheringRegistrationActivity = {
 };
 
 // 依 2026/11/14 系學會提供的公告整理，未另提供固定報名截止日或名額數。
+// 2026/11/16 系學會確認表單已關閉；活動本身未取消。
 export const aiNewsEvent: AiNewsActivity = {
   kind: 'ai-news',
+  registrationStatus: 'closed',
   id: 'ai-news-2-115-1',
   status: 'scheduled',
   term: '115-1',
@@ -223,7 +226,7 @@ export const aiNewsEvent: AiNewsActivity = {
   introduction: '邀請蔡承恩講師，輕鬆聊聊近期 AI 領域值得關注的新消息、新技術與未來趨勢，從技術突破到產業應用，一起了解 AI 的新發展。',
   audienceNote: '無論是否具備 AI 專業背景，都歡迎一起交流。',
   formUrl: 'https://forms.gle/hf5iPghEAsf4KPEz6',
-  verifiedOn: '2026-11-14',
+  verifiedOn: '2026-11-16',
 };
 
 export const activities: Activity[] = [aiNewsEvent, gatheringRegistrationEvent, gatheringEvent, tripEvent];

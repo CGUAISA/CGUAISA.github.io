@@ -1,0 +1,250 @@
+.reference-design .campus-hero {
+  --campus-hero-ink: #17345a;
+  padding: 0;
+  border-bottom: 1px solid var(--line);
+  background: var(--page);
+  color: var(--text);
+  scroll-margin-top: 88px;
+}
+
+.reference-design .campus-hero .campus-hero-grid {
+  display: grid;
+  width: min(calc(100% - 80px), 1280px);
+  min-height: 620px;
+  grid-template-columns: minmax(0, .76fr) minmax(0, 1.24fr);
+  align-items: center;
+  gap: 24px;
+  margin-inline: auto;
+  padding: 48px 0 40px;
+}
+
+.reference-design .campus-hero .campus-hero-copy {
+  position: relative;
+  z-index: 1;
+  width: auto;
+  min-width: 0;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.reference-design .campus-hero .campus-hero-kicker {
+  max-width: none;
+  margin: 0 0 24px;
+  color: var(--accent-text);
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.8;
+  letter-spacing: .15em;
+  overflow-wrap: anywhere;
+}
+
+.reference-design .campus-hero .campus-hero-title {
+  max-width: none;
+  margin: 0;
+  color: var(--campus-hero-ink);
+  font-size: clamp(64px, 6.2vw, 88px);
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: .025em;
+}
+
+.reference-design .campus-hero .campus-hero-title > span {
+  display: block;
+  margin: 0;
+  color: inherit;
+}
+
+.reference-design .campus-hero .campus-hero-title > span + span {
+  margin-top: 2px;
+}
+
+.reference-design .campus-hero .campus-hero-actions {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 14px;
+  margin: 36px 0 0;
+}
+
+.reference-design .campus-hero .campus-hero-actions > a {
+  display: inline-flex;
+  min-width: 0;
+  min-height: 54px;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 22px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.6;
+  text-align: center;
+  text-decoration: none;
+}
+
+.reference-design .campus-hero .campus-hero-actions > a svg {
+  flex-shrink: 0;
+}
+
+.reference-design .campus-hero .campus-hero-actions .button-primary {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.reference-design .campus-hero .campus-hero-actions .button-primary:hover {
+  background: var(--accent-hover);
+}
+
+.reference-design .campus-hero .campus-hero-actions .campus-hero-secondary {
+  border-color: var(--accent);
+  background: var(--page);
+  color: var(--accent-text);
+}
+
+.reference-design .campus-hero .campus-hero-actions .campus-hero-secondary:hover {
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
+  background: var(--surface);
+}
+
+.reference-design .campus-hero .campus-hero-actions > a:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 5px;
+}
+
+.reference-design .campus-hero .campus-hero-art {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  transform: none;
+}
+
+.reference-design .campus-hero .campus-hero-art picture {
+  display: block;
+  width: 100%;
+}
+
+.reference-design .campus-hero .campus-hero-image {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 1585 / 992;
+  max-height: 540px;
+  object-fit: contain;
+  object-position: center right;
+  user-select: none;
+}
+
+:root[data-theme="dark"] .reference-design .campus-hero {
+  --campus-hero-ink: var(--text);
+}
+
+@media (max-width: 1080px) {
+  .reference-design .campus-hero .campus-hero-grid {
+    width: min(calc(100% - 64px), 1280px);
+    min-height: 610px;
+    gap: 30px;
+    padding-block: 56px;
+  }
+
+  .reference-design .campus-hero .campus-hero-actions > a {
+    padding-inline: 18px;
+  }
+}
+
+@media (max-width: 900px) {
+  .reference-design .campus-hero .campus-hero-grid {
+    min-height: 0;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 30px;
+    padding-block: 48px 36px;
+  }
+
+  .reference-design .campus-hero .campus-hero-copy {
+    max-width: 680px;
+  }
+
+  .reference-design .campus-hero .campus-hero-title {
+    font-size: clamp(48px, 7.4vw, 64px);
+    line-height: 1.3;
+  }
+
+  .reference-design .campus-hero .campus-hero-actions {
+    margin-top: 28px;
+  }
+
+  .reference-design .campus-hero .campus-hero-art {
+    width: min(100%, 660px);
+    justify-self: center;
+  }
+
+  .reference-design .campus-hero .campus-hero-image {
+    max-height: 350px;
+    object-position: center;
+  }
+}
+
+@media (max-width: 560px) {
+  .reference-design .campus-hero {
+    scroll-margin-top: 74px;
+  }
+
+  .reference-design .campus-hero .campus-hero-grid {
+    width: calc(100% - 40px);
+    gap: 24px;
+    padding-block: 38px 28px;
+  }
+
+  .reference-design .campus-hero .campus-hero-kicker {
+    margin-bottom: 18px;
+    font-size: 13px;
+    letter-spacing: .12em;
+  }
+
+  .reference-design .campus-hero .campus-hero-title {
+    font-size: clamp(40px, 10.4vw, 52px);
+    line-height: 1.28;
+    letter-spacing: .02em;
+  }
+
+  .reference-design .campus-hero .campus-hero-actions {
+    gap: 12px;
+    margin-top: 26px;
+  }
+
+  .reference-design .campus-hero .campus-hero-actions > a {
+    min-height: 52px;
+    padding: 11px 18px;
+    font-size: 16px;
+  }
+
+  .reference-design .campus-hero .campus-hero-image {
+    max-height: 300px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reference-design .campus-hero .campus-hero-actions > a,
+  .reference-design .campus-hero .campus-hero-actions > a svg {
+    transition: none;
+  }
+
+  .reference-design .campus-hero .campus-hero-actions > a:hover {
+    transform: none;
+  }
+
+  .reference-design .campus-hero .campus-hero-actions > a:hover svg {
+    translate: none;
+  }
+}

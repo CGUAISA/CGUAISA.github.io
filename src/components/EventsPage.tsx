@@ -6,6 +6,7 @@ export default function EventsPage() {
   const deadlinePassed = registrationDeadlinePassed(tripEvent);
   const cancelled = tripEvent.status === 'cancelled';
   const gatheringRegistrationClosed = useRegistrationDeadline(gatheringRegistrationEvent);
+  const aiNewsRegistrationClosed = aiNewsEvent.registrationStatus === 'closed';
 
   return (
     <main id="main-content" className="events-page">
@@ -29,16 +30,22 @@ export default function EventsPage() {
                 <h2 id="ai-news-title">{aiNewsEvent.title}</h2>
                 <p className="ai-news-subtitle">{aiNewsEvent.subtitle}</p>
               </div>
-              <a
-                className="button button-primary trip-signup"
-                href={aiNewsEvent.formUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${aiNewsEvent.title}，前往報名表（開啟新分頁）`}
-              >
-                前往報名表
-                <ArrowUpRight size={19} aria-hidden="true" />
-              </a>
+              {aiNewsRegistrationClosed ? (
+                <button className="button trip-signup registration-closed" type="button" disabled>
+                  表單已關閉
+                </button>
+              ) : (
+                <a
+                  className="button button-primary trip-signup"
+                  href={aiNewsEvent.formUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${aiNewsEvent.title}，前往報名表（開啟新分頁）`}
+                >
+                  前往報名表
+                  <ArrowUpRight size={19} aria-hidden="true" />
+                </a>
+              )}
             </div>
 
             <p className="ai-news-introduction">{aiNewsEvent.introduction}</p>
@@ -73,7 +80,7 @@ export default function EventsPage() {
             </dl>
 
             <p className="ai-news-audience">{aiNewsEvent.audienceNote}</p>
-            <p className="ai-news-capacity">{aiNewsEvent.capacityNote}</p>
+            <p className="ai-news-capacity">{aiNewsRegistrationClosed ? '表單已關閉，目前不再接受報名。' : aiNewsEvent.capacityNote}</p>
           </article>
 
           <article className="trip-detail formal-gathering-detail" id={gatheringRegistrationEvent.id} aria-labelledby="gathering-registration-title">

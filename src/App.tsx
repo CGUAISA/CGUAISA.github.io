@@ -16,7 +16,6 @@ import {
   Users,
 } from 'lucide-react';
 import ResourceTabs from './components/ResourceTabs';
-import WorkVisual from './components/WorkVisual';
 import CoursesPage from './components/CoursesPage';
 import EventsPage from './components/EventsPage';
 import FreshmanPage from './components/FreshmanPage';
@@ -80,19 +79,22 @@ const events = [
 
 const workItems = [
   {
-    index: '01',
     title: '活動與交流',
     icon: Users,
+    href: '#events',
+    linkLabel: '近期活動',
   },
   {
-    index: '02',
     title: '資訊與資源',
     icon: BookOpen,
+    href: '#resources',
+    linkLabel: '學生資源',
   },
   {
-    index: '03',
     title: '意見與溝通',
     icon: MessageCircle,
+    href: '#contact',
+    linkLabel: '聯絡我們',
   },
 ];
 
@@ -191,15 +193,17 @@ function EventListItem({ event }: { event: (typeof events)[number] & { deadline?
   );
 }
 
-function WorkFeature({ item, direction }: { item: (typeof workItems)[number]; direction: 'left' | 'right' }) {
+function AssociationWorkCard({ item }: { item: (typeof workItems)[number] }) {
   const Icon = item.icon;
 
   return (
-    <article className="work-feature" data-reveal={direction} data-reveal-delay={item.index === '03' ? '100' : '0'}>
-      <span className="work-feature-index" aria-hidden="true">{item.index}</span>
-      <span className="work-feature-icon" aria-hidden="true"><Icon size={30} strokeWidth={1.5} /></span>
-      <h3>{item.title}</h3>
-    </article>
+    <a className="association-work-card" href={item.href} data-reveal="up">
+      <span className="association-work-icon" aria-hidden="true"><Icon size={28} strokeWidth={1.7} /></span>
+      <div className="association-work-copy">
+        <h3>{item.title}</h3>
+        <span className="association-work-link">{item.linkLabel}<ArrowRight size={18} aria-hidden="true" /></span>
+      </div>
+    </a>
   );
 }
 
@@ -295,9 +299,8 @@ function TeamPage() {
             <span>幹部團隊</span>
           </nav>
           <h1 data-reveal="up">系學會幹部</h1>
-          <div className="team-page-summary" aria-label="幹部頁摘要">
+          <div className="team-page-summary team-page-summary-single" aria-label="幹部頁摘要">
             <div><strong>{leadershipRoles.length}</strong><span>個職位</span></div>
-            <div><strong>{leadershipGroups.length}</strong><span>個職務群組</span></div>
           </div>
         </div>
       </section>
@@ -341,6 +344,7 @@ function TeamPage() {
 export default function Home() {
   const [theme, setTheme] = useState<Theme>(getInitialTheme);
   const gatheringRegistrationClosed = useRegistrationDeadline(gatheringRegistrationEvent);
+  const aiNewsRegistrationClosed = aiNewsEvent.registrationStatus === 'closed';
   const gatheringDeadlineHint = `報名截止：${gatheringRegistrationEvent.deadlineLabel.replace(/^\d{4}\//, '').replace(/（[^）]*）/, ' ')}`;
   useScrollReveal();
 
@@ -348,7 +352,7 @@ export default function Home() {
     {
       marker: '講座',
       category: '活動消息',
-      title: `${aiNewsEvent.title}｜${aiNewsEvent.subtitle}`,
+      title: `${aiNewsEvent.title}｜${aiNewsRegistrationClosed ? '表單已關閉' : aiNewsEvent.subtitle}`,
       href: aiNewsHref,
     },
     {
@@ -364,7 +368,7 @@ export default function Home() {
     {
       number: aiNewsEvent.id,
       title: aiNewsEvent.title,
-      state: `${aiNewsEvent.dateLabel} · 免費參加`,
+      state: `${aiNewsEvent.dateLabel} · ${aiNewsRegistrationClosed ? '表單已關閉' : '免費參加'}`,
       href: aiNewsHref,
     },
     {
@@ -488,26 +492,35 @@ export default function Home() {
       </header>
 
       {isTeamPage ? <TeamPage /> : isCoursesPage ? <CoursesPage /> : isEventsPage ? <EventsPage /> : isFreshmanPage ? <FreshmanPage /> : <main id="main-content">
-        <section id="top" className="hero">
-          <div className="container hero-grid">
-            <div className="hero-copy">
-              <p className="eyebrow">Chang Gung University · Department of AI</p>
-              <div className="hero-actions">
+        <section id="top" className="hero campus-hero" aria-labelledby="home-hero-title">
+          <div className="container hero-grid campus-hero-grid">
+            <div className="hero-copy campus-hero-copy">
+              <p className="eyebrow campus-hero-kicker">Chang Gung University</p>
+              <h1 id="home-hero-title" className="campus-hero-title">
+                <span>長庚大學</span>
+                <span>AI 系學會</span>
+              </h1>
+              <div className="hero-actions campus-hero-actions">
                 <a className="button button-primary" href="#events">
-                  看近期活動
+                  近期活動
                   <ArrowRight size={18} aria-hidden="true" />
                 </a>
+                <a className="button campus-hero-secondary" href="/freshman/">新生入門</a>
               </div>
             </div>
 
-            <div className="hero-poster" aria-label="活動照片預留位置">
-              <span className="poster-tape poster-tape-left" aria-hidden="true" />
-              <span className="poster-tape poster-tape-right" aria-hidden="true" />
-              <div className="poster-heading">
-                <span>CGU AISA</span>
-                <span>WELCOME</span>
-              </div>
-            </div>
+            <figure className="campus-hero-art">
+              <img
+                className="campus-hero-image"
+                src={theme === 'dark' ? '/assets/preview/campus-hero-night.png' : '/assets/preview/campus-hero-day.png'}
+                alt="同學在校園交流 AI，桌上擺著筆電與書籍的插畫"
+                width="1585"
+                height="992"
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
+              />
+            </figure>
           </div>
 
         </section>
@@ -578,20 +591,14 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="about" className="section about-section">
+        <section id="about" className="section about-section association-work-section" aria-labelledby="association-work-title">
           <div className="container">
-            <div className="section-heading centered-heading" data-reveal="up">
-              <h2>系學會工作</h2>
+            <div className="section-heading association-work-header" data-reveal="up">
+              <h2 id="association-work-title">系學會工作</h2>
             </div>
 
-            <div className="work-stage">
-              <div className="work-side">
-                <WorkFeature item={workItems[0]} direction="left" />
-              </div>
-              <WorkVisual />
-              <div className="work-side">
-                {workItems.slice(1).map((item) => <WorkFeature key={item.index} item={item} direction="right" />)}
-              </div>
+            <div className="association-work-grid">
+              {workItems.map((item) => <AssociationWorkCard key={item.title} item={item} />)}
             </div>
           </div>
         </section>

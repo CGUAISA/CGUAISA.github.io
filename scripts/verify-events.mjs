@@ -35,6 +35,7 @@ for (const activity of activities) {
   assert(new URL(activity.formUrl).origin === 'https://forms.gle', 'Unexpected form URL');
 
   if (activity.kind === 'ai-news') {
+    assert(['open', 'closed'].includes(activity.registrationStatus), 'Invalid AI News registration status');
     assert(/^\d{2}:\d{2}$/.test(activity.startTime) && /^\d{2}:\d{2}$/.test(activity.endTime), 'Invalid AI News time');
     assert(activity.startTime < activity.endTime, 'AI News must end after it starts');
     for (const key of ['subtitle', 'weekdayLabel', 'speaker', 'venue', 'feeLabel', 'mealNote', 'capacityNote', 'introduction', 'audienceNote']) {
@@ -97,6 +98,7 @@ assert.deepEqual(activities, [aiNewsEvent, gatheringRegistrationEvent, gathering
 assert.equal(aiNewsHref, '/events/#ai-news-2-115-1');
 assert.deepEqual(aiNewsEvent, {
   kind: 'ai-news',
+  registrationStatus: 'closed',
   id: 'ai-news-2-115-1',
   status: 'scheduled',
   term: '115-1',
@@ -116,8 +118,8 @@ assert.deepEqual(aiNewsEvent, {
   introduction: '邀請蔡承恩講師，輕鬆聊聊近期 AI 領域值得關注的新消息、新技術與未來趨勢，從技術突破到產業應用，一起了解 AI 的新發展。',
   audienceNote: '無論是否具備 AI 專業背景，都歡迎一起交流。',
   formUrl: 'https://forms.gle/hf5iPghEAsf4KPEz6',
-  verifiedOn: '2026-11-14',
-}, 'AI News must match the supplied announcement');
+  verifiedOn: '2026-11-16',
+}, 'AI News must match the supplied announcement and registration status update');
 assert.equal(new Date(`${aiNewsEvent.startDate}T00:00:00Z`).getUTCDay(), 1, 'AI News 11/16 must be Monday');
 for (const key of ['deadlineLabel', 'registrationClosesAt', 'capacity', 'capacityCount', 'address']) {
   assert.equal(Object.hasOwn(aiNewsEvent, key), false, `AI News must not invent ${key}`);

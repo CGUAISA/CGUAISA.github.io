@@ -8,6 +8,8 @@ import './courses.css';
 import './events.css';
 import './freshman.css';
 import './learning-map.css';
+import './association-work.css';
+import './hero-campus.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
